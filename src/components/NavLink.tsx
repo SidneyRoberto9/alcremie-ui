@@ -21,10 +21,21 @@ export function NavLink({ path, name, icon }: NavLinkProps) {
     router.push(path);
   }
 
+  function onValidateRoutePath() {
+    if (
+      (router.pathname == '/' && name == 'home') ||
+      router.pathname.includes(name)
+    ) {
+      return 'gray.600';
+    }
+
+    return 'transparent';
+  }
+
   return (
     <Text
       onClick={handleNavigate}
-      bg={router.pathname.includes(name) ? 'gray.600' : 'transparent'}
+      bg={onValidateRoutePath()}
       display={'flex'}
       alignItems={'center'}
       justifyContent={'flex-start'}

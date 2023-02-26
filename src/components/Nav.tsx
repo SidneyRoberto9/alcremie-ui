@@ -1,5 +1,4 @@
 import { Box } from '@chakra-ui/react';
-import { useRouter } from 'next/router';
 import { HouseLine, Image, UploadSimple } from 'phosphor-react';
 import { slide as Menu } from 'react-burger-menu';
 
@@ -14,11 +13,10 @@ interface routesProps {
 
 export function Nav() {
   const { toggleNav, isOpen } = useNav();
-  const { pathname } = useRouter();
 
   const routes: routesProps[] = [
     {
-      path: '/home',
+      path: '/',
       icon: <HouseLine size={35} />,
       name: 'home',
     },

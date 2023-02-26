@@ -1,3 +1,4 @@
+import { Box } from '@chakra-ui/react';
 import Head from 'next/head';
 
 export default function Home() {
@@ -9,7 +10,10 @@ export default function Home() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/logo.png" />
       </Head>
-      <h1>Hello World!</h1>
+
+      <Box paddingTop={'4.75rem'}>
+        <a href="'/4040'">test</a>
+      </Box>
     </>
   );
 }
