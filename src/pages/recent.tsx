@@ -5,6 +5,7 @@ import { useEffect } from 'react';
 import { useContextSelector } from 'use-context-selector';
 
 import { GalleryFetchDataResponse } from '../@types/gallery';
+import { MasonryBox } from '../components/MasonryBox';
 import { Pagination } from '../components/Pagination';
 import { galleryContext } from '../context/useGallery';
 import { api } from '../server/api';
@@ -30,6 +31,7 @@ export default function Recent({ content }: RecentProps) {
       </Head>
 
       <Box paddingTop={'3.75rem'}>
+        <MasonryBox />
         <Pagination />
       </Box>
     </>
