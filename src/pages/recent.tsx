@@ -27,7 +27,8 @@ export default function Recent({ content }: RecentProps) {
   return (
     <>
       <Head>
-        <title>Recent</title>
+        <title>Recent | Alcremie</title>
+        <meta name="description" content="Image Data View" />
       </Head>
 
       <Box paddingTop={'3.75rem'}>
