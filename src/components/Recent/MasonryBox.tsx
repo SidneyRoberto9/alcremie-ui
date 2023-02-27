@@ -1,8 +1,8 @@
 import Masonry, { ResponsiveMasonry } from 'react-responsive-masonry';
 import { useContextSelector } from 'use-context-selector';
 
-import { galleryContext } from '../context/useGallery';
-import { LoadingSpinner } from './LoadingSpinner';
+import { galleryContext } from '../../context/useGallery';
+import { LoadingSpinner } from '../LoadingSpinner';
 import { MasonryItem } from './MasonryItem';
 
 const Breakpoints = {

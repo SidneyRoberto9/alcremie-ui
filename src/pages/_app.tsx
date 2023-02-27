@@ -10,9 +10,10 @@ import { NavProvider } from '../context/useNav';
 import { theme } from '../styles/theme';
 
 import type { AppProps } from 'next/app';
+
 export default function App({ Component, pageProps }: AppProps) {
-  const router = useRouter();
   const [isLoading, setIsLoading] = useState(false);
+  const router = useRouter();
 
   function handleRouteChangeStart() {
     setIsLoading(true);

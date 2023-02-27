@@ -1,7 +1,7 @@
 import { Button, Flex, Text } from '@chakra-ui/react';
 import { useContextSelector } from 'use-context-selector';
 
-import { galleryContext } from '../context/useGallery';
+import { galleryContext } from '../../context/useGallery';
 
 export function Pagination() {
   const {

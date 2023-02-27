@@ -5,8 +5,8 @@ import { useEffect } from 'react';
 import { useContextSelector } from 'use-context-selector';
 
 import { GalleryFetchDataResponse } from '../@types/gallery';
-import { MasonryBox } from '../components/MasonryBox';
-import { Pagination } from '../components/Pagination';
+import { MasonryBox } from '../components/Recent/MasonryBox';
+import { Pagination } from '../components/Recent/Pagination';
 import { galleryContext } from '../context/useGallery';
 import { api } from '../server/api';
 
