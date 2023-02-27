@@ -9,7 +9,7 @@ interface GalleryContextProps {
   pageNumber: number;
   pageSize: number;
   contentTotalSize: number;
-  loading: boolean;
+  isLoading: boolean;
   onNextPage: () => void;
   onPreviousPage: () => void;
   setContent: Dispatch<SetStateAction<GalleryFetchDataResponse>>;
@@ -27,14 +27,14 @@ export function GalleryProvider({ children }: ContextProps) {
   );
 
   const [page, setPage] = useState(0);
-  const [loading, setLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   async function getGalleryData(pageNumber: number) {
-    setLoading(true);
+    setIsLoading(true);
     const { data } = await api.get(`/img/${pageNumber}?all=true`);
 
     setResponseData(data);
-    setLoading(false);
+    setIsLoading(false);
   }
 
   async function onNextPage() {
@@ -54,7 +54,7 @@ export function GalleryProvider({ children }: ContextProps) {
         contentTotalSize: responseData.totalContent,
         pageSize: responseData.pageSize,
         pageNumber: page + 1,
-        loading,
+        isLoading,
         onNextPage,
         onPreviousPage,
         setContent: setResponseData,
