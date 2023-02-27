@@ -14,7 +14,7 @@ export function Header() {
     <Flex
       pos={'fixed'}
       zIndex={0}
-      top={'2px'}
+      top={0}
       width={'100vw'}
       height={'3.75rem'}
       bg={'gray.850'}
