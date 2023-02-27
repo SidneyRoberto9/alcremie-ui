@@ -6,7 +6,7 @@ import { galleryContext } from '../context/useGallery';
 export function Pagination() {
   const {
     contentTotalSize,
-    loading,
+    isLoading,
     pageSize,
     pageNumber,
     onNextPage,
@@ -15,14 +15,14 @@ export function Pagination() {
     galleryContext,
     ({
       contentTotalSize,
-      loading,
+      isLoading,
       pageSize,
       pageNumber,
       onNextPage,
       onPreviousPage,
     }) => ({
       contentTotalSize,
-      loading,
+      isLoading,
       pageSize,
       pageNumber,
       onNextPage,
@@ -37,8 +37,8 @@ export function Pagination() {
 
   const isLastPage = pageNumber === totalPages;
 
-  const disabledNextButton = isLastPage || loading;
-  const disabledPreviousButton = pageNumber == 1 || loading;
+  const disabledNextButton = isLastPage || isLoading;
+  const disabledPreviousButton = pageNumber == 1 || isLoading;
 
   return (
     <Flex
