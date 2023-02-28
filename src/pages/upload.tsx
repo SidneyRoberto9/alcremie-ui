@@ -1,4 +1,7 @@
+import { Box } from '@chakra-ui/react';
 import Head from 'next/head';
+
+import { FormUpload } from '../components/upload/FormUpload';
 
 export default function Upload() {
   return (
@@ -8,7 +11,9 @@ export default function Upload() {
         <meta name="description" content="Upload Form" />
       </Head>
 
-      <h1>Upload</h1>
+      <Box paddingTop={'3.75rem'} h={'100vh'}>
+        <FormUpload />
+      </Box>
     </>
   );
 }
