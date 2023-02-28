@@ -7,10 +7,10 @@ import { LoadingPage } from '../components/LoadingPage';
 import { Nav } from '../components/Nav';
 import { GalleryProvider } from '../context/useGallery';
 import { NavProvider } from '../context/useNav';
+import { TagsContextProvider } from '../context/useTags';
 import { theme } from '../styles/theme';
 
 import type { AppProps } from 'next/app';
-
 export default function App({ Component, pageProps }: AppProps) {
   const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
@@ -39,11 +39,13 @@ export default function App({ Component, pageProps }: AppProps) {
     <ChakraProvider theme={theme}>
       <LoadingPage isLoading={isLoading} />
       <GalleryProvider>
-        <NavProvider>
-          <Nav />
-          <Header />
-          <Component {...pageProps} />
-        </NavProvider>
+        <TagsContextProvider>
+          <NavProvider>
+            <Nav />
+            <Header />
+            <Component {...pageProps} />
+          </NavProvider>
+        </TagsContextProvider>
       </GalleryProvider>
     </ChakraProvider>
   );
