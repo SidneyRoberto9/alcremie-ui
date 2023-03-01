@@ -19,7 +19,8 @@ export function TagsContextProvider({ children }: ContextProps) {
 
   async function getTags() {
     const { data } = await api.get('/tag');
-    setTags(data);
+
+    setTags(data.tags);
   }
 
   useEffect(() => {
