@@ -1,0 +1,42 @@
+generator client {
+    provider = "prisma-client-js"
+}
+
+datasource db {
+    provider = "mongodb"
+    url      = env("DATABASE_URL")
+}
+
+model Image {
+    id              String   @id @default(auto()) @map("_id") @db.ObjectId
+    format          String
+    width           Int
+    height          Int
+    size            Int
+    isNsfw          Boolean  @default(false)
+    source          String
+    imgurId         String   @unique
+    imgurDeleteHash String   @unique
+    imgurUrl        String
+    createdAt       DateTime @default(now())
+
+    ImageTag ImageTag[]
+}
+
+model Tag {
+    id          String  @id @default(auto()) @map("_id") @db.ObjectId
+    name        String  @unique
+    description String
+    is_nsfw     Boolean @default(false)
+
+    ImageTag ImageTag[]
+}
+
+model ImageTag {
+    id        String   @id @default(auto()) @map("_id") @db.ObjectId
+    Image     Image    @relation(fields: [imageId], references: [id])
+    imageId   String   @db.ObjectId
+    Tag       Tag      @relation(fields: [tagId], references: [id])
+    tagId     String   @db.ObjectId
+    createdAt DateTime @default(now())
+}
