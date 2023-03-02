@@ -1,4 +1,4 @@
-import { Button, Flex } from '@chakra-ui/react';
+import { Box, Button, Flex, Image } from '@chakra-ui/react';
 import { List } from 'phosphor-react';
 
 import { useNav } from '../context/useNav';
@@ -20,12 +20,13 @@ export function Header() {
       bg={'gray.850'}
       display={'flex'}
       alignItems={'center'}
+      justifyContent={'space-between'}
     >
       <Button
         display={'flex'}
         alignItems={'center'}
         justifyContent={'center'}
-        p={'0.5rem 0.5rem'}
+        p={'0.5rem'}
         margin={'0 1rem'}
         cursor={'pointer'}
         border={'2px solid gray.500'}
@@ -42,6 +43,10 @@ export function Header() {
       >
         <List size={30} weight="regular" />
       </Button>
+
+      <Box p={'0.5rem'} margin={'0 1rem'}>
+        <Image src="/logo.png" w={30} h={30} />
+      </Box>
     </Flex>
   );
 }
