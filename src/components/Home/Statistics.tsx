@@ -22,7 +22,12 @@ export function Statistics({ data }: StatisticsProps) {
         Statistics
       </Text>
       <Divider orientation="horizontal" />
-      <Flex alignItems={'center'} justifyContent={'space-around'} w={'100%'}>
+      <Flex
+        direction={{ base: 'column', md: 'row' }}
+        alignItems={'center'}
+        justifyContent={'space-around'}
+        w={'100%'}
+      >
         <StatisticItem icon={<Tag size={92} />} number={tags} name={'Tags'} />
         <StatisticItem
           icon={<HardDrives size={92} />}

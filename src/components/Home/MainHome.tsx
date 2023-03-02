@@ -3,10 +3,11 @@ import { useRouter } from 'next/router';
 import { CheckCircle } from 'phosphor-react';
 
 interface MainHomeProps {
+  imageId: string;
   image: string;
 }
 
-export function MainHome({ image }: MainHomeProps) {
+export function MainHome({ image, imageId }: MainHomeProps) {
   const router = useRouter();
 
   function handleNavigateToGallery() {
@@ -14,12 +15,21 @@ export function MainHome({ image }: MainHomeProps) {
   }
 
   function handleOpenImage() {
-    window.open(image, '_blank');
+    router.replace(`/preview/${imageId}`);
   }
 
   return (
-    <HStack spacing={10} h={'75vh'}>
-      <Flex direction={'column'} gap={'1rem'} h={'100%'} maxW={'55vw'}>
+    <Flex
+      gap={10}
+      h={{ base: '100%', lg: '75vh' }}
+      direction={{ base: 'column', lg: 'row' }}
+    >
+      <Flex
+        direction={'column'}
+        gap={'1rem'}
+        h={'100%'}
+        maxW={{ base: '100%', lg: '55vw' }}
+      >
         <Heading
           color={'white'}
           w={'100%'}
@@ -28,7 +38,7 @@ export function MainHome({ image }: MainHomeProps) {
           justifyContent={'flex-start'}
           flexWrap={'wrap'}
           gap={4}
-          fontSize={'4.5rem'}
+          fontSize={{ base: '3.7rem', lg: '4.2rem' }}
         >
           The
           <Text bgGradient={'linear(to-b, green.300, gray.400 )'} bgClip="text">
@@ -45,8 +55,13 @@ export function MainHome({ image }: MainHomeProps) {
           images
         </Heading>
         <Text
-          fontSize={'1.25rem'}
-          w={'90%'}
+          fontSize={{
+            base: '1.25rem',
+            sm: '1rem',
+            md: '1rem',
+            lg: '1.25rem',
+          }}
+          w={{ base: '100%', lg: '90%' }}
           color={'white'}
           textAlign={'justify'}
         >
@@ -85,7 +100,7 @@ export function MainHome({ image }: MainHomeProps) {
         direction={'column'}
         alignItems={'center'}
         w={'100%'}
-        minW={'400px'}
+        minW={{ base: 'auto', lg: '400px' }}
         h={'100%'}
         transition={'all 250ms ease-in-out'}
         _hover={{
@@ -116,6 +131,6 @@ export function MainHome({ image }: MainHomeProps) {
           The API is currently online
         </Text>
       </Flex>
-    </HStack>
+    </Flex>
   );
 }

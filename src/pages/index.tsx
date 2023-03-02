@@ -9,8 +9,12 @@ import { statisticsToDto } from '../utils/converter-data';
 import { getRandomImage } from '../utils/image-query';
 import { getStatistics } from '../utils/statistic-query';
 
+interface RandomImageData {
+  id: string;
+  image: string;
+}
 interface HomeProps {
-  randomImage: string;
+  randomImage: RandomImageData;
   statistics: StatisticsData;
 }
 
@@ -29,7 +33,7 @@ export default function Home({ randomImage, statistics }: HomeProps) {
         paddingX={'3.75rem'}
         maxW={'1240px'}
       >
-        <MainHome image={randomImage} />
+        <MainHome image={randomImage.image} imageId={randomImage.id} />
         <Statistics data={statistics} />
       </Box>
     </>
