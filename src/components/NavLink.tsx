@@ -26,7 +26,7 @@ export function NavLink({ path, name, icon }: NavLinkProps) {
       (router.pathname == '/' && name == 'home') ||
       router.pathname.includes(name)
     ) {
-      return 'gray.600';
+      return 'gray.500';
     }
 
     return 'transparent';
@@ -39,7 +39,7 @@ export function NavLink({ path, name, icon }: NavLinkProps) {
       display={'flex'}
       alignItems={'center'}
       justifyContent={'flex-start'}
-      padding={'0.5rem 1rem'}
+      padding={'1.5rem 1rem'}
       margin={'0 1rem'}
       height={'2.3rem'}
       cursor={'pointer'}
@@ -49,7 +49,7 @@ export function NavLink({ path, name, icon }: NavLinkProps) {
       textTransform={'capitalize'}
       color={'white.900'}
       _hover={{
-        backgroundColor: 'gray.400',
+        backgroundColor: 'gray.600',
         opacity: 0.8,
       }}
       css={{
