@@ -7,12 +7,15 @@ datasource db {
     url      = env("DATABASE_URL")
 }
 
+model Statistics {
+    id            String @id @default(auto()) @map("_id") @db.ObjectId
+    totalImages   Int    @default(0)
+    totalTags     Int    @default(0)
+    totalRequests Int    @default(0)
+}
+
 model Image {
     id              String   @id @default(auto()) @map("_id") @db.ObjectId
-    format          String
-    width           Int
-    height          Int
-    size            Int
     isNsfw          Boolean  @default(false)
     source          String
     imgurId         String   @unique
