@@ -83,6 +83,14 @@ export async function getImages(
   });
 }
 
+export async function getImageById(id: string) {
+  return await prisma.image.findUnique({
+    where: {
+      id,
+    },
+  });
+}
+
 export async function getImagesSize(
   includedTags: string,
   isNsfw: boolean,
@@ -169,7 +177,12 @@ export async function getRandomImage() {
     },
   });
 
-  const imagesUrl = images.map((image) => image.imgurUrl);
+  const imagesUrl = images.map((image) => {
+    return {
+      image: image.imgurUrl,
+      id: image.id,
+    };
+  });
   const randomImage = imagesUrl[Math.floor(Math.random() * imagesUrl.length)];
 
   return randomImage;
