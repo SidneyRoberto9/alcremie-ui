@@ -1,17 +1,15 @@
 import { Flex, Image } from '@chakra-ui/react';
+import { GetServerSideProps } from 'next';
 import Head from 'next/head';
-import { useRouter } from 'next/router';
-import { useContextSelector } from 'use-context-selector';
 
-import { galleryContext } from '../../context/useGallery';
+import { ImageProps } from '../../@types/api/img';
+import { getImageById } from '../../utils/image-query';
 
-export default function Preview() {
-  const router = useRouter();
-  const { id } = router.query;
+interface PreviewProps {
+  image: ImageProps;
+}
 
-  const content = useContextSelector(galleryContext, ({ content }) => content);
-  const image = content?.find((image) => image.id === String(id));
-
+export default function Preview({ image }: PreviewProps) {
   return (
     <>
       <Head>
@@ -25,8 +23,42 @@ export default function Preview() {
         justifyContent={'center'}
         alignItems={'center'}
       >
-        <Image display={'block'} width={'40rem'} src={image?.imgurUrl}></Image>
+        <Image display={'block'} width={'40rem'} src={image.imgurUrl}></Image>
       </Flex>
     </>
   );
 }
+
+export const getServerSideProps: GetServerSideProps = async (context) => {
+  if (!context.params) {
+    return {
+      notFound: true,
+    };
+  }
+
+  const image = await getImageById(String(context.params.id));
+
+  if (!image) {
+    return {
+      redirect: {
+        destination: '/',
+        permanent: false,
+      },
+    };
+  }
+
+  const returnedImage: ImageProps = {
+    id: image.id,
+    imgurUrl: image.imgurUrl,
+    imgurDeleteHash: image.imgurDeleteHash,
+    imgurId: image.imgurId,
+    isNsfw: image.isNsfw,
+    source: image.source,
+  };
+
+  return {
+    props: {
+      image: returnedImage,
+    },
+  };
+};
