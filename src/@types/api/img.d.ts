@@ -8,10 +8,6 @@ export interface getImagesResponse {
 
 export interface ImageDto {
   id: string;
-  format: string;
-  width: number;
-  height: number;
-  size: number;
   isNsfw: boolean;
   source: string;
   imgurId: string;
@@ -22,10 +18,6 @@ export interface ImageDto {
 
 export interface ImageProps {
   id?: string;
-  format: string;
-  width: number;
-  height: number;
-  size: number;
   isNsfw: boolean;
   source: string;
   imgurId: string;

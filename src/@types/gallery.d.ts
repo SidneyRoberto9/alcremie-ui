@@ -6,10 +6,6 @@ export interface GalleryFetchDataResponse {
 
 export interface ImageData {
   id: string;
-  format: string;
-  width: number;
-  height: number;
-  size: number;
   isNsfw: boolean;
   source: string;
   imgurId: string;
