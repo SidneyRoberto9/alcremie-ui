@@ -3,6 +3,7 @@ import nextConnect from 'next-connect';
 import { z } from 'zod';
 
 import { TagProps } from '../../../@types/api/tag';
+import { addNewTag, addRequest } from '../../../utils/statistic-query';
 import { createNewTag, getTagsBySize } from '../../../utils/tag-query';
 
 const CreateNewTagSchema = z.object({
@@ -22,6 +23,7 @@ const apiRoute = nextConnect<NextApiRequest, NextApiResponse>({
 });
 
 apiRoute.get(async (req, res) => {
+  await addRequest();
   const { size } = req.query;
 
   let allTags: TagProps[] = [];
@@ -36,10 +38,11 @@ apiRoute.get(async (req, res) => {
 });
 
 apiRoute.post(async (req, res) => {
+  await addRequest();
   const tagData = CreateNewTagSchema.parse(req.body);
 
   const newTag = await createNewTag(tagData);
-
+  await addNewTag();
   res.status(200).json({ tag: newTag });
 });
 

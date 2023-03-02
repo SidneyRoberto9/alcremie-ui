@@ -139,7 +139,7 @@ export async function createNewImage(data: createImageData) {
   tags.forEach(async (tag) => {
     const imageTag = await prisma.imageTag.create({
       data: {
-        imageId: image.id,
+        imageId: image.id as string,
         tagId: tag.id,
       },
     });
@@ -150,10 +150,6 @@ export async function createNewImage(data: createImageData) {
   return await prisma.image.create({
     data: {
       id: image.id,
-      format: image.format,
-      width: image.width,
-      height: image.height,
-      size: image.size,
       isNsfw: image.isNsfw,
       source: image.source,
       imgurId: image.imgurId,
@@ -164,4 +160,17 @@ export async function createNewImage(data: createImageData) {
       },
     },
   });
+}
+
+export async function getRandomImage() {
+  const images = await prisma.image.findMany({
+    where: {
+      isNsfw: false,
+    },
+  });
+
+  const imagesUrl = images.map((image) => image.imgurUrl);
+  const randomImage = imagesUrl[Math.floor(Math.random() * imagesUrl.length)];
+
+  return randomImage;
 }
