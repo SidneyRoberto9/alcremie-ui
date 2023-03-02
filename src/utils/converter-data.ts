@@ -1,13 +1,10 @@
 import { ImageDto } from '../@types/api/img';
+import { Statistics, StatisticsDto } from '../@types/api/status';
 import { TagProps } from '../@types/api/tag';
 
 export function imageToDto(image: any, tags: TagProps[]) {
   const imageDto: ImageDto = {
     id: image.id,
-    format: image.format,
-    width: image.width,
-    height: image.height,
-    size: image.size,
     isNsfw: image.isNsfw,
     source: image.source,
     imgurId: image.imgurId,
@@ -17,4 +14,14 @@ export function imageToDto(image: any, tags: TagProps[]) {
   };
 
   return imageDto;
+}
+
+export function statisticsToDto(data: Statistics) {
+  const statisticDto: StatisticsDto = {
+    tags: data.totalTags,
+    images: data.totalImages,
+    requests: data.totalRequests,
+  };
+
+  return statisticDto;
 }
