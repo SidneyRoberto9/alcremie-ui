@@ -6,6 +6,7 @@ import { getImagesResponse, ImageDto } from '../../../@types/api/img';
 import { TagProps } from '../../../@types/api/tag';
 import { imageToDto } from '../../../utils/converter-data';
 import { getImages, getImagesSize } from '../../../utils/image-query';
+import { addRequest } from '../../../utils/statistic-query';
 import { getTagById } from '../../../utils/tag-query';
 
 const queryForFilterImagesSchema = z.object({
@@ -37,6 +38,7 @@ const apiRoute = nextConnect<NextApiRequest, NextApiResponse>({
 });
 
 apiRoute.get(async (req, res) => {
+  await addRequest();
   const parameters = queryForFilterImagesSchema.parse(req.query);
 
   const imagesDataDto: ImageDto[] = [];
