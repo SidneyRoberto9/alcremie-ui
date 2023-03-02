@@ -6,6 +6,7 @@ import { z } from 'zod';
 import { ImageProps } from '../../../@types/api/img';
 import { createNewImage } from '../../../utils/image-query';
 import { imgurUpload } from '../../../utils/imgur-upload';
+import { addNewImage, addRequest } from '../../../utils/statistic-query';
 
 interface MulterRequest extends NextApiRequest {
   file: Express.Multer.File;
@@ -36,8 +37,9 @@ const apiRoute = nextConnect<MulterRequest, NextApiResponse>({
 apiRoute.use(uploadMiddleware);
 
 apiRoute.post(async (req, res) => {
+  await addRequest();
   const data = CreateNewImagePostSchema.parse(JSON.parse(req.body.document));
-  const { buffer, mimetype, size } = req.file;
+  const { buffer } = req.file;
 
   const { ImgurData } = await imgurUpload(buffer);
 
@@ -48,10 +50,6 @@ apiRoute.post(async (req, res) => {
   }
 
   const imageData: ImageProps = {
-    format: mimetype,
-    width: 0,
-    height: 0,
-    size: size,
     isNsfw: data.is_nsfw,
     source: data.source,
     imgurId: ImgurData.id,
@@ -60,7 +58,7 @@ apiRoute.post(async (req, res) => {
   };
 
   const newImage = await createNewImage({ imageData, tags: data.tags });
-
+  await addNewImage();
   res.status(200).json({ image: newImage });
 });
 
