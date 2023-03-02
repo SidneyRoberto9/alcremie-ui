@@ -10,3 +10,9 @@ export interface StatisticsDto {
   images: number;
   requests: number;
 }
+
+interface StatisticsData {
+  tags: number;
+  images: number;
+  requests: number;
+}
