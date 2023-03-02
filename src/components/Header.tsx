@@ -44,7 +44,7 @@ export function Header() {
         <List size={30} weight="regular" />
       </Button>
 
-      <Box p={'0.5rem'} margin={'0 1rem'}>
+      <Box p={'0.7rem'} margin={'0 1rem'}>
         <Image src="/logo.png" w={30} h={30} />
       </Box>
     </Flex>
