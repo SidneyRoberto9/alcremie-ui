@@ -13,7 +13,7 @@ export function Header() {
   return (
     <Flex
       pos={'fixed'}
-      zIndex={0}
+      zIndex={10}
       top={0}
       width={'100vw'}
       height={'3.75rem'}
