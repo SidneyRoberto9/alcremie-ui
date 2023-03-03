@@ -46,9 +46,9 @@ export function Pagination() {
       bottom={'1.25rem'}
       left={'50%'}
       width={'15rem'}
-      height={'2.5rem'}
+      height={'3rem'}
       transform={'translate(-50%, 0%)'}
-      bg={'gray.500'}
+      bg={'gray.800'}
       alignItems={'center'}
       justifyContent={'space-between'}
       borderRadius={'4px'}
@@ -61,16 +61,16 @@ export function Pagination() {
         width={'5.35rem'}
         borderRadius={'4px'}
         height={'2.35rem'}
-        margin={'0.15rem'}
+        margin={'0.15rem 0.25rem'}
         fontSize={'1rem'}
         fontWeight={'500'}
-        color={'green.300'}
-        bg={'gray.700'}
-        transition={'filter 200ms ease-in-out'}
         cursor={'pointer'}
         textTransform={'capitalize'}
+        color={'white'}
+        bg={'green.300'}
+        transition={'filter 250ms ease-in-out'}
         _hover={{
-          filter: 'brightness(0.7)',
+          filter: 'brightness(0.8)',
         }}
         _disabled={{
           cursor: 'not-allowed',
@@ -100,16 +100,16 @@ export function Pagination() {
         width={'5.35rem'}
         borderRadius={'4px'}
         height={'2.35rem'}
-        margin={'0.15rem'}
+        margin={'0.15rem 0.25rem'}
         fontSize={'1rem'}
         fontWeight={'500'}
-        color={'green.300'}
-        bg={'gray.700'}
-        transition={'filter 200ms ease-in-out'}
         cursor={'pointer'}
         textTransform={'capitalize'}
+        color={'white'}
+        bg={'green.300'}
+        transition={'filter 250ms ease-in-out'}
         _hover={{
-          filter: 'brightness(0.7)',
+          filter: 'brightness(0.8)',
         }}
         _disabled={{
           cursor: 'not-allowed',
