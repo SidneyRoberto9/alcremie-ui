@@ -1,5 +1,5 @@
 import { Box } from '@chakra-ui/react';
-import { HouseLine, Image, UploadSimple } from 'phosphor-react';
+import { HouseLine, Image, Tag, UploadSimple } from 'phosphor-react';
 import { slide as Menu } from 'react-burger-menu';
 
 import { useNav } from '../context/useNav';
@@ -11,26 +11,31 @@ interface routesProps {
   name: string;
 }
 
+const routes: routesProps[] = [
+  {
+    path: '/',
+    icon: <HouseLine size={35} />,
+    name: 'home',
+  },
+  {
+    path: '/recent',
+    icon: <Image size={35} />,
+    name: 'recent',
+  },
+  {
+    path: '/upload',
+    icon: <UploadSimple size={35} />,
+    name: 'upload',
+  },
+  {
+    path: '/tag',
+    icon: <Tag size={35} />,
+    name: 'tag',
+  },
+];
+
 export function Nav() {
   const { toggleNav, isOpen } = useNav();
-
-  const routes: routesProps[] = [
-    {
-      path: '/',
-      icon: <HouseLine size={35} />,
-      name: 'home',
-    },
-    {
-      path: '/recent',
-      icon: <Image size={35} />,
-      name: 'recent',
-    },
-    {
-      path: '/upload',
-      icon: <UploadSimple size={35} />,
-      name: 'upload',
-    },
-  ];
 
   return (
     <Box
