@@ -36,6 +36,24 @@ export const theme = extendTheme({
     heading: 'Roboto',
     body: 'Roboto',
   },
+  components: {
+    Button: {
+      variants: {
+        default: {
+          fontSize: '1rem',
+          fontWeight: '500',
+          cursor: 'pointer',
+          textTransform: 'capitalize',
+          color: 'white',
+          bg: 'green.300',
+          transition: 'filter 250ms ease-in-out',
+          _hover: {
+            filter: 'brightness(0.8)',
+          },
+        },
+      },
+    },
+  },
   styles: {
     global: {
       body: {

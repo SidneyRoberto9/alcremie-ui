@@ -164,11 +164,7 @@ export function FormUpload() {
           )}
 
           <Flex width={'100%'} justifyContent={'flex-end'}>
-            <Button
-              type="submit"
-              colorScheme={'whiteAlpha'}
-              isDisabled={isSubmitting}
-            >
+            <Button type="submit" variant={'default'} isDisabled={isSubmitting}>
               Upload
             </Button>
           </Flex>

@@ -83,14 +83,7 @@ export function MainHome({ image, imageId }: MainHomeProps) {
         </Text>
 
         <HStack>
-          <Button
-            bg={'green.300'}
-            transition={'filter 250ms ease-in-out'}
-            _hover={{
-              filter: 'brightness(0.8)',
-            }}
-            onClick={handleNavigateToGallery}
-          >
+          <Button variant={'default'} onClick={handleNavigateToGallery}>
             Gallery
           </Button>
         </HStack>
