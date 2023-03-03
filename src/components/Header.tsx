@@ -5,6 +5,8 @@ import { useNav } from '../context/useNav';
 
 export function Header() {
   const { isOpen, toggleNav } = useNav();
+  //const router = useRouter();
+  //console.log(router.query);
 
   function handleOpenNav() {
     toggleNav(!isOpen);
