@@ -36,7 +36,7 @@ export default function App({ Component, pageProps }: AppProps) {
   }, [router]);
 
   return (
-    <ChakraProvider theme={theme}>
+    <ChakraProvider theme={theme} portalZIndex={11}>
       <LoadingPage isLoading={isLoading} />
       <GalleryProvider>
         <TagsContextProvider>
