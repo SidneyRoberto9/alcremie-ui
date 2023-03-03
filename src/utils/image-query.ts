@@ -1,8 +1,16 @@
 import { ObjectId } from 'bson';
 
-import { createImageData, ImageProps } from '../@types/api/img';
-import { TagIds } from '../@types/api/tag';
+import {
+  createImageData,
+  getImagesResponse,
+  ImageDto,
+  ImageProps,
+} from '../@types/api/img';
+import { TagIds, TagProps } from '../@types/api/tag';
+import { queryForFilterImagesSchemaType } from '../pages/api/img/[page]';
 import { prisma } from '../server/prisma';
+import { imageToDto } from './converter-data';
+import { getTagById } from './tag-query';
 import { isEmpty } from './valitation';
 
 export async function getImages(
@@ -52,7 +60,6 @@ export async function getImages(
       skip: pagePosition * pageSize,
       take: pageSize,
       where: {
-        isNsfw: false,
         ImageTag: {
           some: {
             tagId: tagData?.id,
@@ -186,4 +193,46 @@ export async function getRandomImage() {
   const randomImage = imagesUrl[Math.floor(Math.random() * imagesUrl.length)];
 
   return randomImage;
+}
+
+export async function getImagesResponseData(
+  parameters: queryForFilterImagesSchemaType,
+) {
+  const imagesDataDto: ImageDto[] = [];
+
+  const imagesFromDatabase = await getImages(
+    parameters.included_tags,
+    parameters.is_nsfw,
+    parameters.all,
+    parameters.page,
+    parameters.pageSize,
+  );
+
+  const imagesCountFromDatabase = await getImagesSize(
+    parameters.included_tags,
+    parameters.is_nsfw,
+    parameters.all,
+  );
+
+  for await (const image of imagesFromDatabase) {
+    const imageTags: TagProps[] = [];
+
+    for await (const TagData of image.ImageTag) {
+      const searchedTag = await getTagById(TagData.tagId);
+
+      if (searchedTag !== null) {
+        imageTags.push(searchedTag);
+      }
+    }
+
+    imagesDataDto.push(imageToDto(image, imageTags));
+  }
+
+  const resData: getImagesResponse = {
+    totalContent: imagesCountFromDatabase,
+    pageSize: parameters.pageSize,
+    content: imagesDataDto.length > 0 ? imagesDataDto : null,
+  };
+
+  return resData;
 }
