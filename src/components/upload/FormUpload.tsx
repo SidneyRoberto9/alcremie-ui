@@ -17,6 +17,7 @@ import { z } from 'zod';
 
 import { useTags } from '../../context/useTags';
 import { api } from '../../server/api';
+import { TextTitle } from '../TextTitle';
 
 interface OptionType {
   value: string;
@@ -86,7 +87,7 @@ export function FormUpload() {
       transform={'translate(-50%, -50%)'}
       width={'35rem'}
       bg={'gray.850'}
-      borderRadius={'16px'}
+      borderRadius={'1rem'}
       __css={{
         'input::file-selector-button': {
           display: 'none',
@@ -100,9 +101,7 @@ export function FormUpload() {
         justifyContent={'center'}
         padding={'1rem'}
       >
-        <Text fontSize={'1.75rem'} fontWeight={'bold'} color={'gray.300'}>
-          File Upload
-        </Text>
+        <TextTitle>File Upload</TextTitle>
 
         <Flex
           as={'form'}
