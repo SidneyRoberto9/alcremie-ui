@@ -9,6 +9,10 @@ export async function getTagById(id: string) {
   });
 }
 
+export async function getAllTags() {
+  return await prisma.tag.findMany();
+}
+
 export async function getTagsBySize(size: number = 10) {
   return await prisma.tag.findMany({
     take: size,
@@ -20,7 +24,7 @@ export async function createNewTag(data: createTagDto) {
     data: {
       name: data.name,
       description: data.description,
-      isNsfw: data.is_nsfw,
+      is_nsfw: data.is_nsfw,
     },
   });
 }
