@@ -1,5 +1,6 @@
 import { Box, Flex, Text } from '@chakra-ui/react';
 import { ReactNode } from 'react';
+import CountUp from 'react-countup';
 
 interface StatisticsItemProps {
   number: number;
@@ -29,7 +30,7 @@ export function StatisticItem({ number, name, icon }: StatisticsItemProps) {
         {icon}
       </Box>
       <Text fontSize={'1.25rem'} color={'white'} mt={'0.4rem'}>
-        {number}
+        <CountUp end={number} delay={1} duration={2.5} />
       </Text>
       <Text fontSize={'1rem'} color={'gray.450'}>
         {name}
