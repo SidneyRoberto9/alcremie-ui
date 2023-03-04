@@ -1,4 +1,5 @@
 import { ChakraProvider } from '@chakra-ui/react';
+import { SessionProvider } from 'next-auth/react';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 
@@ -11,7 +12,10 @@ import { TagsContextProvider } from '../context/useTags';
 import { theme } from '../styles/theme';
 
 import type { AppProps } from 'next/app';
-export default function App({ Component, pageProps }: AppProps) {
+export default function App({
+  Component,
+  pageProps: { session, ...pageProps },
+}: AppProps) {
   const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
 
@@ -37,16 +41,18 @@ export default function App({ Component, pageProps }: AppProps) {
 
   return (
     <ChakraProvider theme={theme} portalZIndex={11}>
-      <LoadingPage isLoading={isLoading} />
-      <GalleryProvider>
-        <TagsContextProvider>
-          <NavProvider>
-            <Nav />
-            <Header />
-            <Component {...pageProps} />
-          </NavProvider>
-        </TagsContextProvider>
-      </GalleryProvider>
+      <SessionProvider session={session}>
+        <LoadingPage isLoading={isLoading} />
+        <GalleryProvider>
+          <TagsContextProvider>
+            <NavProvider>
+              <Nav />
+              <Header />
+              <Component {...pageProps} />
+            </NavProvider>
+          </TagsContextProvider>
+        </GalleryProvider>
+      </SessionProvider>
     </ChakraProvider>
   );
 }
