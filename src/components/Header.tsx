@@ -1,12 +1,28 @@
-import { Box, Button, Flex, Image } from '@chakra-ui/react';
+import { Box, Button, Flex } from '@chakra-ui/react';
+import { signIn, signOut, useSession } from 'next-auth/react';
 import { List } from 'phosphor-react';
 
 import { useNav } from '../context/useNav';
+import { Avatar } from './Avatar';
 
 export function Header() {
   const { isOpen, toggleNav } = useNav();
+  const { data, status } = useSession();
+
+  const isSignedIn = status === 'authenticated';
+  const isSessionLoading = status === 'loading';
+
+  console.log();
   //const router = useRouter();
   //console.log(router.query);
+
+  async function handleLogin() {
+    await signIn('google');
+  }
+
+  async function handleLogout() {
+    await signOut();
+  }
 
   function handleOpenNav() {
     toggleNav(!isOpen);
@@ -46,9 +62,26 @@ export function Header() {
         <List size={30} weight="regular" />
       </Button>
 
-      <Box p={'0.7rem'} margin={'0 1rem'}>
-        <Image src="/logo.png" w={30} h={30} />
-      </Box>
+      <Flex gap={2} margin={'0 0.12rem'}>
+        <Box p={'0.7rem'} hidden={isSessionLoading}>
+          {isSignedIn ? (
+            <Avatar src={data?.user.avatar_url || '/logo.png'} />
+          ) : (
+            <Avatar src="/logo.png" />
+          )}
+        </Box>
+
+        <Button
+          onClick={isSignedIn ? handleLogout : handleLogin}
+          variant={'outline'}
+          colorScheme={'green'}
+          mr={'2rem'}
+          my={'0.3rem'}
+          isLoading={isSessionLoading}
+        >
+          {isSignedIn ? 'Logout' : 'Login'}
+        </Button>
+      </Flex>
     </Flex>
   );
 }
