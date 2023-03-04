@@ -1,6 +1,6 @@
 import { Box } from '@chakra-ui/react';
 import { GetServerSideProps } from 'next';
-import Head from 'next/head';
+import { NextSeo } from 'next-seo';
 
 import { StatisticsData } from '../@types/api/status';
 import { MainHome } from '../components/Home/MainHome';
@@ -21,11 +21,7 @@ interface HomeProps {
 export default function Home({ randomImage, statistics }: HomeProps) {
   return (
     <>
-      <Head>
-        <title>Home | Alcremie</title>
-        <meta name="description" content="Home page" />
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
-      </Head>
+      <NextSeo title="Home | Alcremie" />
 
       <Box
         paddingTop={'8rem'}

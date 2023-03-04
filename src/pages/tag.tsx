@@ -1,6 +1,6 @@
 import { Accordion, Box, Flex } from '@chakra-ui/react';
 import { GetServerSideProps } from 'next';
-import Head from 'next/head';
+import { NextSeo } from 'next-seo';
 
 import { TagProps } from '../@types/api/tag';
 import { CollapseItem } from '../components/Tag/CollapseItem';
@@ -16,11 +16,7 @@ interface TagServerSideProps {
 export default function Tag({ sfw, nsfw }: TagServerSideProps) {
   return (
     <>
-      <Head>
-        <title>Tag | Alcremie</title>
-        <meta name="description" content="Tag contents and changes" />
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
-      </Head>
+      <NextSeo title="Tag | Alcremie" />
 
       <Box paddingTop={'3.75rem'} h={'100vh'}>
         <Box

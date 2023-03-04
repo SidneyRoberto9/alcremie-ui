@@ -1,6 +1,6 @@
 import { Box } from '@chakra-ui/react';
 import { GetServerSideProps } from 'next';
-import Head from 'next/head';
+import { NextSeo } from 'next-seo';
 import { useEffect } from 'react';
 import { useContextSelector } from 'use-context-selector';
 
@@ -27,11 +27,7 @@ export default function Recent({ content }: RecentProps) {
 
   return (
     <>
-      <Head>
-        <title>Recent | Alcremie</title>
-        <meta name="description" content="Image Data View" />
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
-      </Head>
+      <NextSeo title="Recent | Alcremie" />
 
       <Box paddingTop={'3.75rem'}>
         <MasonryBox />

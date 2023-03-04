@@ -1,6 +1,6 @@
 import { Flex, Image } from '@chakra-ui/react';
 import { GetServerSideProps } from 'next';
-import Head from 'next/head';
+import { NextSeo } from 'next-seo';
 
 import { ImageProps } from '../../@types/api/img';
 import { getImageById } from '../../utils/image-query';
@@ -12,10 +12,7 @@ interface PreviewProps {
 export default function Preview({ image }: PreviewProps) {
   return (
     <>
-      <Head>
-        <title>Preview | Alcremie</title>
-        <meta name="description" content="Image Preview" />
-      </Head>
+      <NextSeo title="Preview | Alcremie" />
 
       <Flex
         paddingTop={'3.75rem'}
@@ -23,20 +20,20 @@ export default function Preview({ image }: PreviewProps) {
         justifyContent={'center'}
         alignItems={'center'}
       >
-        <Image display={'block'} width={'40rem'} src={image.imgurUrl}></Image>
+        <Image display={'block'} width={'40rem'} src={image.imgurUrl} />
       </Flex>
     </>
   );
 }
 
-export const getServerSideProps: GetServerSideProps = async (context) => {
-  if (!context.params) {
+export const getServerSideProps: GetServerSideProps = async ({ params }) => {
+  if (!params) {
     return {
       notFound: true,
     };
   }
 
-  const image = await getImageById(String(context.params.id));
+  const image = await getImageById(String(params.id));
 
   if (!image) {
     return {
