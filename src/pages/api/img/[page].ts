@@ -3,8 +3,8 @@ import nextConnect from 'next-connect';
 import { z } from 'zod';
 
 import { getImagesResponse } from '../../../@types/api/img';
-import { getImagesResponseData } from '../../../utils/image-query';
-import { addRequest } from '../../../utils/statistic-query';
+import { getImagesResponseData } from '../../../server/query/image-query';
+import { addRequest } from '../../../server/query/statistic-query';
 
 export const queryForFilterImagesSchema = z.object({
   page: z.string().transform((value) => Number(value)),
