@@ -1,6 +1,6 @@
-import { Box } from '@chakra-ui/react';
 import { NextSeo } from 'next-seo';
 
+import { Content } from '../components/Content';
 import { FormUpload } from '../components/upload/FormUpload';
 
 export default function Upload() {
@@ -8,9 +8,9 @@ export default function Upload() {
     <>
       <NextSeo title="Upload | Alcremie" />
 
-      <Box paddingTop={'3.75rem'} h={'100vh'}>
+      <Content>
         <FormUpload />
-      </Box>
+      </Content>
     </>
   );
 }

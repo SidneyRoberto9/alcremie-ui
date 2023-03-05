@@ -1,10 +1,10 @@
-import { Box } from '@chakra-ui/react';
 import { GetServerSideProps } from 'next';
 import { NextSeo } from 'next-seo';
 import { useEffect } from 'react';
 import { useContextSelector } from 'use-context-selector';
 
 import { GalleryFetchDataResponse } from '../@types/gallery';
+import { Content } from '../components/Content';
 import { MasonryBox } from '../components/Recent/MasonryBox';
 import { Pagination } from '../components/Recent/Pagination';
 import { galleryContext } from '../context/useGallery';
@@ -29,10 +29,10 @@ export default function Recent({ content }: RecentProps) {
     <>
       <NextSeo title="Recent | Alcremie" />
 
-      <Box paddingTop={'3.75rem'}>
+      <Content>
         <MasonryBox />
         <Pagination />
-      </Box>
+      </Content>
     </>
   );
 }

@@ -1,8 +1,8 @@
-import { Box } from '@chakra-ui/react';
 import { GetServerSideProps } from 'next';
 import { NextSeo } from 'next-seo';
 
 import { StatisticsData } from '../@types/api/status';
+import { Content } from '../components/Content';
 import { MainHome } from '../components/Home/MainHome';
 import { Statistics } from '../components/Home/Statistics';
 import { getRandomImage } from '../server/query/image-query';
@@ -23,7 +23,7 @@ export default function Home({ randomImage, statistics }: HomeProps) {
     <>
       <NextSeo title="Home | Alcremie" />
 
-      <Box
+      <Content
         paddingTop={'8rem'}
         marginX={'auto'}
         paddingX={'3.75rem'}
@@ -31,7 +31,7 @@ export default function Home({ randomImage, statistics }: HomeProps) {
       >
         <MainHome image={randomImage.image} imageId={randomImage.id} />
         <Statistics data={statistics} />
-      </Box>
+      </Content>
     </>
   );
 }

@@ -1,8 +1,9 @@
-import { Flex, Image } from '@chakra-ui/react';
+import { Image } from '@chakra-ui/react';
 import { GetServerSideProps } from 'next';
 import { NextSeo } from 'next-seo';
 
 import { ImageProps } from '../../@types/api/img';
+import { Content } from '../../components/Content';
 import { getImageById } from '../../server/query/image-query';
 
 interface PreviewProps {
@@ -14,14 +15,9 @@ export default function Preview({ image }: PreviewProps) {
     <>
       <NextSeo title="Preview | Alcremie" />
 
-      <Flex
-        paddingTop={'3.75rem'}
-        width={'100%'}
-        justifyContent={'center'}
-        alignItems={'center'}
-      >
+      <Content display={'flex'} justifyContent={'center'} h={'auto'}>
         <Image display={'block'} width={'40rem'} src={image.imgurUrl} />
-      </Flex>
+      </Content>
     </>
   );
 }
