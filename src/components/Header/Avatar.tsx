@@ -5,5 +5,13 @@ interface AvatarProps {
 }
 
 export function Avatar({ src }: AvatarProps) {
-  return <Image src={src} w={30} h={30} borderRadius="full" />;
+  return (
+    <Image
+      src={src}
+      w={30}
+      h={30}
+      borderRadius="full"
+      fallbackSrc={'/logo.png'}
+    />
+  );
 }

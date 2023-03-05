@@ -2,7 +2,7 @@ import { Box } from '@chakra-ui/react';
 import { HouseLine, Image, Tag, UploadSimple } from 'phosphor-react';
 import { slide as Menu } from 'react-burger-menu';
 
-import { useNav } from '../context/useNav';
+import { useNav } from '../../context/useNav';
 import { NavLink } from './NavLink';
 
 interface routesProps {

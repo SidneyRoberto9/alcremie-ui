@@ -2,7 +2,7 @@ import { Box, Button, Flex } from '@chakra-ui/react';
 import { signIn, signOut, useSession } from 'next-auth/react';
 import { List } from 'phosphor-react';
 
-import { useNav } from '../context/useNav';
+import { useNav } from '../../context/useNav';
 import { Avatar } from './Avatar';
 
 export function Header() {
