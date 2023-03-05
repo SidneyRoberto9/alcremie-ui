@@ -1,6 +1,6 @@
 import sharp from 'sharp';
 
-import { imgur } from '../server/imgur';
+import { imgur } from '../imgur';
 
 export async function imgurUpload(buf: Buffer) {
   const sharpBuf = await sharp(buf).jpeg({ quality: 90 }).toBuffer();
