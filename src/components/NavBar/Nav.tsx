@@ -1,5 +1,5 @@
 import { Box } from '@chakra-ui/react';
-import { HouseLine, Image, Tag, UploadSimple } from 'phosphor-react';
+import { AppWindow, HouseLine, Image, Tag, UploadSimple } from 'phosphor-react';
 import { slide as Menu } from 'react-burger-menu';
 
 import { useNav } from '../../context/useNav';
@@ -9,6 +9,7 @@ interface routesProps {
   path: string;
   icon: JSX.Element;
   name: string;
+  isAdmin: boolean;
 }
 
 const routes: routesProps[] = [
@@ -16,21 +17,31 @@ const routes: routesProps[] = [
     path: '/',
     icon: <HouseLine size={35} />,
     name: 'home',
+    isAdmin: false,
   },
   {
     path: '/recent',
     icon: <Image size={35} />,
     name: 'recent',
+    isAdmin: false,
   },
   {
     path: '/upload',
     icon: <UploadSimple size={35} />,
     name: 'upload',
+    isAdmin: false,
   },
   {
     path: '/tag',
     icon: <Tag size={35} />,
     name: 'tag',
+    isAdmin: false,
+  },
+  {
+    path: '/tag/manager',
+    icon: <AppWindow size={35} />,
+    name: 'tag manager',
+    isAdmin: true,
   },
 ];
 
