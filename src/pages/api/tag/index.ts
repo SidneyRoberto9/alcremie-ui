@@ -3,8 +3,8 @@ import nextConnect from 'next-connect';
 import { z } from 'zod';
 
 import { TagProps } from '../../../@types/api/tag';
-import { addNewTag, addRequest } from '../../../utils/statistic-query';
-import { createNewTag, getTagsBySize } from '../../../utils/tag-query';
+import { addNewTag, addRequest } from '../../../server/query/statistic-query';
+import { createNewTag, getTagsBySize } from '../../../server/query/tag-query';
 
 const CreateNewTagSchema = z.object({
   name: z.string().min(1),

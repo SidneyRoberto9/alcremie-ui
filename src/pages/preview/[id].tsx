@@ -3,7 +3,7 @@ import { GetServerSideProps } from 'next';
 import { NextSeo } from 'next-seo';
 
 import { ImageProps } from '../../@types/api/img';
-import { getImageById } from '../../utils/image-query';
+import { getImageById } from '../../server/query/image-query';
 
 interface PreviewProps {
   image: ImageProps;
