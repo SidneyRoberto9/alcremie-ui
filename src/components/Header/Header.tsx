@@ -1,20 +1,21 @@
 import { Box, Button, Flex } from '@chakra-ui/react';
 import { signIn, signOut, useSession } from 'next-auth/react';
+import { useRouter } from 'next/router';
 import { List } from 'phosphor-react';
 
 import { useNav } from '../../context/useNav';
 import { Avatar } from './Avatar';
+import { FavoriteButton } from './FavoriteButton';
 
 export function Header() {
   const { isOpen, toggleNav } = useNav();
   const { data, status } = useSession();
 
+  const router = useRouter();
+
   const isSignedIn = status === 'authenticated';
   const isSessionLoading = status === 'loading';
-
-  console.log();
-  //const router = useRouter();
-  //console.log(router.query);
+  const isPreviewPage = router.pathname.includes('preview');
 
   async function handleLogin() {
     await signIn('google');
@@ -63,6 +64,13 @@ export function Header() {
       </Button>
 
       <Flex gap={2} margin={'0 0.12rem'}>
+        {isSignedIn && isPreviewPage && (
+          <FavoriteButton
+            imageId={String(router.query.id)}
+            userId={String(data?.user.id)}
+          />
+        )}
+
         <Box p={'0.7rem'} hidden={isSessionLoading}>
           {isSignedIn ? (
             <Avatar src={data?.user.avatar_url || '/logo.png'} />
