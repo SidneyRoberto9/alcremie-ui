@@ -3,15 +3,16 @@ import { SessionProvider } from 'next-auth/react';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 
-import { Header } from '../components/Header';
+import { Header } from '../components/Header/Header';
 import { LoadingPage } from '../components/LoadingPage';
-import { Nav } from '../components/Nav';
+import { Nav } from '../components/NavBar/Nav';
 import { GalleryProvider } from '../context/useGallery';
 import { NavProvider } from '../context/useNav';
 import { TagsContextProvider } from '../context/useTags';
 import { theme } from '../styles/theme';
 
 import type { AppProps } from 'next/app';
+
 export default function App({
   Component,
   pageProps: { session, ...pageProps },
@@ -56,3 +57,4 @@ export default function App({
     </ChakraProvider>
   );
 }
+

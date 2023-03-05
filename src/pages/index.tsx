@@ -5,9 +5,9 @@ import { NextSeo } from 'next-seo';
 import { StatisticsData } from '../@types/api/status';
 import { MainHome } from '../components/Home/MainHome';
 import { Statistics } from '../components/Home/Statistics';
+import { getRandomImage } from '../server/query/image-query';
+import { getStatistics } from '../server/query/statistic-query';
 import { statisticsToDto } from '../utils/converter-data';
-import { getRandomImage } from '../utils/image-query';
-import { getStatistics } from '../utils/statistic-query';
 
 interface RandomImageData {
   id: string;
