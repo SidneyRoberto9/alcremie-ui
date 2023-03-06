@@ -11,7 +11,7 @@ import {
 import { TagIds, TagProps } from '../../@types/api/tag';
 import { Tag } from '../../@types/gallery';
 import { queryForFilterImagesSchemaType } from '../../pages/api/img/[page]';
-import { imageToDto } from '../../utils/converter-data';
+import { imageToDto, imageToDtoWithoutTags } from '../../utils/converter-data';
 import { isEmpty } from '../../utils/valitation';
 import { prisma } from '../prisma';
 import { getTagById } from './tag.query';
@@ -206,4 +206,26 @@ export async function getImagesResponseData(
   };
 
   return resData;
+}
+
+export async function getUserFavoritesImages(userId: string) {
+  const user = await prisma.user.findUnique({
+    where: {
+      id: userId,
+    },
+  });
+
+  if (user === null) {
+    return null;
+  }
+
+  const images = await prisma.image.findMany({
+    where: {
+      id: {
+        in: user.favorites,
+      },
+    },
+  });
+
+  return images.map(imageToDtoWithoutTags);
 }
