@@ -1,7 +1,7 @@
 import { NextApiRequest, NextApiResponse } from 'next';
 import nextConnect from 'next-connect';
 
-import { addRequest } from '../../../server/query/statistic.query';
+import { addRequest, removeTag } from '../../../server/query/statistic.query';
 import { deleteTag } from '../../../server/query/tag.query';
 
 const apiRoute = nextConnect<NextApiRequest, NextApiResponse>({
@@ -33,6 +33,7 @@ apiRoute.delete(async (req, res) => {
     });
   }
 
+  await removeTag();
   res.status(202).json({ message: 'Tag deleted' });
 });
 
