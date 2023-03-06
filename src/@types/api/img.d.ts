@@ -29,3 +29,17 @@ export interface createImageData {
   imageData: ImageProps;
   tags: TagIds[];
 }
+
+export interface getImageProps {
+  includedTags: string;
+  isNsfw: boolean;
+  allImages: boolean;
+  pagePosition: number;
+  pageSize: number;
+}
+
+export interface getImagesSizeProps {
+  includedTags: string;
+  isNsfw: boolean;
+  allImages: boolean;
+}

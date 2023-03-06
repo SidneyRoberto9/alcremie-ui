@@ -2,24 +2,27 @@ import { ObjectId } from 'bson';
 
 import {
   createImageData,
+  getImageProps,
   getImagesResponse,
+  getImagesSizeProps,
   ImageDto,
   ImageProps,
 } from '../../@types/api/img';
 import { TagIds, TagProps } from '../../@types/api/tag';
+import { Tag } from '../../@types/gallery';
 import { queryForFilterImagesSchemaType } from '../../pages/api/img/[page]';
 import { imageToDto } from '../../utils/converter-data';
 import { isEmpty } from '../../utils/valitation';
 import { prisma } from '../prisma';
 import { getTagById } from './tag.query';
 
-export async function getImages(
-  includedTags: string,
-  isNsfw: boolean,
-  allImages: boolean,
-  pagePosition: number,
-  pageSize: number,
-) {
+export async function getImages({
+  allImages,
+  includedTags,
+  isNsfw,
+  pagePosition,
+  pageSize,
+}: getImageProps) {
   if (allImages) {
     return await prisma.image.findMany({
       skip: pagePosition * pageSize,
@@ -33,44 +36,12 @@ export async function getImages(
     });
   }
 
-  if (isNsfw) {
-    return await prisma.image.findMany({
-      skip: pagePosition * pageSize,
-      take: pageSize,
-      where: {
-        isNsfw: true,
-      },
-      include: {
-        ImageTag: true,
-      },
-      orderBy: {
-        createdAt: 'desc',
-      },
-    });
-  }
+  let tagData: Tag | null = null;
 
   if (!isEmpty(includedTags)) {
-    const tagData = await prisma.tag.findUnique({
+    tagData = await prisma.tag.findUnique({
       where: {
         name: includedTags,
-      },
-    });
-
-    return await prisma.image.findMany({
-      skip: pagePosition * pageSize,
-      take: pageSize,
-      where: {
-        ImageTag: {
-          some: {
-            tagId: tagData?.id,
-          },
-        },
-      },
-      include: {
-        ImageTag: true,
-      },
-      orderBy: {
-        createdAt: 'desc',
       },
     });
   }
@@ -78,9 +49,17 @@ export async function getImages(
   return await prisma.image.findMany({
     skip: pagePosition * pageSize,
     take: pageSize,
-    where: {
-      isNsfw: false,
-    },
+    where: isEmpty(includedTags)
+      ? {
+          isNsfw: isNsfw,
+        }
+      : {
+          ImageTag: {
+            some: {
+              tagId: tagData?.id,
+            },
+          },
+        },
     include: {
       ImageTag: true,
     },
@@ -98,46 +77,37 @@ export async function getImageById(id: string) {
   });
 }
 
-export async function getImagesSize(
-  includedTags: string,
-  isNsfw: boolean,
-  allImages: boolean,
-) {
+export async function getImagesSize({
+  allImages,
+  includedTags,
+  isNsfw,
+}: getImagesSizeProps) {
   if (allImages) {
     return await prisma.image.count();
   }
 
-  if (isNsfw) {
-    return await prisma.image.count({
-      where: {
-        isNsfw: true,
-      },
-    });
-  }
+  let tagData: Tag | null = null;
 
   if (!isEmpty(includedTags)) {
-    const tagData = await prisma.tag.findUnique({
+    tagData = await prisma.tag.findUnique({
       where: {
         name: includedTags,
-      },
-    });
-
-    return await prisma.image.count({
-      where: {
-        isNsfw: false,
-        ImageTag: {
-          some: {
-            tagId: tagData?.id,
-          },
-        },
       },
     });
   }
 
   return await prisma.image.count({
-    where: {
-      isNsfw: false,
-    },
+    where: isEmpty(includedTags)
+      ? {
+          isNsfw: isNsfw,
+        }
+      : {
+          ImageTag: {
+            some: {
+              tagId: tagData?.id,
+            },
+          },
+        },
   });
 }
 
@@ -190,6 +160,7 @@ export async function getRandomImage() {
       id: image.id,
     };
   });
+
   const randomImage = imagesUrl[Math.floor(Math.random() * imagesUrl.length)];
 
   return randomImage;
@@ -200,19 +171,19 @@ export async function getImagesResponseData(
 ) {
   const imagesDataDto: ImageDto[] = [];
 
-  const imagesFromDatabase = await getImages(
-    parameters.included_tags,
-    parameters.is_nsfw,
-    parameters.all,
-    parameters.page,
-    parameters.pageSize,
-  );
+  const imagesFromDatabase = await getImages({
+    allImages: parameters.all,
+    includedTags: parameters.included_tags,
+    isNsfw: parameters.is_nsfw,
+    pagePosition: parameters.page,
+    pageSize: parameters.pageSize,
+  });
 
-  const imagesCountFromDatabase = await getImagesSize(
-    parameters.included_tags,
-    parameters.is_nsfw,
-    parameters.all,
-  );
+  const imagesCountFromDatabase = await getImagesSize({
+    allImages: parameters.all,
+    includedTags: parameters.included_tags,
+    isNsfw: parameters.is_nsfw,
+  });
 
   for await (const image of imagesFromDatabase) {
     const imageTags: TagProps[] = [];
