@@ -2,6 +2,7 @@ import { Box } from '@chakra-ui/react';
 import {
   AppWindow,
   BookBookmark,
+  Heart,
   HouseLine,
   Image,
   Tag,
@@ -55,6 +56,13 @@ const routes: routesProps[] = [
     label: 'Docs',
     name: 'docs',
     isAdmin: false,
+  },
+  {
+    path: '/favorites',
+    icon: <Heart size={35} />,
+    label: 'Favorites',
+    name: 'favorites',
+    isAdmin: true,
   },
   {
     path: '/tag/manager',
