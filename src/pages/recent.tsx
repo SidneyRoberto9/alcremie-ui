@@ -42,9 +42,9 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 
   const parameters: queryForFilterImagesSchemaType = {
     page: Number(page) || 0,
-    all: Boolean(all) || false,
+    all: String(all) === 'true' ? true : false || false,
     pageSize: Number(pageSize) || 25,
-    is_nsfw: Boolean(is_nsfw) || false,
+    is_nsfw: String(is_nsfw) === 'true' ? true : false || false,
     included_tags: String(include_tags) || '',
   };
 
