@@ -28,6 +28,17 @@ export async function addNewTag() {
   });
 }
 
+export async function removeTag() {
+  return await prisma.statistics.update({
+    ...where,
+    data: {
+      totalTags: {
+        decrement: 1,
+      },
+    },
+  });
+}
+
 export async function addRequest() {
   return await prisma.statistics.update({
     ...where,
