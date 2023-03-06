@@ -1,6 +1,7 @@
 import Masonry, { ResponsiveMasonry } from 'react-responsive-masonry';
 import { useContextSelector } from 'use-context-selector';
 
+import { ImageDto } from '../../@types/api/img';
 import { galleryContext } from '../../context/useGallery';
 import { LoadingSpinner } from '../LoadingSpinner';
 import { MasonryItem } from './MasonryItem';
@@ -15,23 +16,43 @@ const Breakpoints = {
   2144: 7,
 };
 
-export function MasonryBox() {
-  const { content, isLoading } = useContextSelector(
-    galleryContext,
-    ({ content, isLoading }) => ({
-      content,
-      isLoading,
-    }),
-  );
+interface MasonryBoxProps {
+  data?: Omit<ImageDto, 'tags'>[] | null;
+}
 
-  if (content == null || isLoading) {
+export function MasonryBox({ data = null }: MasonryBoxProps) {
+  if (data == null) {
+    const { content, isLoading } = useContextSelector(
+      galleryContext,
+      ({ content, isLoading }) => ({
+        content,
+        isLoading,
+      }),
+    );
+
+    if (content == null || isLoading) {
+      return <LoadingSpinner />;
+    }
+
+    return (
+      <ResponsiveMasonry columnsCountBreakPoints={Breakpoints}>
+        <Masonry>
+          {content.map(({ imgurUrl, id }) => (
+            <MasonryItem url={imgurUrl} key={id} id={id} />
+          ))}
+        </Masonry>
+      </ResponsiveMasonry>
+    );
+  }
+
+  if (data == null) {
     return <LoadingSpinner />;
   }
 
   return (
     <ResponsiveMasonry columnsCountBreakPoints={Breakpoints}>
       <Masonry>
-        {content.map(({ imgurUrl, id }) => (
+        {data.map(({ imgurUrl, id }) => (
           <MasonryItem url={imgurUrl} key={id} id={id} />
         ))}
       </Masonry>
