@@ -17,8 +17,8 @@ export function MasonryItem({ id, url }: MasonryItemProps) {
     <Image
       width={'100%'}
       display={'block'}
-      cursor={'pointer'}
-      objectFit={'cover'}
+      loading={'lazy'}
+      fit={'cover'}
       alt={id}
       src={url}
       onClick={handleOpenNewTab}

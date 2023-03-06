@@ -30,7 +30,7 @@ export function StatisticItem({ number, name, icon }: StatisticsItemProps) {
         {icon}
       </Box>
       <Text fontSize={'1.25rem'} color={'white'} mt={'0.4rem'}>
-        <CountUp end={number} delay={1} duration={2.5} />
+        <CountUp end={number} delay={1} duration={1.75} />
       </Text>
       <Text fontSize={'1rem'} color={'gray.450'}>
         {name}
