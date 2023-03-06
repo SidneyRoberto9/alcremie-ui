@@ -8,7 +8,7 @@ import { Content } from '../components/Content';
 import { MasonryBox } from '../components/Recent/MasonryBox';
 import { Pagination } from '../components/Recent/Pagination';
 import { galleryContext } from '../context/useGallery';
-import { getImagesResponseData } from '../server/query/image-query';
+import { getImagesResponseData } from '../server/query/image.query';
 import { queryForFilterImagesSchemaType } from './api/img/[page]';
 
 interface RecentProps {

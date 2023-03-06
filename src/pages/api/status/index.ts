@@ -4,7 +4,7 @@ import nextConnect from 'next-connect';
 import {
   addRequest,
   getStatistics,
-} from '../../../server/query/statistic-query';
+} from '../../../server/query/statistic.query';
 import { statisticsToDto } from '../../../utils/converter-data';
 
 const apiRoute = nextConnect<NextApiRequest, NextApiResponse>({

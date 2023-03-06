@@ -7,7 +7,7 @@ import { Content } from '../../components/Content';
 import { CollapseItem } from '../../components/Tag/CollapseItem';
 import { TagButton } from '../../components/Tag/TagButton';
 import { TextTitle } from '../../components/TextTitle';
-import { getAllTags } from '../../server/query/tag-query';
+import { getAllTags } from '../../server/query/tag.query';
 
 interface TagServerSideProps {
   sfw: TagProps[];

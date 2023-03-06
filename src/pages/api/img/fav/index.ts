@@ -2,8 +2,8 @@ import { NextApiRequest, NextApiResponse } from 'next';
 import nextConnect from 'next-connect';
 import { z } from 'zod';
 
-import { addRequest } from '../../../../server/query/statistic-query';
-import { isFavoriteInUser } from '../../../../server/query/user-query';
+import { addRequest } from '../../../../server/query/statistic.query';
+import { isFavoriteInUser } from '../../../../server/query/user.query';
 
 const AddToFavoritesSchema = z.object({
   userId: z.string().min(1),

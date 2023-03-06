@@ -3,8 +3,8 @@ import nextConnect from 'next-connect';
 import { z } from 'zod';
 
 import { getImagesResponse } from '../../../@types/api/img';
-import { getImagesResponseData } from '../../../server/query/image-query';
-import { addRequest } from '../../../server/query/statistic-query';
+import { getImagesResponseData } from '../../../server/query/image.query';
+import { addRequest } from '../../../server/query/statistic.query';
 
 export const queryForFilterImagesSchema = z.object({
   page: z.string().transform((value) => Number(value)),
@@ -40,6 +40,7 @@ const apiRoute = nextConnect<NextApiRequest, NextApiResponse>({
 
 apiRoute.get(async (req, res) => {
   await addRequest();
+
   const parameters: queryForFilterImagesSchemaType =
     queryForFilterImagesSchema.parse(req.query);
 

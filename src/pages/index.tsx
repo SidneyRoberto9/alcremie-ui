@@ -5,8 +5,8 @@ import { StatisticsData } from '../@types/api/status';
 import { Content } from '../components/Content';
 import { MainHome } from '../components/Home/MainHome';
 import { Statistics } from '../components/Home/Statistics';
-import { getRandomImage } from '../server/query/image-query';
-import { getStatistics } from '../server/query/statistic-query';
+import { getRandomImage } from '../server/query/image.query';
+import { getStatistics } from '../server/query/statistic.query';
 import { statisticsToDto } from '../utils/converter-data';
 
 interface RandomImageData {

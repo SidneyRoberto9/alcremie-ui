@@ -11,7 +11,7 @@ import { queryForFilterImagesSchemaType } from '../../pages/api/img/[page]';
 import { imageToDto } from '../../utils/converter-data';
 import { isEmpty } from '../../utils/valitation';
 import { prisma } from '../prisma';
-import { getTagById } from './tag-query';
+import { getTagById } from './tag.query';
 
 export async function getImages(
   includedTags: string,

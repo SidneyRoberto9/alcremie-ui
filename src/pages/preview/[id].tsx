@@ -4,7 +4,7 @@ import { NextSeo } from 'next-seo';
 
 import { ImageProps } from '../../@types/api/img';
 import { Content } from '../../components/Content';
-import { getImageById } from '../../server/query/image-query';
+import { getImageById } from '../../server/query/image.query';
 
 interface PreviewProps {
   image: ImageProps;
