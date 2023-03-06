@@ -9,7 +9,7 @@ import { createNewTag, getTagsBySize } from '../../../server/query/tag-query';
 const CreateNewTagSchema = z.object({
   name: z.string().min(1),
   description: z.string().min(1),
-  is_nsfw: z.string().transform((value) => value === 'true'),
+  is_nsfw: z.boolean(),
 });
 
 const apiRoute = nextConnect<NextApiRequest, NextApiResponse>({
