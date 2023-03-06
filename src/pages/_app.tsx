@@ -4,15 +4,14 @@ import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 
 import { Header } from '../components/Header/Header';
-import { LoadingPage } from '../components/LoadingPage';
 import { Nav } from '../components/NavBar/Nav';
+import { LoadingScreen } from '../components/Screens/LoadingScreen';
 import { GalleryProvider } from '../context/useGallery';
 import { NavProvider } from '../context/useNav';
 import { TagsContextProvider } from '../context/useTags';
 import { theme } from '../styles/theme';
 
 import type { AppProps } from 'next/app';
-
 export default function App({
   Component,
   pageProps: { session, ...pageProps },
@@ -43,7 +42,7 @@ export default function App({
   return (
     <ChakraProvider theme={theme} portalZIndex={11}>
       <SessionProvider session={session}>
-        <LoadingPage isLoading={isLoading} />
+        <LoadingScreen isLoading={isLoading} />
         <GalleryProvider>
           <TagsContextProvider>
             <NavProvider>

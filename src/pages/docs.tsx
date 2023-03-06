@@ -1,7 +1,7 @@
 import { NextSeo } from 'next-seo';
 
 import { Content } from '../components/Content';
-import { InProgress } from '../components/InProgress';
+import { InProgressScreen } from '../components/Screens/InProgressScreen';
 
 export default function Docs() {
   return (
@@ -9,7 +9,7 @@ export default function Docs() {
       <NextSeo title="Docs | Alcremie" />
 
       <Content>
-        <InProgress />
+        <InProgressScreen />
       </Content>
     </>
   );
