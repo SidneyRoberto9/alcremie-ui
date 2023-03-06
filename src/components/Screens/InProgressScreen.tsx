@@ -1,9 +1,9 @@
 import { Box, Flex } from '@chakra-ui/react';
 import { Barricade } from 'phosphor-react';
 
-import { TextTitle } from './TextTitle';
+import { TextTitle } from '../TextTitle';
 
-export function InProgress() {
+export function InProgressScreen() {
   return (
     <Box
       position={'absolute'}

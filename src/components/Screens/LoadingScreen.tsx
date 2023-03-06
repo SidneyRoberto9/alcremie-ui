@@ -1,10 +1,10 @@
 import { Box, CircularProgress } from '@chakra-ui/react';
 
-interface LoadingPageProps {
+interface LoadingScreenProps {
   isLoading: boolean;
 }
 
-export function LoadingPage({ isLoading }: LoadingPageProps) {
+export function LoadingScreen({ isLoading }: LoadingScreenProps) {
   if (isLoading) {
     return (
       <Box
