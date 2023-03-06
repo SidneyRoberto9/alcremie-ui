@@ -15,6 +15,7 @@ import {
   ModalOverlay,
   Text,
   Textarea,
+  useToast,
 } from '@chakra-ui/react';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
@@ -46,11 +47,19 @@ export function AddModal({ isOpen, onClose }: AddModalProps) {
   });
 
   const { createTag } = useTags();
+  const toast = useToast();
 
   async function handleCreateTag({ name, nsfw, description }: CreateTagSchema) {
     await createTag(name, description, nsfw);
     reset();
     onClose();
+    toast({
+      title: 'Tag created!',
+      description: 'The tag was created successfully.',
+      status: 'success',
+      duration: 3500,
+      isClosable: true,
+    });
   }
 
   function handleClose() {

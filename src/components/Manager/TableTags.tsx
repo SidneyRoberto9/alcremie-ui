@@ -9,6 +9,7 @@ import {
   Th,
   Thead,
   Tr,
+  useToast,
 } from '@chakra-ui/react';
 import { Check, Trash, X } from 'phosphor-react';
 
@@ -22,9 +23,17 @@ interface TableDataProps {
 
 export function TableTags({ data }: TableDataProps) {
   const { deleteTag, isLoading } = useTags();
+  const toast = useToast();
 
   async function handleDeleteTagById(id: string) {
     await deleteTag(id);
+    toast({
+      title: 'Tag deleted!',
+      description: 'The tag was deleted successfully.',
+      status: 'success',
+      duration: 3500,
+      isClosable: true,
+    });
   }
 
   return isLoading ? (
@@ -59,7 +68,7 @@ export function TableTags({ data }: TableDataProps) {
           {data.map(({ id, name, description, is_nsfw }) => (
             <Tr key={id}>
               <Td>{Capitalize(name)}</Td>
-              <Td>{description}</Td>
+              <Td textOverflow={'ellipsis'}>{description}</Td>
               <Td>
                 <Button
                   isDisabled={true}

@@ -7,6 +7,7 @@ import {
   InputGroup,
   InputLeftAddon,
   Text,
+  useToast,
 } from '@chakra-ui/react';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useRouter } from 'next/router';
@@ -27,7 +28,7 @@ interface OptionType {
 const uploadSchema = z.object({
   source: z.string(),
   file: z.any(),
-  nsfw: z.boolean().optional().default(false),
+  nsfw: z.boolean().default(false),
 });
 
 type UploadSchema = z.infer<typeof uploadSchema>;
@@ -42,6 +43,7 @@ export function FormUpload() {
   });
   const router = useRouter();
   const { data } = useTags();
+  const toast = useToast();
 
   const selectedRef = useRef<any>(null);
 
@@ -60,7 +62,7 @@ export function FormUpload() {
 
     const document = {
       source,
-      nsfw,
+      is_nsfw: nsfw,
       tags,
     };
 
@@ -74,7 +76,23 @@ export function FormUpload() {
           'Content-Type': 'multipart/form-data',
         },
       })
+      .catch((err) => {
+        toast({
+          title: 'Image not uploaded!',
+          description: 'The image was not uploaded successfully.',
+          status: 'error',
+          duration: 3500,
+          isClosable: true,
+        });
+      })
       .then(() => {
+        toast({
+          title: 'Image uploaded!',
+          description: 'The image was uploaded successfully.',
+          status: 'success',
+          duration: 3500,
+          isClosable: true,
+        });
         router.replace('/recent');
       });
   }
@@ -163,7 +181,12 @@ export function FormUpload() {
           )}
 
           <Flex width={'100%'} justifyContent={'flex-end'}>
-            <Button type="submit" variant={'default'} isDisabled={isSubmitting}>
+            <Button
+              type="submit"
+              variant={'default'}
+              isDisabled={isSubmitting}
+              isLoading={isSubmitting}
+            >
               Upload
             </Button>
           </Flex>
