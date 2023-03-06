@@ -12,8 +12,8 @@ import { NextSeo } from 'next-seo';
 import { ChangeEvent, useEffect, useState } from 'react';
 
 import { Content } from '../../components/Content';
-import { TableTags } from '../../components/Manager';
 import { AddModal } from '../../components/Manager/AddModal';
+import { TableTags } from '../../components/Manager/TableTags';
 import { useTags } from '../../context/useTags';
 
 export default function Manager() {

@@ -85,6 +85,7 @@ export function Header() {
           colorScheme={'green'}
           mr={'2rem'}
           my={'0.3rem'}
+          borderWidth={'2px'}
           isLoading={isSessionLoading}
         >
           {isSignedIn ? 'Logout' : 'Login'}

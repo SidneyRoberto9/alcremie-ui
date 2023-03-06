@@ -40,7 +40,7 @@ const routes: routesProps[] = [
   {
     path: '/tag/manager',
     icon: <AppWindow size={35} />,
-    name: 'tag manager',
+    name: 'manager',
     isAdmin: true,
   },
 ];

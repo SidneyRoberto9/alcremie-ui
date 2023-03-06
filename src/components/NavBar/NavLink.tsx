@@ -13,12 +13,14 @@ interface NavLinkProps {
 
 export function NavLink({ path, name, icon, isAdmin }: NavLinkProps) {
   const { data, status } = useSession();
+  const { toggleNav, isOpen } = useNav();
+  const router = useRouter();
 
   const isSignedIn = status === 'authenticated';
   const isAdminUser = data?.user.isAdmin;
 
-  const router = useRouter();
-  const { toggleNav, isOpen } = useNav();
+  const pathLength = router.pathname.split('/')?.length;
+  const lastPathName = router.pathname.split('/')[pathLength - 1];
 
   function handleNavigate() {
     if (isOpen) {
@@ -31,7 +33,7 @@ export function NavLink({ path, name, icon, isAdmin }: NavLinkProps) {
   function onValidateRoutePath() {
     if (
       (router.pathname == '/' && name == 'home') ||
-      router.pathname.includes(name)
+      lastPathName.includes(name)
     ) {
       return 'gray.500';
     }
