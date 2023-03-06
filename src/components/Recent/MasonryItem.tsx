@@ -19,6 +19,7 @@ export function MasonryItem({ id, url }: MasonryItemProps) {
       display={'block'}
       loading={'lazy'}
       fit={'cover'}
+      cursor={'pointer'}
       alt={id}
       src={url}
       onClick={handleOpenNewTab}
