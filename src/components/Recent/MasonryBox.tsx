@@ -4,6 +4,7 @@ import { useContextSelector } from 'use-context-selector';
 import { ImageDto } from '../../@types/api/img';
 import { galleryContext } from '../../context/useGallery';
 import { LoadingSpinner } from '../LoadingSpinner';
+import { NoContentScreen } from '../Screens/NoContentScreen';
 import { MasonryItem } from './MasonryItem';
 
 const Breakpoints = {
@@ -45,8 +46,8 @@ export function MasonryBox({ data = null }: MasonryBoxProps) {
     );
   }
 
-  if (data == null) {
-    return <LoadingSpinner />;
+  if (data.length == 0) {
+    return <NoContentScreen />;
   }
 
   return (
