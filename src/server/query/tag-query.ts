@@ -10,12 +10,19 @@ export async function getTagById(id: string) {
 }
 
 export async function getAllTags() {
-  return await prisma.tag.findMany();
+  return await prisma.tag.findMany({
+    orderBy: {
+      name: 'asc',
+    },
+  });
 }
 
 export async function getTagsBySize(size: number = 10) {
   return await prisma.tag.findMany({
     take: size,
+    orderBy: {
+      name: 'asc',
+    },
   });
 }
 
@@ -25,6 +32,14 @@ export async function createNewTag(data: createTagDto) {
       name: data.name,
       description: data.description,
       is_nsfw: data.is_nsfw,
+    },
+  });
+}
+
+export async function deleteTag(id: string) {
+  return await prisma.tag.delete({
+    where: {
+      id: id,
     },
   });
 }
