@@ -7,11 +7,12 @@ import { useNav } from '../../context/useNav';
 interface NavLinkProps {
   path: string;
   name: string;
+  label: string;
   icon: JSX.Element;
   isAdmin: boolean;
 }
 
-export function NavLink({ path, name, icon, isAdmin }: NavLinkProps) {
+export function NavLink({ path, name, icon, isAdmin, label }: NavLinkProps) {
   const { data, status } = useSession();
   const { toggleNav, isOpen } = useNav();
   const router = useRouter();
@@ -69,7 +70,7 @@ export function NavLink({ path, name, icon, isAdmin }: NavLinkProps) {
         }}
       >
         {icon}
-        {name}
+        {label}
       </Text>
     ) : null;
   }
