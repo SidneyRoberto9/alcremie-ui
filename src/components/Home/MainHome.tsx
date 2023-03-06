@@ -121,6 +121,8 @@ export function MainHome({ image, imageId }: MainHomeProps) {
           <Image
             onClick={handleOpenImage}
             src={image}
+            fallbackSrc={'/unset.png'}
+            fallbackStrategy={'onError'}
             w={'100%'}
             h={'100%'}
             objectFit={'cover'}
