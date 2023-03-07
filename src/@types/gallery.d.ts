@@ -14,9 +14,13 @@ export interface ImageData {
   tags: Tag[];
 }
 
-export interface Tag {
-  id: string;
-  name: string;
-  description: string;
+export interface SelectOption {
+  value: string | number;
+  label: string;
+}
+
+export interface GetGalleryDataParams {
+  all: boolean;
+  included_tags: string;
   is_nsfw: boolean;
 }
