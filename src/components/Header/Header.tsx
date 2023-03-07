@@ -43,27 +43,29 @@ export function Header() {
       alignItems={'center'}
       justifyContent={'space-between'}
     >
-      <Button
-        display={'flex'}
-        alignItems={'center'}
-        justifyContent={'center'}
-        p={'0.5rem'}
-        margin={'0 1rem'}
-        cursor={'pointer'}
-        border={'2px solid gray.500'}
-        bg={'gray.600'}
-        borderRadius={'4px'}
-        transition={'filter 250ms ease-in-out'}
-        _hover={{
-          filter: 'brightness(0.8)',
-        }}
-        _active={{
-          filter: 'brightness(0.8)',
-        }}
-        onClick={handleOpenNav}
-      >
-        <List size={30} weight="regular" />
-      </Button>
+      <Flex gap={2} margin={'0 0.12rem'}>
+        <Button
+          display={'flex'}
+          alignItems={'center'}
+          justifyContent={'center'}
+          p={'0.5rem'}
+          margin={'0.46rem 1rem'}
+          cursor={'pointer'}
+          border={'2px solid gray.500'}
+          bg={'gray.600'}
+          borderRadius={'4px'}
+          transition={'filter 250ms ease-in-out'}
+          _hover={{
+            filter: 'brightness(0.8)',
+          }}
+          _active={{
+            filter: 'brightness(0.8)',
+          }}
+          onClick={handleOpenNav}
+        >
+          <List size={30} weight="regular" />
+        </Button>
+      </Flex>
 
       <Flex gap={2} margin={'0 0.12rem'}>
         {isSignedIn && isPreviewPage && (
@@ -73,8 +75,6 @@ export function Header() {
           />
         )}
 
-        {isRecentPage && <FilterTags />}
-
         <Box p={'0.7rem'} hidden={isSessionLoading}>
           {isSignedIn ? (
             <Avatar src={data?.user.avatar_url || '/logo.png'} />
@@ -82,6 +82,8 @@ export function Header() {
             <Avatar src="/logo.png" />
           )}
         </Box>
+
+        {isRecentPage && <FilterTags />}
 
         <Button
           onClick={isSignedIn ? handleLogout : handleLogin}
