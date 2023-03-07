@@ -6,6 +6,7 @@ import { List } from 'phosphor-react';
 import { useNav } from '../../context/useNav';
 import { Avatar } from './Avatar';
 import { FavoriteButton } from './FavoriteButton';
+import { FilterTags } from './FilterTags';
 
 export function Header() {
   const { isOpen, toggleNav } = useNav();
@@ -16,6 +17,7 @@ export function Header() {
   const isSignedIn = status === 'authenticated';
   const isSessionLoading = status === 'loading';
   const isPreviewPage = router.pathname.includes('preview');
+  const isRecentPage = router.pathname.includes('recent');
 
   async function handleLogin() {
     await signIn('google');
@@ -70,6 +72,8 @@ export function Header() {
             userId={String(data?.user.id)}
           />
         )}
+
+        {isRecentPage && <FilterTags />}
 
         <Box p={'0.7rem'} hidden={isSessionLoading}>
           {isSignedIn ? (
