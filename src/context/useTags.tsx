@@ -1,7 +1,7 @@
 import { createContext, ReactNode, useContext, useState } from 'react';
 import { useEffect } from 'react';
 
-import { Tag } from '../@types/gallery';
+import { Tag } from '../@types/api/tag';
 import { api } from '../server/api';
 
 interface TagsProps {
