@@ -1,11 +1,12 @@
 import { Dispatch, ReactNode, SetStateAction, useState } from 'react';
 import { createContext } from 'use-context-selector';
 
-import { GalleryFetchDataResponse, ImageData } from '../@types/gallery';
+import { GalleryFetchDataResponse, GetGalleryDataParams, ImageData } from '../@types/gallery';
 import { api } from '../server/api';
 
 interface GalleryContextProps {
   content: ImageData[] | null;
+
   pageNumber: number;
   pageSize: number;
   contentTotalSize: number;
@@ -13,6 +14,10 @@ interface GalleryContextProps {
   onNextPage: () => void;
   onPreviousPage: () => void;
   setContent: Dispatch<SetStateAction<GalleryFetchDataResponse>>;
+  getGalleryData: (
+    pageNumber: number,
+    params?: GetGalleryDataParams,
+  ) => Promise<void>;
 }
 
 interface ContextProps {
@@ -29,9 +34,20 @@ export function GalleryProvider({ children }: ContextProps) {
   const [page, setPage] = useState(0);
   const [isLoading, setIsLoading] = useState(false);
 
-  async function getGalleryData(pageNumber: number) {
+  async function getGalleryData(
+    pageNumber: number,
+    params?: GetGalleryDataParams,
+  ) {
     setIsLoading(true);
-    const { data } = await api.get(`/img/${pageNumber}?all=true`);
+    const { data } = await api.get(`/img/${pageNumber}`, {
+      params: {
+        all: false,
+        pageSize: 25,
+        included_tags: '',
+        is_nsfw: false,
+        ...params,
+      },
+    });
 
     setResponseData(data);
     setIsLoading(false);
@@ -57,6 +73,7 @@ export function GalleryProvider({ children }: ContextProps) {
         isLoading,
         onNextPage,
         onPreviousPage,
+        getGalleryData,
         setContent: setResponseData,
       }}
     >
