@@ -31,8 +31,12 @@ export function MasonryBox({ data = null }: MasonryBoxProps) {
       }),
     );
 
-    if (content == null || isLoading) {
+    if (isLoading) {
       return <LoadingSpinner />;
+    }
+
+    if (content?.length == 0 || content == null) {
+      return <NoContentScreen />;
     }
 
     return (
