@@ -25,9 +25,10 @@ export function buildNextAuthOptions(
         },
         profile: (profile: GoogleProfile) => {
           return {
+            favorites: [],
+            isAdmin: false,
             id: profile.sub,
             name: profile.name,
-            username: '',
             email: profile.email,
             avatar_url: profile.picture,
           };
