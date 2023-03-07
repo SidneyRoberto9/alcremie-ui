@@ -1,10 +1,11 @@
-import { Box } from '@chakra-ui/react';
-import reactSelect from 'react-select';
+import ReactSelect from 'react-select';
 import { useContextSelector } from 'use-context-selector';
 
 import { GetGalleryDataParams, SelectOption } from '../../@types/gallery';
 import { galleryContext } from '../../context/useGallery';
 import { useTags } from '../../context/useTags';
+import { selectTagStyle } from '../../styles/react-select-tag';
+import { Capitalize } from '../../utils/captalize';
 
 export function FilterTags() {
   const getGalleryData = useContextSelector(
@@ -13,12 +14,14 @@ export function FilterTags() {
   );
   const { data } = useTags();
 
-  const options: SelectOption[] = data.map((tag) => {
-    return { value: tag.id, label: tag.name };
-  });
+  const options: SelectOption[] = [
+    { value: 0, label: 'All' },
+    { value: 1, label: 'NSFW' },
+  ];
 
-  options.push({ value: 0, label: 'All' });
-  options.push({ value: 1, label: 'NSFW' });
+  data.forEach((tag) =>
+    options.push({ value: tag.id, label: Capitalize(tag.name) }),
+  );
 
   async function handleChange(props: any) {
     const value = props?.value || false;
@@ -41,14 +44,10 @@ export function FilterTags() {
   }
 
   return (
-    <Box
+    <ReactSelect
       id={'select-box'}
       instanceId={'select-box'}
-      as={reactSelect}
-      display={'inline-block'}
-      color={'gray.900'}
-      w={'12rem'}
-      p={'0.44rem'}
+      styles={selectTagStyle}
       onChange={handleChange}
       isClearable={true}
       options={options}
