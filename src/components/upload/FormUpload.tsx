@@ -1,14 +1,4 @@
-import {
-  Box,
-  Button,
-  Checkbox,
-  Flex,
-  Input,
-  InputGroup,
-  InputLeftAddon,
-  Text,
-  useToast,
-} from '@chakra-ui/react';
+import { Box, Button, Checkbox, Flex, Input, InputGroup, InputLeftAddon, Text, useToast } from '@chakra-ui/react';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useRouter } from 'next/router';
 import { useRef } from 'react';
@@ -16,14 +6,10 @@ import { useForm } from 'react-hook-form';
 import ReactSelect from 'react-select';
 import { z } from 'zod';
 
+import { SelectOption } from '../../@types/gallery';
 import { useTags } from '../../context/useTags';
 import { api } from '../../server/api';
 import { TextTitle } from '../TextTitle';
-
-interface OptionType {
-  value: string;
-  label: string;
-}
 
 const uploadSchema = z.object({
   source: z.string(),
@@ -47,12 +33,12 @@ export function FormUpload() {
 
   const selectedRef = useRef<any>(null);
 
-  const options: OptionType[] = data.map((tag) => {
+  const options: SelectOption[] = data.map((tag) => {
     return { value: tag.id, label: tag.name };
   });
 
   async function handleUpload(data: UploadSchema) {
-    const tags = selectedRef.current.getValue().map((tag: OptionType) => {
+    const tags = selectedRef.current.getValue().map((tag: SelectOption) => {
       return {
         id: tag.value,
       };
