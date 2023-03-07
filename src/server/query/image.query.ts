@@ -8,8 +8,7 @@ import {
   ImageDto,
   ImageProps,
 } from '../../@types/api/img';
-import { TagIds, TagProps } from '../../@types/api/tag';
-import { Tag } from '../../@types/gallery';
+import { Tag, TagIds, TagProps } from '../../@types/api/tag';
 import { queryForFilterImagesSchemaType } from '../../pages/api/img/[page]';
 import { imageToDto, imageToDtoWithoutTags } from '../../utils/converter-data';
 import { isEmpty } from '../../utils/valitation';
