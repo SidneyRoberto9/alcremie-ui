@@ -26,6 +26,16 @@ export async function getTagsBySize(size: number = 10) {
   });
 }
 
+export async function getTagByIdList(idList: string[]) {
+  return await prisma.tag.findMany({
+    where: {
+      id: {
+        in: idList,
+      },
+    },
+  });
+}
+
 export async function createNewTag(data: createTagDto) {
   return await prisma.tag.create({
     data: {

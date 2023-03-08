@@ -73,6 +73,9 @@ export async function getImageById(id: string) {
     where: {
       id,
     },
+    include: {
+      ImageTag: true,
+    },
   });
 }
 
