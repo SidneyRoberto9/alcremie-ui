@@ -9,15 +9,32 @@ import {
 import { GetServerSideProps } from 'next';
 import { getSession } from 'next-auth/react';
 import { NextSeo } from 'next-seo';
-import { ChangeEvent, useEffect, useState } from 'react';
+import { ChangeEvent } from 'react';
+import { useContextSelector } from 'use-context-selector';
 
+import { Tag } from '../../@types/api/tag';
 import { Content } from '../../components/Content';
 import { AddModal } from '../../components/Manager/AddModal';
 import { TableTags } from '../../components/Manager/TableTags';
-import { useTags } from '../../context/useTags';
+import { tagsContext } from '../../context/useTags';
+import { getAllTags } from '../../server/query/tag.query';
 
-export default function Manager() {
-  const { getTags, data, filterTag } = useTags();
+interface ManagerProps {
+  tags: Tag[];
+}
+
+export default function Manager({ tags }: ManagerProps) {
+  const { filterTag, setTags, data } = useContextSelector(
+    tagsContext,
+    ({ data, filterTag, setTags }) => ({
+      data,
+      filterTag,
+      setTags,
+    }),
+  );
+
+  setTags(tags);
+
   const { isOpen, onOpen, onClose } = useDisclosure();
 
   function handleSearch(e: ChangeEvent<HTMLInputElement>) {
@@ -25,10 +42,6 @@ export default function Manager() {
 
     filterTag(search);
   }
-
-  useEffect(() => {
-    getTags();
-  }, []);
 
   return (
     <>
@@ -88,7 +101,11 @@ export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
     };
   }
 
+  const tags = await getAllTags();
+
   return {
-    props: {},
+    props: {
+      tags,
+    },
   };
 };

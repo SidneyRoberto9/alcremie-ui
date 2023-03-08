@@ -19,9 +19,10 @@ import {
 } from '@chakra-ui/react';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
+import { useContextSelector } from 'use-context-selector';
 import { z } from 'zod';
 
-import { useTags } from '../../context/useTags';
+import { tagsContext } from '../../context/useTags';
 
 interface AddModalProps {
   isOpen: boolean;
@@ -46,7 +47,11 @@ export function AddModal({ isOpen, onClose }: AddModalProps) {
     resolver: zodResolver(createTagSchema),
   });
 
-  const { createTag } = useTags();
+  const createTag = useContextSelector(
+    tagsContext,
+    ({ createTag }) => createTag,
+  );
+
   const toast = useToast();
 
   async function handleCreateTag({ name, nsfw, description }: CreateTagSchema) {

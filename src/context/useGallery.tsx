@@ -1,12 +1,15 @@
 import { Dispatch, ReactNode, SetStateAction, useState } from 'react';
 import { createContext } from 'use-context-selector';
 
-import { GalleryFetchDataResponse, GetGalleryDataParams, ImageData } from '../@types/gallery';
+import {
+  GalleryFetchDataResponse,
+  GetGalleryDataParams,
+  ImageData,
+} from '../@types/gallery';
 import { api } from '../server/api';
 
 interface GalleryContextProps {
   content: ImageData[] | null;
-
   pageNumber: number;
   pageSize: number;
   contentTotalSize: number;

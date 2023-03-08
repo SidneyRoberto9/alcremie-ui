@@ -12,9 +12,10 @@ import {
   useToast,
 } from '@chakra-ui/react';
 import { Check, Trash, X } from 'phosphor-react';
+import { useContextSelector } from 'use-context-selector';
 
 import { TagProps } from '../../@types/api/tag';
-import { useTags } from '../../context/useTags';
+import { tagsContext } from '../../context/useTags';
 import { Capitalize } from '../../utils/captalize';
 
 interface TableDataProps {
@@ -22,7 +23,11 @@ interface TableDataProps {
 }
 
 export function TableTags({ data }: TableDataProps) {
-  const { deleteTag, isLoading } = useTags();
+  const { deleteTag, isLoading } = useContextSelector(
+    tagsContext,
+    ({ isLoading, deleteTag }) => ({ isLoading, deleteTag }),
+  );
+
   const toast = useToast();
 
   async function handleDeleteTagById(id: string) {

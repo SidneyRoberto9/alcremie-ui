@@ -3,7 +3,7 @@ import { useContextSelector } from 'use-context-selector';
 
 import { GetGalleryDataParams, SelectOption } from '../../@types/gallery';
 import { galleryContext } from '../../context/useGallery';
-import { useTags } from '../../context/useTags';
+import { tagsContext } from '../../context/useTags';
 import { selectTagStyle } from '../../styles/react-select-tag';
 import { Capitalize } from '../../utils/captalize';
 
@@ -12,7 +12,8 @@ export function FilterTags() {
     galleryContext,
     ({ getGalleryData }) => getGalleryData,
   );
-  const { data } = useTags();
+
+  const data = useContextSelector(tagsContext, ({ data }) => data);
 
   const options: SelectOption[] = [
     { value: 0, label: 'All' },

@@ -4,7 +4,11 @@ import { z } from 'zod';
 
 import { TagProps } from '../../../@types/api/tag';
 import { addNewTag, addRequest } from '../../../server/query/statistic.query';
-import { createNewTag, getTagsBySize } from '../../../server/query/tag.query';
+import {
+  createNewTag,
+  getAllTags,
+  getTagsBySize,
+} from '../../../server/query/tag.query';
 
 const CreateNewTagSchema = z.object({
   name: z.string().min(1),
@@ -31,7 +35,7 @@ apiRoute.get(async (req, res) => {
   if (size) {
     allTags = await getTagsBySize(Number(size));
   } else {
-    allTags = await getTagsBySize();
+    allTags = await getAllTags();
   }
 
   res.status(200).json({ tags: allTags });
