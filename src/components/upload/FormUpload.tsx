@@ -74,33 +74,32 @@ export function FormUpload({ tags }: FormUploadProps) {
     formData.append('picture', file[0]);
     formData.append('document', JSON.stringify(document));
 
-    api
-      .post('/img', formData, {
+    try {
+      await api.post('/img', formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
         },
-      })
-      .catch((err) => {
-        setIsLoadingSubmit(false);
-        toast({
-          title: 'Image not uploaded!',
-          description: 'The image was not uploaded successfully.',
-          status: 'error',
-          duration: 3500,
-          isClosable: true,
-        });
-      })
-      .finally(() => {
-        setIsLoadingSubmit(false);
-        toast({
-          title: 'Image uploaded!',
-          description: 'The image was uploaded successfully.',
-          status: 'success',
-          duration: 3500,
-          isClosable: true,
-        });
-        router.replace('/recent');
       });
+
+      setIsLoadingSubmit(false);
+      toast({
+        title: 'Image uploaded!',
+        description: 'The image was uploaded successfully.',
+        status: 'success',
+        duration: 3500,
+        isClosable: true,
+      });
+      router.replace('/recent');
+    } catch (error) {
+      setIsLoadingSubmit(false);
+      toast({
+        title: 'Image not uploaded!',
+        description: 'The image was not uploaded successfully.',
+        status: 'error',
+        duration: 3500,
+        isClosable: true,
+      });
+    }
   }
 
   return (

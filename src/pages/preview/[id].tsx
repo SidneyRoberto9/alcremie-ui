@@ -2,15 +2,15 @@ import { Box, Flex, Image } from '@chakra-ui/react';
 import { GetServerSideProps } from 'next';
 import { NextSeo } from 'next-seo';
 
-import { ImageDto } from '../../@types/api/img';
+import { ImageDtoWithTags } from '../../@types/api/img';
 import { Content } from '../../components/Content';
 import { TagButton } from '../../components/TagButton';
 import { getImageById } from '../../server/query/image.query';
 import { getTagByIdList } from '../../server/query/tag.query';
-import { imageToDto } from '../../utils/converter-data';
+import { imageToDtoWithTags } from '../../utils/converter-data';
 
 interface PreviewProps {
-  image: ImageDto;
+  image: ImageDtoWithTags;
 }
 
 export default function Preview({ image }: PreviewProps) {
@@ -84,10 +84,10 @@ export const getServerSideProps: GetServerSideProps = async ({ params }) => {
     };
   }
 
-  const { ImageTag, ...image } = ImgData;
-  const tagIdList = ImageTag.map((tag) => tag.tagId);
-  const tags = await getTagByIdList(tagIdList);
-  const returnedImage = imageToDto(image, tags);
+  const { tags, ...image } = ImgData;
+
+  const tagsData = await getTagByIdList(tags);
+  const returnedImage = imageToDtoWithTags(ImgData, tagsData);
 
   return {
     props: {

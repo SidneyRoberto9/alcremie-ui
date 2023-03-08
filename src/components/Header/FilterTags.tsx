@@ -14,10 +14,7 @@ export function FilterTags() {
     ({ getGalleryData }) => getGalleryData,
   );
 
-  const { data, getTags } = useContextSelector(
-    tagsContext,
-    ({ data, getTags }) => ({ data, getTags }),
-  );
+  const data = useContextSelector(tagsContext, ({ data }) => data);
 
   const options: SelectOption[] = [
     { value: 0, label: 'All' },
@@ -41,15 +38,11 @@ export function FilterTags() {
     const params: GetGalleryDataParams = {
       all: isFilter.isAll ? true : false,
       is_nsfw: isFilter.isNsfw ? true : false,
-      included_tags: isFilter.isTag ? label : '',
+      included_tags: isFilter.isTag ? label.toLowerCase() : '',
     };
 
     await getGalleryData(0, params);
   }
-
-  useEffect(() => {
-    getTags();
-  }, []);
 
   return (
     <ReactSelect
