@@ -18,6 +18,7 @@ export function Header() {
   const isSessionLoading = status === 'loading';
   const isPreviewPage = router.pathname.includes('preview');
   const isRecentPage = router.pathname.includes('recent');
+  const isRecentPageWithSearch = router.query.include_tags !== undefined;
 
   async function handleLogin() {
     await signIn('google');
@@ -68,13 +69,6 @@ export function Header() {
       </Flex>
 
       <Flex gap={2} margin={'0 0.12rem'}>
-        {isSignedIn && isPreviewPage && (
-          <FavoriteButton
-            imageId={String(router.query.id)}
-            userId={String(data?.user.id)}
-          />
-        )}
-
         <Box p={'0.7rem'} hidden={isSessionLoading}>
           {isSignedIn ? (
             <Avatar src={data?.user.avatar_url || '/logo.png'} />
@@ -83,7 +77,14 @@ export function Header() {
           )}
         </Box>
 
-        {isRecentPage && <FilterTags />}
+        {isRecentPage && !isRecentPageWithSearch && <FilterTags />}
+
+        {isSignedIn && isPreviewPage && (
+          <FavoriteButton
+            imageId={String(router.query.id)}
+            userId={String(data?.user.id)}
+          />
+        )}
 
         <Button
           onClick={isSignedIn ? handleLogout : handleLogin}
