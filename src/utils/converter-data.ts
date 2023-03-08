@@ -1,10 +1,10 @@
 import { Image } from '@prisma/client';
 
-import { ImageDto } from '../@types/api/img';
+import { ImageDto, ImageDtoWithTags } from '../@types/api/img';
 import { Statistics, StatisticsDto } from '../@types/api/status';
-import { TagProps } from '../@types/api/tag';
+import { Tag } from '../@types/api/tag';
 
-export function imageToDto(image: Image, tags: TagProps[]) {
+export function imageToDto(image: Image) {
   const imageDto: ImageDto = {
     id: image.id,
     isNsfw: image.isNsfw,
@@ -12,20 +12,21 @@ export function imageToDto(image: Image, tags: TagProps[]) {
     imgurId: image.imgurId,
     imgurDeleteHash: image.imgurDeleteHash,
     imgurUrl: image.imgurUrl,
-    tags: tags.sort((a, b) => a.name.localeCompare(b.name)),
+    tags: image.tags,
   };
 
   return imageDto;
 }
 
-export function imageToDtoWithoutTags(images: Image) {
-  const imageDto: Omit<ImageDto, 'tags'> = {
-    id: images.id,
-    isNsfw: images.isNsfw,
-    source: images.source,
-    imgurId: images.imgurId,
-    imgurDeleteHash: images.imgurDeleteHash,
-    imgurUrl: images.imgurUrl,
+export function imageToDtoWithTags(image: Image, tags: Tag[]) {
+  const imageDto: ImageDtoWithTags = {
+    id: image.id,
+    isNsfw: image.isNsfw,
+    source: image.source,
+    imgurId: image.imgurId,
+    imgurDeleteHash: image.imgurDeleteHash,
+    imgurUrl: image.imgurUrl,
+    tags: tags,
   };
 
   return imageDto;
