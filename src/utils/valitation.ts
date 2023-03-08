@@ -5,6 +5,7 @@ export function isEmpty(value: unknown): boolean {
     value === '' ||
     value === false ||
     value === 'undefined' ||
-    value === 'null'
+    value === 'null' ||
+    value === ' '
   );
 }

@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import ReactSelect from 'react-select';
 import { useContextSelector } from 'use-context-selector';
 
@@ -13,7 +14,10 @@ export function FilterTags() {
     ({ getGalleryData }) => getGalleryData,
   );
 
-  const data = useContextSelector(tagsContext, ({ data }) => data);
+  const { data, getTags } = useContextSelector(
+    tagsContext,
+    ({ data, getTags }) => ({ data, getTags }),
+  );
 
   const options: SelectOption[] = [
     { value: 0, label: 'All' },
@@ -42,6 +46,10 @@ export function FilterTags() {
 
     await getGalleryData(0, params);
   }
+
+  useEffect(() => {
+    getTags();
+  }, []);
 
   return (
     <ReactSelect
