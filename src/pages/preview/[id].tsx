@@ -48,13 +48,18 @@ export default function Preview({ image }: PreviewProps) {
             <Flex
               justifyContent={'flex-start'}
               direction={'column'}
-              alignSelf={'flex-start'}
+              alignItems={'flex-start'}
             >
-              <Flex>
+              <Box p={'0 1rem'}>
                 {image.tags.map(({ id, name, description }) => (
-                  <TagButton key={id} tag={name} tooltipLabel={description} />
+                  <TagButton
+                    key={id}
+                    tag={name}
+                    tooltipLabel={description}
+                    m={'0.25rem'}
+                  />
                 ))}
-              </Flex>
+              </Box>
             </Flex>
           </Box>
         </Box>

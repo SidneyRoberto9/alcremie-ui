@@ -1,12 +1,12 @@
-import { Button, Tooltip } from '@chakra-ui/react';
+import { Button, ButtonProps, Tooltip } from '@chakra-ui/react';
 import { useRouter } from 'next/router';
 
-interface TagButtonProps {
+interface TagButtonProps extends ButtonProps {
   tooltipLabel: string;
   tag: string;
 }
 
-export function TagButton({ tooltipLabel, tag }: TagButtonProps) {
+export function TagButton({ tooltipLabel, tag, ...rest }: TagButtonProps) {
   const router = useRouter();
 
   function handleNavigateToTag() {
@@ -23,6 +23,7 @@ export function TagButton({ tooltipLabel, tag }: TagButtonProps) {
       color={'gray.750'}
     >
       <Button
+        {...rest}
         onClick={handleNavigateToTag}
         textTransform={'capitalize'}
         variant={'outline'}
