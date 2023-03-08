@@ -46,11 +46,13 @@ export function FavoriteButton({ imageId, userId }: FavoriteButtonProps) {
       <Button
         onClick={handleFavoriteStatus}
         isLoading={isLoading}
-        my={'0.3rem'}
+        m={'0.3rem'}
+        ml={0}
         variant={'outline'}
         borderRadius={'full'}
-        width={'2.5rem'}
+        borderWidth={'2px'}
         p={0}
+        width={'2.5rem'}
         pt={'0.1rem'}
         colorScheme={isFavorite ? 'whiteAlpha' : 'pink'}
         transition={'all 250ms ease-in-out'}
