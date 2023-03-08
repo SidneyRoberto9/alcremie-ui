@@ -53,3 +53,11 @@ export async function deleteTag(id: string) {
     },
   });
 }
+
+export async function getTagByName(name: string) {
+  return await prisma.tag.findUnique({
+    where: {
+      name: name,
+    },
+  });
+}
