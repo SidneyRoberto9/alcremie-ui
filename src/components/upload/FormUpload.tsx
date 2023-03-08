@@ -11,7 +11,6 @@ import {
   useToast,
 } from '@chakra-ui/react';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { useRouter } from 'next/router';
 import { useRef, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import ReactSelect from 'react-select';
@@ -39,13 +38,13 @@ interface FormUploadProps {
 export function FormUpload({ tags }: FormUploadProps) {
   const {
     register,
+    reset,
     handleSubmit,
-    formState: { isSubmitting, errors },
+    formState: { isSubmitting, errors, isValid },
   } = useForm<UploadSchema>({
     resolver: zodResolver(uploadSchema),
   });
 
-  const router = useRouter();
   const toast = useToast();
   const selectedRef = useRef<any>(null);
   const [isLoadingSubmit, setIsLoadingSubmit] = useState<boolean>(false);
@@ -82,6 +81,7 @@ export function FormUpload({ tags }: FormUploadProps) {
       });
 
       setIsLoadingSubmit(false);
+      reset();
       toast({
         title: 'Image uploaded!',
         description: 'The image was uploaded successfully.',
@@ -89,7 +89,6 @@ export function FormUpload({ tags }: FormUploadProps) {
         duration: 3500,
         isClosable: true,
       });
-      router.replace('/recent');
     } catch (error) {
       setIsLoadingSubmit(false);
       toast({
