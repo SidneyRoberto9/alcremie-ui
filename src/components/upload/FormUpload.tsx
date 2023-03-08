@@ -182,6 +182,7 @@ export function FormUpload({ tags }: FormUploadProps) {
               placeholder={'Select your tags'}
               ref={selectedRef}
               styles={uploadTagStyle}
+              closeMenuOnSelect={false}
             />
 
             <InputGroup>
