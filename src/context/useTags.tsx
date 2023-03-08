@@ -1,5 +1,5 @@
-import { createContext, ReactNode, useContext, useState } from 'react';
-import { useEffect } from 'react';
+import { ReactNode, useState } from 'react';
+import { createContext } from 'use-context-selector';
 
 import { Tag } from '../@types/api/tag';
 import { api } from '../server/api';
@@ -7,6 +7,7 @@ import { api } from '../server/api';
 interface TagsProps {
   data: Tag[];
   isLoading: boolean;
+  setTags: (tags: Tag[]) => void;
   filterTag: (search: string) => void;
   getTags: () => Promise<void>;
   deleteTag: (id: string) => Promise<void>;
@@ -21,7 +22,7 @@ interface ContextProps {
   children: ReactNode;
 }
 
-const tagsContext = createContext({} as TagsProps);
+export const tagsContext = createContext({} as TagsProps);
 
 export function TagsContextProvider({ children }: ContextProps) {
   const [tags, setTags] = useState<Tag[]>([]);
@@ -62,10 +63,6 @@ export function TagsContextProvider({ children }: ContextProps) {
     await getTags();
   }
 
-  useEffect(() => {
-    getTags();
-  }, []);
-
   return (
     <tagsContext.Provider
       value={{
@@ -75,15 +72,10 @@ export function TagsContextProvider({ children }: ContextProps) {
         createTag,
         deleteTag,
         filterTag,
+        setTags,
       }}
     >
       {children}
     </tagsContext.Provider>
   );
-}
-
-export function useTags() {
-  const context = useContext(tagsContext);
-
-  return context;
 }
