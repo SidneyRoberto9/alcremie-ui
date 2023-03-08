@@ -173,6 +173,8 @@ export function FormUpload({ tags }: FormUploadProps) {
             </InputGroup>
 
             <Box
+              id={'select-box-2'}
+              instanceId={'select-box-2'}
               as={ReactSelect}
               width={'100%'}
               color={'gray.900'}
