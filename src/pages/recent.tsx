@@ -3,26 +3,33 @@ import { NextSeo } from 'next-seo';
 import { useEffect } from 'react';
 import { useContextSelector } from 'use-context-selector';
 
+import { Tag } from '../@types/api/tag';
 import { GalleryFetchDataResponse } from '../@types/gallery';
 import { Content } from '../components/Content';
 import { MasonryBox } from '../components/Recent/MasonryBox';
 import { Pagination } from '../components/Recent/Pagination';
 import { galleryContext } from '../context/useGallery';
+import { tagsContext } from '../context/useTags';
 import { getImagesResponseData } from '../server/query/image.query';
+import { getAllTags } from '../server/query/tag.query';
 import { queryForFilterImagesSchemaType } from './api/img/[page]';
 
 interface RecentProps {
   content: GalleryFetchDataResponse;
+  tags: Tag[];
 }
 
-export default function Recent({ content }: RecentProps) {
+export default function Recent({ content, tags }: RecentProps) {
   const setContent = useContextSelector(
     galleryContext,
     ({ setContent }) => setContent,
   );
 
+  const setTags = useContextSelector(tagsContext, ({ setTags }) => setTags);
+
   useEffect(() => {
     setContent(content);
+    setTags(tags);
   }, []);
 
   return (
@@ -50,7 +57,9 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 
   const data = await getImagesResponseData(parameters);
 
+  const tags = await getAllTags();
+
   return {
-    props: { content: data },
+    props: { content: data, tags },
   };
 };
