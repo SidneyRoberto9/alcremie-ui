@@ -43,11 +43,11 @@ export function Pagination() {
   return (
     <Flex
       position={'fixed'}
-      bottom={'1.25rem'}
-      left={'50%'}
-      width={'15rem'}
-      height={'3rem'}
+      bottom={'2%'}
+      left={'50vw'}
       transform={'translate(-50%, 0%)'}
+      padding={'0.25rem'}
+      height={'3rem'}
       bg={'gray.800'}
       alignItems={'center'}
       justifyContent={'space-between'}
@@ -56,9 +56,8 @@ export function Pagination() {
       <Button
         onClick={onPreviousPage}
         isDisabled={disabledPreviousButton}
-        outline={'none'}
-        border={'none'}
         width={'5.35rem'}
+        minWidth={'5.35rem'}
         borderRadius={'4px'}
         height={'2.35rem'}
         margin={'0.15rem 0.25rem'}
@@ -81,13 +80,15 @@ export function Pagination() {
       </Button>
 
       <Text
-        display={'block'}
+        display={'inline-block'}
         padding={'0.375rem 0.75rem'}
         fontSize={'1.25rem'}
         color={'white.900'}
         lineHeight={'1.5'}
         userSelect={'none'}
         pointerEvents={'none'}
+        minWidth={'3.5rem'}
+        width={'3.5rem'}
       >
         {`${pageNumber}/${totalPages || 1}`}
       </Text>
@@ -95,9 +96,8 @@ export function Pagination() {
       <Button
         onClick={onNextPage}
         isDisabled={disabledNextButton}
-        outline={'none'}
-        border={'none'}
         width={'5.35rem'}
+        minWidth={'5.35rem'}
         borderRadius={'4px'}
         height={'2.35rem'}
         margin={'0.15rem 0.25rem'}
