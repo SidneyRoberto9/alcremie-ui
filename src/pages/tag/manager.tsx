@@ -9,7 +9,7 @@ import {
 import { GetServerSideProps } from 'next';
 import { getSession } from 'next-auth/react';
 import { NextSeo } from 'next-seo';
-import { ChangeEvent } from 'react';
+import { ChangeEvent, useEffect } from 'react';
 import { useContextSelector } from 'use-context-selector';
 
 import { Tag } from '../../@types/api/tag';
@@ -33,8 +33,6 @@ export default function Manager({ tags }: ManagerProps) {
     }),
   );
 
-  setTags(tags);
-
   const { isOpen, onOpen, onClose } = useDisclosure();
 
   function handleSearch(e: ChangeEvent<HTMLInputElement>) {
@@ -42,6 +40,10 @@ export default function Manager({ tags }: ManagerProps) {
 
     filterTag(search);
   }
+
+  useEffect(() => {
+    setTags(tags);
+  }, []);
 
   return (
     <>
