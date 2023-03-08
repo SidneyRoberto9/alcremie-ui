@@ -5,7 +5,7 @@ import { NextSeo } from 'next-seo';
 import { TagProps } from '../../@types/api/tag';
 import { Content } from '../../components/Content';
 import { CollapseItem } from '../../components/Tag/CollapseItem';
-import { TagButton } from '../../components/Tag/TagButton';
+import { TagButton } from '../../components/TagButton';
 import { TextTitle } from '../../components/TextTitle';
 import { getAllTags } from '../../server/query/tag.query';
 
