@@ -14,7 +14,6 @@ interface PreviewProps {
 }
 
 export default function Preview({ image }: PreviewProps) {
-  console.log(image);
   return (
     <>
       <NextSeo title="Preview | Alcremie" />
@@ -34,10 +33,9 @@ export default function Preview({ image }: PreviewProps) {
           }}
           gridTemplateColumns={{ base: '1fr', lg: '350px 1fr' }}
           h={'100%'}
-          gap={'1'}
         >
           <Image
-            padding={'1rem 0'}
+            padding={'1rem'}
             display={'block'}
             width={'auto'}
             src={image.imgurUrl}

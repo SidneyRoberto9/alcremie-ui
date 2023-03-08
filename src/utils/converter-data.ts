@@ -12,7 +12,7 @@ export function imageToDto(image: Image, tags: TagProps[]) {
     imgurId: image.imgurId,
     imgurDeleteHash: image.imgurDeleteHash,
     imgurUrl: image.imgurUrl,
-    tags: tags,
+    tags: tags.sort((a, b) => a.name.localeCompare(b.name)),
   };
 
   return imageDto;
