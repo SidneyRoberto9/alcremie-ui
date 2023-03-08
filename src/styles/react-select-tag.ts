@@ -79,3 +79,84 @@ export const selectTagStyle: StylesConfig<
     color: '#2F855A',
   }),
 };
+
+export const uploadTagStyle: StylesConfig<
+  unknown,
+  boolean,
+  GroupBase<unknown>
+> = {
+  container: (provided) => ({
+    ...provided,
+    width: '10rem',
+    padding: '0.37rem 0.1rem',
+    margin: '0',
+    background: '#272727',
+  }),
+  control: (provided) => ({
+    ...provided,
+    color: '#121214',
+    background: '#272727',
+    boxShadow: 'none',
+    border: '2px solid #e1e1e6',
+    ':hover': {
+      border: '2px solid  #e1e1e6',
+    },
+    ':focus-within': {
+      border: '2px solid  #e1e1e6',
+    },
+    ':focus': {
+      border: '2px solid  #e1e1e6',
+    },
+  }),
+  input: (provided) => ({
+    ...provided,
+    color: '#e1e1e6',
+  }),
+  menu: (provided) => ({
+    ...provided,
+    background: '#272727',
+    color: ' #e1e1e6',
+  }),
+  option: (provided, state) => ({
+    ...provided,
+    background: state.isSelected ? ' #e1e1e6' : '#272727',
+    color: state.isSelected ? '#272727' : ' #e1e1e6',
+    transition: 'all 250ms ease-in-out',
+    ':hover': {
+      background: '#e1e1e6',
+      color: '#272727',
+    },
+  }),
+  placeholder: (provided) => ({
+    ...provided,
+    color: '#e1e1e6',
+  }),
+  clearIndicator: (provided) => ({
+    ...provided,
+    color: '#e1e1e6',
+    transition: 'color 250ms ease-in-out',
+    ':hover': {
+      color: '#121214',
+    },
+  }),
+  dropdownIndicator: (provided) => ({
+    ...provided,
+    color: '#e1e1e6',
+    transition: 'color 250ms ease-in-out',
+    ':hover': {
+      color: '#121214',
+    },
+  }),
+  indicatorSeparator: (provided) => ({
+    ...provided,
+    background: '#e1e1e6',
+    transition: 'background 250ms ease-in-out',
+    ':hover': {
+      background: '#121214',
+    },
+  }),
+  singleValue: (provided) => ({
+    ...provided,
+    color: '#e1e1e6',
+  }),
+};

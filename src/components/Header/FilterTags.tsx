@@ -32,7 +32,6 @@ export function FilterTags() {
       isNsfw: value === 1 || value === '1',
       isTag: value != 0 && value != 1 && value != '0' && value != '1',
     };
-    console.log(isFilter);
 
     const params: GetGalleryDataParams = {
       all: isFilter.isAll ? true : false,

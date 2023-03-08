@@ -19,6 +19,7 @@ import { z } from 'zod';
 import { SelectOption } from '../../@types/gallery';
 import { useTags } from '../../context/useTags';
 import { api } from '../../server/api';
+import { uploadTagStyle } from '../../styles/react-select-tag';
 import { Capitalize } from '../../utils/captalize';
 import { TextTitle } from '../TextTitle';
 
@@ -161,6 +162,7 @@ export function FormUpload() {
             isMulti
             placeholder={'Select your tags'}
             ref={selectedRef}
+            styles={uploadTagStyle}
           />
 
           <InputGroup>
