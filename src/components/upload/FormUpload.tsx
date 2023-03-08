@@ -1,4 +1,14 @@
-import { Box, Button, Checkbox, Flex, Input, InputGroup, InputLeftAddon, Text, useToast } from '@chakra-ui/react';
+import {
+  Box,
+  Button,
+  Checkbox,
+  Flex,
+  Input,
+  InputGroup,
+  InputLeftAddon,
+  Text,
+  useToast,
+} from '@chakra-ui/react';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useRouter } from 'next/router';
 import { useRef } from 'react';
@@ -9,6 +19,7 @@ import { z } from 'zod';
 import { SelectOption } from '../../@types/gallery';
 import { useTags } from '../../context/useTags';
 import { api } from '../../server/api';
+import { Capitalize } from '../../utils/captalize';
 import { TextTitle } from '../TextTitle';
 
 const uploadSchema = z.object({
@@ -34,7 +45,7 @@ export function FormUpload() {
   const selectedRef = useRef<any>(null);
 
   const options: SelectOption[] = data.map((tag) => {
-    return { value: tag.id, label: tag.name };
+    return { value: tag.id, label: Capitalize(tag.name) };
   });
 
   async function handleUpload(data: UploadSchema) {
