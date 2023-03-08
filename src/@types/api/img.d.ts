@@ -1,5 +1,3 @@
-import { TagProps } from './tag';
-
 export interface getImagesResponse {
   totalContent: number;
   pageSize: number;
@@ -13,7 +11,11 @@ export interface ImageDto {
   imgurId: string;
   imgurDeleteHash: string;
   imgurUrl: string;
-  tags: TagProps[];
+  tags: string[];
+}
+
+export interface ImageDtoWithTags extends ImageDto {
+  tags: Tag[];
 }
 
 export interface ImageProps {

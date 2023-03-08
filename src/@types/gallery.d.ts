@@ -1,7 +1,7 @@
 export interface GalleryFetchDataResponse {
   totalContent: number;
   pageSize: number;
-  content: ImageData[] | null;
+  content: ImageDto[] | null;
 }
 
 export interface ImageData {
@@ -11,7 +11,7 @@ export interface ImageData {
   imgurId: string;
   imgurDeleteHash: string;
   imgurUrl: string;
-  tags: Tag[];
+  tags: string[];
 }
 
 export interface SelectOption {
