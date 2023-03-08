@@ -30,8 +30,8 @@ export function FilterTags() {
     const label = props?.label || false;
 
     const isFilter = {
-      isAll: value === 0 || value === '0',
-      isNsfw: value === 1 || value === '1',
+      isAll: label === 'All' || value === 0 || value === '0',
+      isNsfw: label === 'NSFW' || value === 1 || value === '1',
       isTag: value != 0 && value != 1 && value != '0' && value != '1',
     };
 
