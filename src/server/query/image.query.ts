@@ -88,7 +88,7 @@ export async function getImagesSize({
   }
 
   if (!isEmpty(includedTags)) {
-    return await prisma.image.findMany({
+    return await prisma.image.count({
       where: {
         tags: {
           has: includedTags,
@@ -101,7 +101,7 @@ export async function getImagesSize({
   }
 
   if (isNsfw) {
-    return await prisma.image.findMany({
+    return await prisma.image.count({
       where: {
         isNsfw: true,
       },
@@ -111,7 +111,7 @@ export async function getImagesSize({
     });
   }
 
-  return await prisma.image.findMany({
+  return await prisma.image.count({
     where: {
       isNsfw: false,
     },
@@ -174,10 +174,16 @@ export async function getImagesResponseData(
     pageSize: parameters.pageSize,
   });
 
+  const totalContent = await getImagesSize({
+    allImages: parameters.all,
+    includedTags: tag?.id || '',
+    isNsfw: parameters.is_nsfw,
+  });
+
   const images = imagesFromDatabase.map(imageToDto);
 
   const resData: getImagesResponse = {
-    totalContent: images.length,
+    totalContent: totalContent,
     pageSize: parameters.pageSize,
     content: images.length > 0 ? images : null,
   };
