@@ -16,8 +16,8 @@ import { useForm } from 'react-hook-form';
 import ReactSelect from 'react-select';
 import { z } from 'zod';
 
+import { TagProps } from '../../@types/api/tag';
 import { SelectOption } from '../../@types/gallery';
-import { useTags } from '../../context/useTags';
 import { api } from '../../server/api';
 import { uploadTagStyle } from '../../styles/react-select-tag';
 import { Capitalize } from '../../utils/captalize';
@@ -31,7 +31,11 @@ const uploadSchema = z.object({
 
 type UploadSchema = z.infer<typeof uploadSchema>;
 
-export function FormUpload() {
+interface FormUploadProps {
+  tags: TagProps[];
+}
+
+export function FormUpload({ tags }: FormUploadProps) {
   const {
     register,
     handleSubmit,
@@ -40,13 +44,12 @@ export function FormUpload() {
     resolver: zodResolver(uploadSchema),
   });
   const router = useRouter();
-  const { data } = useTags();
   const toast = useToast();
 
   const selectedRef = useRef<any>(null);
 
-  const options: SelectOption[] = data.map((tag) => {
-    return { value: tag.id, label: Capitalize(tag.name) };
+  const options: SelectOption[] = tags.map((tag) => {
+    return { value: String(tag.id), label: Capitalize(tag.name) };
   });
 
   async function handleUpload(data: UploadSchema) {
