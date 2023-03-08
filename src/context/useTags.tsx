@@ -25,12 +25,13 @@ interface ContextProps {
 export const tagsContext = createContext({} as TagsProps);
 
 export function TagsContextProvider({ children }: ContextProps) {
+  const [InitialTags, setInitialTags] = useState<Tag[]>([]);
   const [tags, setTags] = useState<Tag[]>([]);
   const [isLoading, setIsLoading] = useState(false);
 
   function filterTag(search: string) {
     if (search.length < 2) {
-      return getTags();
+      return setTags(InitialTags);
     }
 
     setTags((state) =>
@@ -38,10 +39,16 @@ export function TagsContextProvider({ children }: ContextProps) {
     );
   }
 
+  function setTagContent(tags: Tag[]) {
+    setTags(tags);
+    setInitialTags(tags);
+  }
+
   async function getTags() {
     setIsLoading(true);
     const { data } = await api.get('/tag');
 
+    setInitialTags(data.tags);
     setTags(data.tags);
     setIsLoading(false);
   }
@@ -72,7 +79,7 @@ export function TagsContextProvider({ children }: ContextProps) {
         createTag,
         deleteTag,
         filterTag,
-        setTags,
+        setTags: setTagContent,
       }}
     >
       {children}
