@@ -21,6 +21,7 @@ import { SelectOption } from '../../@types/gallery';
 import { api } from '../../server/api';
 import { uploadTagStyle } from '../../styles/react-select-tag';
 import { Capitalize } from '../../utils/captalize';
+import { Absolute } from '../Absolute';
 import { TextTitle } from '../TextTitle';
 
 const uploadSchema = z.object({
@@ -102,14 +103,7 @@ export function FormUpload({ tags }: FormUploadProps) {
   }
 
   return (
-    <Box
-      position={'absolute'}
-      top={'50%'}
-      left={'50%'}
-      transform={'translate(-50%, -50%)'}
-      width={'35rem'}
-      bg={'gray.850'}
-      borderRadius={'1rem'}
+    <Absolute
       __css={{
         'input::file-selector-button': {
           display: 'none',
@@ -213,6 +207,6 @@ export function FormUpload({ tags }: FormUploadProps) {
           </Flex>
         </Flex>
       )}
-    </Box>
+    </Absolute>
   );
 }

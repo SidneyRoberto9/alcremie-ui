@@ -1,7 +1,7 @@
 import { NextSeo } from 'next-seo';
 
 import { Content } from '../components/Content';
-import { NotFound } from '../components/Screens/NotFound';
+import { NotFoundScreen } from '../components/Screens/NotFoundScreen';
 
 export default function Custom404() {
   return (
@@ -9,7 +9,7 @@ export default function Custom404() {
       <NextSeo title="Not Found | Alcremie" />
 
       <Content>
-        <NotFound />
+        <NotFoundScreen />
       </Content>
     </>
   );

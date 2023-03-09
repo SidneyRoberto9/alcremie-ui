@@ -1,8 +1,9 @@
-import { Accordion, Box, Flex } from '@chakra-ui/react';
+import { Accordion, Flex } from '@chakra-ui/react';
 import { GetServerSideProps } from 'next';
 import { NextSeo } from 'next-seo';
 
 import { TagProps } from '../../@types/api/tag';
+import { Absolute } from '../../components/Absolute';
 import { Content } from '../../components/Content';
 import { CollapseItem } from '../../components/Tag/CollapseItem';
 import { TagButton } from '../../components/TagButton';
@@ -20,15 +21,7 @@ export default function Tag({ sfw, nsfw }: TagServerSideProps) {
       <NextSeo title="Tag | Alcremie" />
 
       <Content>
-        <Box
-          position={'absolute'}
-          top={'50%'}
-          left={'50%'}
-          transform={'translate(-50%, -50%)'}
-          width={{ base: '90%', md: '40%' }}
-          bg={'gray.850'}
-          borderRadius={'8px'}
-        >
+        <Absolute width={{ base: '90%', md: '40%' }}>
           <Flex
             flexDirection={'column'}
             alignItems={'center'}
@@ -55,7 +48,7 @@ export default function Tag({ sfw, nsfw }: TagServerSideProps) {
               </CollapseItem>
             </Accordion>
           </Flex>
-        </Box>
+        </Absolute>
       </Content>
     </>
   );
