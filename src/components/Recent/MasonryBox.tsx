@@ -8,7 +8,6 @@ import { NoContentScreen } from '../Screens/NoContentScreen';
 import { MasonryItem } from './MasonryItem';
 
 const Breakpoints = {
-  380: 1,
   760: 2,
   900: 3,
   1366: 4,
