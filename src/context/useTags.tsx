@@ -60,14 +60,11 @@ export function TagsContextProvider({ children }: ContextProps) {
       description,
       is_nsfw: isNsfw,
     });
-
-    await getTags();
   }
 
   async function deleteTag(id: string) {
     setIsLoading(true);
     await api.delete(`/tag/${id}`);
-    await getTags();
   }
 
   return (

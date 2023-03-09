@@ -47,24 +47,36 @@ export function AddModal({ isOpen, onClose }: AddModalProps) {
     resolver: zodResolver(createTagSchema),
   });
 
-  const createTag = useContextSelector(
+  const { createTag, getTags } = useContextSelector(
     tagsContext,
-    ({ createTag }) => createTag,
+    ({ createTag, getTags }) => ({ createTag, getTags }),
   );
 
   const toast = useToast();
 
   async function handleCreateTag({ name, nsfw, description }: CreateTagSchema) {
-    await createTag(name, description, nsfw);
-    reset();
-    onClose();
-    toast({
-      title: 'Tag created!',
-      description: 'The tag was created successfully.',
-      status: 'success',
-      duration: 3500,
-      isClosable: true,
-    });
+    try {
+      await createTag(name, description, nsfw);
+      onClose();
+      toast({
+        title: 'Tag created!',
+        description: 'The tag was created successfully.',
+        status: 'success',
+        duration: 3500,
+        isClosable: true,
+      });
+    } catch (error) {
+      toast({
+        title: 'Error creating tag.',
+        description: 'Tag Already Exists.',
+        status: 'error',
+        duration: 3500,
+        isClosable: true,
+      });
+    } finally {
+      reset();
+      await getTags();
+    }
   }
 
   function handleClose() {

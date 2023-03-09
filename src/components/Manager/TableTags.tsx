@@ -9,7 +9,6 @@ import {
   Th,
   Thead,
   Tr,
-  useToast,
 } from '@chakra-ui/react';
 import { Check, Trash, X } from 'phosphor-react';
 import { useContextSelector } from 'use-context-selector';
@@ -20,25 +19,17 @@ import { Capitalize } from '../../utils/captalize';
 
 interface TableDataProps {
   data: TagProps[];
+  onOpen(id: string): void;
 }
 
-export function TableTags({ data }: TableDataProps) {
-  const { deleteTag, isLoading } = useContextSelector(
+export function TableTags({ data, onOpen }: TableDataProps) {
+  const isLoading = useContextSelector(
     tagsContext,
-    ({ isLoading, deleteTag }) => ({ isLoading, deleteTag }),
+    ({ isLoading }) => isLoading,
   );
 
-  const toast = useToast();
-
   async function handleDeleteTagById(id: string) {
-    await deleteTag(id);
-    toast({
-      title: 'Tag deleted!',
-      description: 'The tag was deleted successfully.',
-      status: 'success',
-      duration: 3500,
-      isClosable: true,
-    });
+    onOpen(id);
   }
 
   return isLoading ? (

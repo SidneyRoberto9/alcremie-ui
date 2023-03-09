@@ -12,12 +12,13 @@ import {
 import { GetServerSideProps } from 'next';
 import { getSession } from 'next-auth/react';
 import { NextSeo } from 'next-seo';
-import { ChangeEvent, useEffect } from 'react';
+import { ChangeEvent, useEffect, useState } from 'react';
 import { useContextSelector } from 'use-context-selector';
 
 import { Tag } from '../../@types/api/tag';
 import { Content } from '../../components/Content';
 import { AddModal } from '../../components/Manager/AddModal';
+import { DeleteModal } from '../../components/Manager/DeleteModal';
 import { TableTags } from '../../components/Manager/TableTags';
 import { tagsContext } from '../../context/useTags';
 import { getAllTags } from '../../server/query/tag.query';
@@ -36,13 +37,27 @@ export default function Manager({ tags }: ManagerProps) {
     }),
   );
 
-  const { isOpen, onOpen, onClose } = useDisclosure();
+  const {
+    isOpen: isOpenAdd,
+    onOpen: onOpenAdd,
+    onClose: onCloseAdd,
+  } = useDisclosure();
+  const {
+    isOpen: isOpenDelete,
+    onOpen: onOpenDelete,
+    onClose: onCloseDelete,
+  } = useDisclosure();
+  const [tagId, setTagId] = useState<string | null>(null);
   const [isLessThan680] = useMediaQuery('(max-width: 680px)');
 
   function handleSearch(e: ChangeEvent<HTMLInputElement>) {
     const search = e.target.value.toLowerCase();
-
     filterTag(search);
+  }
+
+  function onDelete(id: string) {
+    setTagId(id);
+    onOpenDelete();
   }
 
   useEffect(() => {
@@ -52,7 +67,12 @@ export default function Manager({ tags }: ManagerProps) {
   return (
     <>
       <NextSeo title="Tag Manager | Alcremie" />
-      <AddModal isOpen={isOpen} onClose={onClose} />
+      <AddModal isOpen={isOpenAdd} onClose={onCloseAdd} />
+      <DeleteModal
+        isOpen={isOpenDelete}
+        onClose={onCloseDelete}
+        tagId={String(tagId)}
+      />
 
       <Content>
         <Flex
@@ -92,12 +112,12 @@ export default function Manager({ tags }: ManagerProps) {
             </InputGroup>
           )}
 
-          <Button variant={'default'} p={'0 2rem'} onClick={onOpen}>
+          <Button variant={'default'} p={'0 2rem'} onClick={onOpenAdd}>
             Add Tag
           </Button>
         </Flex>
 
-        <TableTags data={data} />
+        <TableTags data={data} onOpen={onDelete} />
       </Content>
     </>
   );
