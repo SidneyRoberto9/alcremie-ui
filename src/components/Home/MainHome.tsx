@@ -47,7 +47,9 @@ export function MainHome({ image, imageId }: MainHomeProps) {
             justifyContent={'flex-start'}
             flexWrap={'wrap'}
             gap={4}
-            fontSize={{ base: '3.7rem', lg: '4.2rem' }}
+            marginY={'1rem'}
+            fontSize={{ base: '3.6rem', lg: '4.2rem' }}
+            lineHeight={'0.8'}
           >
             The
             <Text
@@ -74,14 +76,13 @@ export function MainHome({ image, imageId }: MainHomeProps) {
           </Heading>
           <Text
             fontSize={{
-              base: '1.25rem',
-              sm: '1rem',
-              md: '1rem',
+              base: '1.10rem',
+
               lg: '1.25rem',
             }}
             w={{ base: '100%', lg: '90%' }}
             color={'white'}
-            textAlign={'justify'}
+            textAlign={'left'}
           >
             Alcremie was created with the intention of simulating platforms like
             Dabooru or SankakuComplex. However, the main inspiration for

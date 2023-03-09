@@ -24,9 +24,9 @@ export default function Home({ randomImage, statistics }: HomeProps) {
       <NextSeo title="Home | Alcremie" />
 
       <Content
-        paddingTop={'8rem'}
+        paddingTop={{ base: '5rem', lg: '8rem' }}
         marginX={'auto'}
-        paddingX={'3.75rem'}
+        paddingX={{ base: '1rem', lg: '3.75rem' }}
         maxW={'1240px'}
       >
         <MainHome image={randomImage.image} imageId={randomImage.id} />
