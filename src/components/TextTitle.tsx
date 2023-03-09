@@ -1,4 +1,4 @@
-import { Heading, HeadingProps } from '@chakra-ui/react';
+import { Heading, HeadingProps, useMediaQuery } from '@chakra-ui/react';
 import { ReactNode } from 'react';
 
 interface TextTitleProps extends HeadingProps {
@@ -6,9 +6,11 @@ interface TextTitleProps extends HeadingProps {
 }
 
 export function TextTitle({ children, ...rest }: TextTitleProps) {
+  const [isLessThan800] = useMediaQuery('(max-width: 800px)');
+
   return (
     <Heading
-      fontSize={'1.75rem'}
+      fontSize={isLessThan800 ? '1.5rem' : '1.75rem'}
       fontWeight={'bold'}
       color={'gray.300'}
       {...rest}
