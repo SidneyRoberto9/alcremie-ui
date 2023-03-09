@@ -1,10 +1,13 @@
 import {
   Button,
   Flex,
+  FormControl,
+  FormLabel,
   Input,
   InputGroup,
   InputLeftAddon,
   useDisclosure,
+  useMediaQuery,
 } from '@chakra-ui/react';
 import { GetServerSideProps } from 'next';
 import { getSession } from 'next-auth/react';
@@ -34,6 +37,7 @@ export default function Manager({ tags }: ManagerProps) {
   );
 
   const { isOpen, onOpen, onClose } = useDisclosure();
+  const [isLessThan680] = useMediaQuery('(max-width: 680px)');
 
   function handleSearch(e: ChangeEvent<HTMLInputElement>) {
     const search = e.target.value.toLowerCase();
@@ -54,22 +58,39 @@ export default function Manager({ tags }: ManagerProps) {
         <Flex
           w={'100%'}
           padding={'3rem'}
-          gap={'25rem'}
+          gap={'2rem'}
           align={'center'}
           justifyContent={'space-between'}
         >
-          <InputGroup>
-            <InputLeftAddon
-              children="Search"
-              color={'black'}
-              fontWeight={'bold'}
-            />
-            <Input
-              type="text"
-              placeholder="Search for a tag..."
-              onChange={handleSearch}
-            />
-          </InputGroup>
+          {isLessThan680 ? (
+            <FormControl mt={'-2rem'}>
+              <FormLabel fontWeight={'bold'}>Search</FormLabel>
+              <Input
+                type="text"
+                _focusVisible={{
+                  borderColor: 'green.300',
+                }}
+                placeholder="Search for a tag..."
+                onChange={handleSearch}
+              />
+            </FormControl>
+          ) : (
+            <InputGroup>
+              <InputLeftAddon
+                children="Search"
+                color={'black'}
+                fontWeight={'bold'}
+              />
+              <Input
+                type="text"
+                _focusVisible={{
+                  borderColor: 'green.300',
+                }}
+                placeholder="Search for a tag..."
+                onChange={handleSearch}
+              />
+            </InputGroup>
+          )}
 
           <Button variant={'default'} p={'0 2rem'} onClick={onOpen}>
             Add Tag
