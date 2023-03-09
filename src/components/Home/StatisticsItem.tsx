@@ -15,7 +15,7 @@ export function StatisticItem({ number, name, icon }: StatisticsItemProps) {
       direction={'column'}
       alignItems={'center'}
       justifyContent={'center'}
-      m={'3.5rem'}
+      m={{ base: '0.75rem', lg: '3.5rem' }}
     >
       <Box
         bg={'green.300'}
