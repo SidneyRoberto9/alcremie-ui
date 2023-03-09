@@ -4,10 +4,13 @@ import {
   Checkbox,
   CircularProgress,
   Flex,
+  FormControl,
+  FormLabel,
   Input,
   InputGroup,
   InputLeftAddon,
   Text,
+  useMediaQuery,
   useToast,
 } from '@chakra-ui/react';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -49,6 +52,7 @@ export function FormUpload({ tags }: FormUploadProps) {
   const toast = useToast();
   const selectedRef = useRef<any>(null);
   const [isLoadingSubmit, setIsLoadingSubmit] = useState<boolean>(false);
+  const [isLessThan680] = useMediaQuery('(max-width: 680px)');
 
   const options: SelectOption[] = tags.map((tag) => {
     return { value: String(tag.id), label: Capitalize(tag.name) };
@@ -112,8 +116,8 @@ export function FormUpload({ tags }: FormUploadProps) {
     >
       {isLoadingSubmit ? (
         <Flex
-          w={'100%'}
-          height={'22.5rem'}
+          w={isLessThan680 ? '21rem' : '100%'}
+          height={isLessThan680 ? '28.125rem' : '22.5rem'}
           flexDirection={'column'}
           alignItems={'center'}
           justifyContent={'center'}
@@ -123,7 +127,7 @@ export function FormUpload({ tags }: FormUploadProps) {
         </Flex>
       ) : (
         <Flex
-          w={'100%'}
+          w={isLessThan680 ? '21rem' : '100%'}
           flexDirection={'column'}
           alignItems={'center'}
           justifyContent={'center'}
@@ -139,46 +143,81 @@ export function FormUpload({ tags }: FormUploadProps) {
             padding={'1.25rem 1.75rem'}
             onSubmit={handleSubmit(handleUpload)}
           >
-            <InputGroup width={'32rem'}>
-              <InputLeftAddon
-                children="Optional Source"
-                color={'gray.900'}
-                fontWeight={'bold'}
-              />
-              <Input
-                type="text"
-                placeholder="https://www.pixiv.net/en/artworks/90302611"
-                {...register('source', { required: true })}
-              />
-            </InputGroup>
+            {isLessThan680 ? (
+              <FormControl width={'100%'}>
+                <FormLabel fontWeight={'bold'}>Source</FormLabel>
+                <Input
+                  _focusVisible={{
+                    borderColor: 'green.300',
+                  }}
+                  type="text"
+                  placeholder="https://www.pixiv.net/en/artworks/90302611"
+                  {...register('source', { required: true })}
+                />
+              </FormControl>
+            ) : (
+              <InputGroup width={'32rem'}>
+                <InputLeftAddon
+                  children="Source"
+                  color={'gray.900'}
+                  fontWeight={'bold'}
+                />
+                <Input
+                  type="text"
+                  _focusVisible={{
+                    borderColor: 'green.300',
+                  }}
+                  placeholder="https://www.pixiv.net/en/artworks/90302611"
+                  {...register('source', { required: true })}
+                />
+              </InputGroup>
+            )}
 
-            <InputGroup>
-              <InputLeftAddon
-                children="Choose File"
-                color={'gray.900'}
-                fontWeight={'bold'}
-              />
-              <Input
-                padding={'0.45rem 1rem'}
-                accept="image/*"
-                type="file"
-                {...register('file', { required: true })}
-              />
-            </InputGroup>
+            {isLessThan680 ? (
+              <FormControl width={'100%'}>
+                <FormLabel fontWeight={'bold'}>Choose File</FormLabel>
+                <Input
+                  padding={'0.45rem 1rem'}
+                  accept="image/*"
+                  type="file"
+                  {...register('file', { required: true })}
+                />
+              </FormControl>
+            ) : (
+              <InputGroup>
+                <InputLeftAddon
+                  children="Choose File"
+                  color={'gray.900'}
+                  fontWeight={'bold'}
+                />
+                <Input
+                  padding={'0.45rem 1rem'}
+                  accept="image/*"
+                  type="file"
+                  {...register('file', { required: true })}
+                />
+              </InputGroup>
+            )}
 
-            <Box
-              id={'select-box-2'}
-              instanceId={'select-box-2'}
-              as={ReactSelect}
-              width={'100%'}
-              color={'gray.900'}
-              options={options}
-              isMulti
-              placeholder={'Select your tags'}
-              ref={selectedRef}
-              styles={uploadTagStyle}
-              closeMenuOnSelect={false}
-            />
+            <FormControl width={'100%'}>
+              {isLessThan680 && (
+                <FormLabel fontWeight={'bold'}>Select your tags</FormLabel>
+              )}
+
+              <Box
+                id={'select-box-2'}
+                instanceId={'select-box-2'}
+                as={ReactSelect}
+                width={'100%'}
+                color={'gray.900'}
+                options={options}
+                isMulti
+                placeholder={'Select your tags'}
+                ref={selectedRef}
+                styles={uploadTagStyle}
+                closeMenuOnSelect={false}
+              />
+            </FormControl>
 
             <InputGroup>
               <Checkbox
