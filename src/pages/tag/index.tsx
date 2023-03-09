@@ -1,4 +1,4 @@
-import { Accordion, Flex } from '@chakra-ui/react';
+import { Accordion, Flex, useMediaQuery } from '@chakra-ui/react';
 import { GetServerSideProps } from 'next';
 import { NextSeo } from 'next-seo';
 
@@ -16,12 +16,13 @@ interface TagServerSideProps {
 }
 
 export default function Tag({ sfw, nsfw }: TagServerSideProps) {
+  const [isLessThan680] = useMediaQuery('(max-width: 680px)');
   return (
     <>
       <NextSeo title="Tag | Alcremie" />
 
       <Content>
-        <Absolute width={{ base: '90%', md: '40%' }}>
+        <Absolute width={{ base: '95%', lg: '60%' }}>
           <Flex
             flexDirection={'column'}
             alignItems={'center'}
@@ -38,12 +39,22 @@ export default function Tag({ sfw, nsfw }: TagServerSideProps) {
             >
               <CollapseItem title="sfw">
                 {sfw.map(({ name, description, id }) => (
-                  <TagButton key={id} tag={name} tooltipLabel={description} />
+                  <TagButton
+                    key={id}
+                    tag={name}
+                    tooltipLabel={description}
+                    size={isLessThan680 ? 'xs' : 'sm'}
+                  />
                 ))}
               </CollapseItem>
               <CollapseItem title="NSFW">
                 {nsfw.map(({ name, description, id }) => (
-                  <TagButton key={id} tag={name} tooltipLabel={description} />
+                  <TagButton
+                    key={id}
+                    tag={name}
+                    tooltipLabel={description}
+                    size={isLessThan680 ? 'xs' : 'sm'}
+                  />
                 ))}
               </CollapseItem>
             </Accordion>
