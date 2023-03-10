@@ -80,11 +80,11 @@ export function FormContact() {
           justifyContent={'center'}
           padding={'1rem'}
         >
-          <TextTitle>File Upload</TextTitle>
+          <TextTitle>Contact Us</TextTitle>
 
           <Flex
             as={'form'}
-            width={'23rem'}
+            width={isLessThan680 ? '19rem' : '23rem'}
             flexDirection={'column'}
             alignItems={'flex-start'}
             gap={'0.875rem'}
