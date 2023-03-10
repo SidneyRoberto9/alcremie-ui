@@ -5,6 +5,7 @@ import {
   Heart,
   HouseLine,
   Image,
+  PhoneCall,
   Tag,
   UploadSimple,
 } from 'phosphor-react';
@@ -55,6 +56,13 @@ const routes: routesProps[] = [
     icon: <BookBookmark size={35} />,
     label: 'Docs',
     name: 'docs',
+    isAdmin: false,
+  },
+  {
+    path: '/contact',
+    icon: <PhoneCall size={35} />,
+    label: 'Contact Us',
+    name: 'contact us',
     isAdmin: false,
   },
   {
