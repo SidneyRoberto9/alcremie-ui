@@ -1,38 +1,23 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Alcremie
 
-## Getting Started
+![GitHub repo size](https://img.shields.io/github/repo-size/SidneyRoberto9/alcremie?style=for-the-badge)
+![GitHub language count](https://img.shields.io/github/languages/count/SidneyRoberto9/alcremie?style=for-the-badge)
 
-First, run the development server:
+<img src=".github/1440x1080.png" alt="exemplo imagem">
+<br />
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-```
+## Features
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+...in progress
+<br />
 
-You can start editing the page by modifying `pages/index.tsx`. The page auto-updates as you edit the file.
+## Sobre
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.ts`.
+Este projeto é uma aplicação web de delivery de cafeteria, com uma ampla variedade de cafés para escolher. Ele foi construído como parte de um curso Ignite, usando as tecnologias React e Vite. Com uma interface fácil de usar, os usuários podem navegar através de uma seleção de cafés, personalizar suas ordens e fazer pedidos para entrega ou retirada. A aplicação não inclui recursos de armazenamento de histórico de pedidos, mas foi desenvolvida para proporcionar uma experiência de compra de café conveniente e personalizada para os usuários.
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
+<br />
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+## WebSite
 
-## Learn More
+If you want to access the gallery or the api visit the <a href="https://alcremie.vercel.app/" target="_blank">WebSite</a>.
 
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
