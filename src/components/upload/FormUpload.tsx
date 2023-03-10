@@ -115,16 +115,9 @@ export function FormUpload({ tags }: FormUploadProps) {
       }}
     >
       {isLoadingSubmit ? (
-        <Flex
-          w={isLessThan680 ? '21rem' : '100%'}
-          height={isLessThan680 ? '28.125rem' : '22.5rem'}
-          flexDirection={'column'}
-          alignItems={'center'}
-          justifyContent={'center'}
-          padding={'1rem'}
-        >
+        <Absolute bg={'gray.750'}>
           <CircularProgress isIndeterminate color={'green.300'} size={150} />
-        </Flex>
+        </Absolute>
       ) : (
         <Flex
           w={isLessThan680 ? '21rem' : '100%'}

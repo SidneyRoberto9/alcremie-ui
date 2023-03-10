@@ -1,7 +1,6 @@
 import {
   Button,
   CircularProgress,
-  Flex,
   Table,
   TableContainer,
   Tbody,
@@ -16,6 +15,7 @@ import { useContextSelector } from 'use-context-selector';
 import { TagProps } from '../../@types/api/tag';
 import { tagsContext } from '../../context/useTags';
 import { Capitalize } from '../../utils/captalize';
+import { Absolute } from '../Absolute';
 
 interface TableDataProps {
   data: TagProps[];
@@ -33,17 +33,9 @@ export function TableTags({ data, onOpen }: TableDataProps) {
   }
 
   return isLoading ? (
-    <Flex
-      justifyContent={'center'}
-      alignItems={'center'}
-      padding={'3rem'}
-      margin={'0 3rem'}
-      bg={'gray.850'}
-      borderRadius={'1rem'}
-      height={'50vh'}
-    >
+    <Absolute bg={'gray.750'}>
       <CircularProgress isIndeterminate color={'green.300'} size={150} />
-    </Flex>
+    </Absolute>
   ) : (
     <TableContainer
       padding={'3rem'}
