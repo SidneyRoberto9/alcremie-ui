@@ -1,4 +1,4 @@
-import { Box } from '@chakra-ui/react';
+import { Box, useMediaQuery } from '@chakra-ui/react';
 import {
   AppWindow,
   BookBookmark,
@@ -76,6 +76,8 @@ const routes: routesProps[] = [
 export function Nav() {
   const { toggleNav, isOpen } = useNav();
 
+  const [isLessThan475] = useMediaQuery('(max-width: 475px)');
+
   return (
     <Box
       __css={{
@@ -107,7 +109,7 @@ export function Nav() {
       <Menu
         right={false}
         isOpen={isOpen}
-        width={'25rem'}
+        width={isLessThan475 ? '100vw' : '25rem'}
         customBurgerIcon={false}
         onStateChange={(state) => toggleNav(state.isOpen)}
       >
