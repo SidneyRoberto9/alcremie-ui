@@ -90,6 +90,7 @@ export function AddModal({ isOpen, onClose }: AddModalProps) {
         <ModalOverlay />
 
         <ModalContent
+          w={'80%'}
           bg={'gray.850'}
           borderRadius={'1rem'}
           as={'form'}
@@ -102,7 +103,7 @@ export function AddModal({ isOpen, onClose }: AddModalProps) {
               flexDirection={'column'}
               alignItems={'flex-start'}
               gap={'0.875rem'}
-              padding={'1.25rem 1.75rem'}
+              padding={{ base: '0.35rem', lg: '1.25rem 1.75rem' }}
             >
               <FormControl>
                 <FormLabel fontWeight={'bold'}>Name</FormLabel>
