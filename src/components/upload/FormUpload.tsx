@@ -156,7 +156,7 @@ export function FormUpload({ tags }: FormUploadProps) {
                 />
               </FormControl>
             ) : (
-              <InputGroup width={'32rem'}>
+              <InputGroup>
                 <InputLeftAddon
                   children="Source"
                   color={'gray.900'}
