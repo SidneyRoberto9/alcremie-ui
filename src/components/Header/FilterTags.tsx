@@ -3,17 +3,18 @@ import ReactSelect from 'react-select';
 import { useContextSelector } from 'use-context-selector';
 
 import { GetGalleryDataParams, SelectOption } from '../../@types/gallery';
-import { galleryContext } from '../../context/useGallery';
 import { tagsContext } from '../../context/useTags';
 import { selectTagStyle } from '../../styles/react-select-tag';
 import { Capitalize } from '../../utils/captalize';
 
-export function FilterTags() {
-  const getGalleryData = useContextSelector(
-    galleryContext,
-    ({ getGalleryData }) => getGalleryData,
-  );
+interface FilterTagsProps {
+  onGetGalleryData: (
+    page: number,
+    params: GetGalleryDataParams,
+  ) => Promise<void>;
+}
 
+export function FilterTags({ onGetGalleryData }: FilterTagsProps) {
   const data = useContextSelector(tagsContext, ({ data }) => data);
 
   const options: SelectOption[] = [
@@ -41,7 +42,7 @@ export function FilterTags() {
       included_tags: isFilter.isTag ? label.toLowerCase() : '',
     };
 
-    await getGalleryData(0, params);
+    await onGetGalleryData(0, params);
   }
 
   return (
