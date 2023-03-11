@@ -1,44 +1,40 @@
-import { Button, Flex, Text } from '@chakra-ui/react';
-import { useContextSelector } from 'use-context-selector';
+import { Flex } from '@chakra-ui/react';
 
-import { galleryContext } from '../../context/useGallery';
+import { LabelPageText } from './LabelPageText';
+import { PaginationButton } from './PaginationButton';
 
-export function Pagination() {
-  const {
-    contentTotalSize,
-    isLoading,
-    pageSize,
-    pageNumber,
-    onNextPage,
-    onPreviousPage,
-  } = useContextSelector(
-    galleryContext,
-    ({
-      contentTotalSize,
-      isLoading,
-      pageSize,
-      pageNumber,
-      onNextPage,
-      onPreviousPage,
-    }) => ({
-      contentTotalSize,
-      isLoading,
-      pageSize,
-      pageNumber,
-      onNextPage,
-      onPreviousPage,
-    }),
-  );
+interface PaginationProps {
+  contentTotalSize: number;
+  isLoading: boolean;
+  pageSize: number;
+  actualPage: number;
+  onChangePage: (page: number) => void;
+}
 
+export function Pagination({
+  pageSize,
+  isLoading,
+  actualPage,
+  onChangePage,
+  contentTotalSize,
+}: PaginationProps) {
   const totalPages =
     contentTotalSize == 0
       ? Math.ceil(1 / pageSize)
       : Math.ceil(contentTotalSize / pageSize);
 
-  const isLastPage = pageNumber === totalPages;
+  const isLastPage = actualPage === totalPages;
 
   const disabledNextButton = isLastPage || isLoading;
-  const disabledPreviousButton = pageNumber == 1 || isLoading;
+  const disabledPreviousButton = actualPage == 1 || isLoading;
+
+  function handlePreviousPage() {
+    onChangePage(-1);
+  }
+
+  function handleNextPage() {
+    onChangePage(1);
+  }
 
   return (
     <Flex
@@ -53,71 +49,19 @@ export function Pagination() {
       justifyContent={'space-between'}
       borderRadius={'4px'}
     >
-      <Button
-        onClick={onPreviousPage}
+      <PaginationButton
+        onClick={handlePreviousPage}
         isDisabled={disabledPreviousButton}
-        width={'5.35rem'}
-        minWidth={'5.35rem'}
-        borderRadius={'4px'}
-        height={'2.35rem'}
-        margin={'0.15rem 0.25rem'}
-        fontSize={'1rem'}
-        fontWeight={'500'}
-        cursor={'pointer'}
-        textTransform={'capitalize'}
-        color={'white'}
-        bg={'green.300'}
-        transition={'filter 250ms ease-in-out'}
-        _hover={{
-          filter: 'brightness(0.8)',
-        }}
-        _disabled={{
-          cursor: 'not-allowed',
-          filter: 'brightness(0.5)',
-        }}
-      >
-        previous
-      </Button>
+        label={'previous'}
+      />
 
-      <Text
-        display={'inline-block'}
-        padding={'0.375rem 0.75rem'}
-        fontSize={'1.25rem'}
-        color={'white.900'}
-        lineHeight={'1.5'}
-        userSelect={'none'}
-        pointerEvents={'none'}
-        minWidth={'3.5rem'}
-        width={'3.5rem'}
-      >
-        {`${pageNumber}/${totalPages || 1}`}
-      </Text>
+      <LabelPageText label={`${actualPage}/${totalPages || 1}`} />
 
-      <Button
-        onClick={onNextPage}
+      <PaginationButton
+        onClick={handleNextPage}
         isDisabled={disabledNextButton}
-        width={'5.35rem'}
-        minWidth={'5.35rem'}
-        borderRadius={'4px'}
-        height={'2.35rem'}
-        margin={'0.15rem 0.25rem'}
-        fontSize={'1rem'}
-        fontWeight={'500'}
-        cursor={'pointer'}
-        textTransform={'capitalize'}
-        color={'white'}
-        bg={'green.300'}
-        transition={'filter 250ms ease-in-out'}
-        _hover={{
-          filter: 'brightness(0.8)',
-        }}
-        _disabled={{
-          cursor: 'not-allowed',
-          filter: 'brightness(0.5)',
-        }}
-      >
-        next
-      </Button>
+        label={'next'}
+      />
     </Flex>
   );
 }
