@@ -17,48 +17,36 @@ const Breakpoints = {
 };
 
 interface MasonryBoxProps {
-  data?: Omit<ImageDto, 'tags'>[] | null;
+  data?: ImageDto[] | null;
 }
 
 export function MasonryBox({ data = null }: MasonryBoxProps) {
-  if (data == null) {
-    const { content, isLoading } = useContextSelector(
-      galleryContext,
-      ({ content, isLoading }) => ({
-        content,
-        isLoading,
-      }),
-    );
+  const { content, isLoading } = useContextSelector(
+    galleryContext,
+    ({ content, isLoading }) => ({
+      content,
+      isLoading,
+    }),
+  );
 
-    if (isLoading) {
-      return <LoadingSpinner />;
-    }
-
-    if (content?.length == 0 || content == null) {
-      return <NoContentScreen />;
-    }
-
-    return (
-      <ResponsiveMasonry columnsCountBreakPoints={Breakpoints}>
-        <Masonry>
-          {content.map(({ imgurUrl, id }) => (
-            <MasonryItem url={imgurUrl} key={id} id={id} />
-          ))}
-        </Masonry>
-      </ResponsiveMasonry>
-    );
+  if (isLoading && data == null) {
+    return <LoadingSpinner />;
   }
 
-  if (data.length == 0) {
+  if (content?.length == 0 || (content == null && data?.length == 0)) {
     return <NoContentScreen />;
   }
 
   return (
     <ResponsiveMasonry columnsCountBreakPoints={Breakpoints}>
       <Masonry>
-        {data.map(({ imgurUrl, id }) => (
-          <MasonryItem url={imgurUrl} key={id} id={id} />
-        ))}
+        {data == null
+          ? content?.map(({ imgurUrl, id }) => (
+              <MasonryItem url={imgurUrl} key={id} id={id} />
+            ))
+          : data.map(({ imgurUrl, id }) => (
+              <MasonryItem url={imgurUrl} key={id} id={id} />
+            ))}
       </Masonry>
     </ResponsiveMasonry>
   );
