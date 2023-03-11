@@ -59,11 +59,11 @@ export function GalleryProvider({ children }: ContextProps) {
 
     setFilterParams(params);
     setResponseData(data);
+    setPage(pageNumber);
     setIsLoading(false);
   }
 
   async function onChangePage(change: number) {
-    setPage((state) => state + change);
     await getGalleryData(page + change, filterParams);
   }
 
