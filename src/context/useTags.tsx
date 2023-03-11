@@ -30,7 +30,7 @@ export function TagsContextProvider({ children }: ContextProps) {
   const [isLoading, setIsLoading] = useState(false);
 
   function filterTag(search: string) {
-    if (search.length < 2) {
+    if (search.length < 1) {
       return setTags(InitialTags);
     }
 

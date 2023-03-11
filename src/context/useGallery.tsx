@@ -10,18 +10,14 @@ import { api } from '../server/api';
 
 interface GalleryContextProps {
   content: ImageData[] | null;
-  pageNumber: number;
+  actualPage: number;
   pageSize: number;
   contentTotalSize: number;
   isLoading: boolean;
-  onNextPage: () => void;
-  onPreviousPage: () => void;
-  setContent: Dispatch<SetStateAction<GalleryFetchDataResponse>>;
+  getGalleryData: (page: number, params: GetGalleryDataParams) => Promise<void>;
+  onChangePage: (page: number) => void;
+  onSetContent: (data: GalleryFetchDataResponse) => void;
   setFilterParams: Dispatch<SetStateAction<GetGalleryDataParams>>;
-  getGalleryData: (
-    pageNumber: number,
-    params: GetGalleryDataParams,
-  ) => Promise<void>;
 }
 
 interface ContextProps {
@@ -31,17 +27,22 @@ interface ContextProps {
 export const galleryContext = createContext({} as GalleryContextProps);
 
 export function GalleryProvider({ children }: ContextProps) {
+  const [page, setPage] = useState(0);
+  const [isLoading, setIsLoading] = useState(true);
+  const [responseData, setResponseData] = useState<GalleryFetchDataResponse>(
+    {} as GalleryFetchDataResponse,
+  );
   const [filterParams, setFilterParams] = useState<GetGalleryDataParams>({
     all: false,
     included_tags: '',
     is_nsfw: false,
   });
-  const [responseData, setResponseData] = useState<GalleryFetchDataResponse>(
-    {} as GalleryFetchDataResponse,
-  );
 
-  const [page, setPage] = useState(0);
-  const [isLoading, setIsLoading] = useState(false);
+  function onSetContent(data: GalleryFetchDataResponse) {
+    setResponseData(data);
+    setIsLoading(false);
+    setPage(0);
+  }
 
   async function getGalleryData(
     pageNumber: number,
@@ -56,21 +57,14 @@ export function GalleryProvider({ children }: ContextProps) {
       },
     });
 
-    console.log(data);
-
     setFilterParams(params);
     setResponseData(data);
     setIsLoading(false);
   }
 
-  async function onNextPage() {
-    setPage((state) => state + 1);
-    await getGalleryData(page + 1, filterParams);
-  }
-
-  async function onPreviousPage() {
-    setPage((state) => state - 1);
-    await getGalleryData(page - 1, filterParams);
+  async function onChangePage(change: number) {
+    setPage((state) => state + change);
+    await getGalleryData(page + change, filterParams);
   }
 
   return (
@@ -79,12 +73,11 @@ export function GalleryProvider({ children }: ContextProps) {
         content: responseData.content,
         contentTotalSize: responseData.totalContent,
         pageSize: responseData.pageSize,
-        pageNumber: page + 1,
+        actualPage: page + 1,
         isLoading,
-        onNextPage,
-        onPreviousPage,
+        onChangePage,
+        onSetContent,
         getGalleryData,
-        setContent: setResponseData,
         setFilterParams,
       }}
     >
