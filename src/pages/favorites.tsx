@@ -8,7 +8,7 @@ import { MasonryBox } from '../components/Recent/MasonryBox';
 import { getUserFavoritesImages } from '../server/query/image.query';
 
 interface FavoritesProps {
-  images: Omit<ImageDto, 'tags'>[];
+  images: ImageDto[];
 }
 
 export default function Favorites({ images }: FavoritesProps) {

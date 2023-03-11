@@ -24,23 +24,46 @@ interface RecentProps {
 }
 
 export default function Recent({ content, tags }: RecentProps) {
-  const { setContent, setFilterParams } = useContextSelector(
+  const {
+    isLoading,
+    contentTotalSize,
+    pageSize,
+    actualPage,
+    onChangePage,
+    onSetContent,
+    setFilterParams,
+  } = useContextSelector(
     galleryContext,
-    ({ setContent, setFilterParams }) => ({ setContent, setFilterParams }),
+    ({
+      contentTotalSize,
+      isLoading,
+      pageSize,
+      actualPage,
+      onChangePage,
+      onSetContent,
+      setFilterParams,
+    }) => ({
+      isLoading,
+      contentTotalSize,
+      pageSize,
+      actualPage,
+      onChangePage,
+      onSetContent,
+      setFilterParams,
+    }),
   );
 
   const setTags = useContextSelector(tagsContext, ({ setTags }) => setTags);
   const router = useRouter();
 
-  const { all, is_nsfw, included_tags } = router.query;
   const params: GetGalleryDataParams = {
-    all: String(all) === 'true' ? true : false,
-    included_tags: String(included_tags),
-    is_nsfw: String(is_nsfw) === 'true' ? true : false,
+    all: String(router.query.all) === 'true' ? true : false,
+    included_tags: String(router.query.included_tags),
+    is_nsfw: String(router.query.is_nsfw) === 'true' ? true : false,
   };
 
   useEffect(() => {
-    setContent(content);
+    onSetContent(content);
     setTags(tags);
     setFilterParams(params);
   }, []);
@@ -51,7 +74,13 @@ export default function Recent({ content, tags }: RecentProps) {
 
       <Content>
         <MasonryBox />
-        <Pagination />
+        <Pagination
+          pageSize={pageSize}
+          isLoading={isLoading}
+          actualPage={actualPage}
+          onChangePage={onChangePage}
+          contentTotalSize={contentTotalSize}
+        />
       </Content>
     </>
   );

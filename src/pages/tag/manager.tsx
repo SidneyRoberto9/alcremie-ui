@@ -36,17 +36,18 @@ export default function Manager({ tags }: ManagerProps) {
       setTags,
     }),
   );
-
   const {
     isOpen: isOpenAdd,
     onOpen: onOpenAdd,
     onClose: onCloseAdd,
   } = useDisclosure();
+
   const {
     isOpen: isOpenDelete,
     onOpen: onOpenDelete,
     onClose: onCloseDelete,
   } = useDisclosure();
+
   const [tagId, setTagId] = useState<string | null>(null);
   const [isLessThan680] = useMediaQuery('(max-width: 680px)');
 
