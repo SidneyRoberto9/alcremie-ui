@@ -13,7 +13,7 @@
 
 ## Sobre
 
-Este projeto é uma aplicação web de delivery de cafeteria, com uma ampla variedade de cafés para escolher. Ele foi construído como parte de um curso Ignite, usando as tecnologias React e Vite. Com uma interface fácil de usar, os usuários podem navegar através de uma seleção de cafés, personalizar suas ordens e fazer pedidos para entrega ou retirada. A aplicação não inclui recursos de armazenamento de histórico de pedidos, mas foi desenvolvida para proporcionar uma experiência de compra de café conveniente e personalizada para os usuários.
+..in progress
 
 <br />
 
