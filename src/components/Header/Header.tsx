@@ -2,7 +2,9 @@ import { Box, Button, Flex } from '@chakra-ui/react';
 import { signIn, signOut, useSession } from 'next-auth/react';
 import { useRouter } from 'next/router';
 import { List } from 'phosphor-react';
+import { useContextSelector } from 'use-context-selector';
 
+import { galleryContext } from '../../context/useGallery';
 import { useNav } from '../../context/useNav';
 import { Avatar } from './Avatar';
 import { FavoriteButton } from './FavoriteButton';
@@ -11,6 +13,11 @@ import { FilterTags } from './FilterTags';
 export function Header() {
   const { isOpen, toggleNav } = useNav();
   const { data, status } = useSession();
+
+  const getGalleryData = useContextSelector(
+    galleryContext,
+    ({ getGalleryData }) => getGalleryData,
+  );
 
   const router = useRouter();
 
@@ -77,7 +84,9 @@ export function Header() {
           )}
         </Box>
 
-        {isRecentPage && !isRecentPageWithSearch && <FilterTags />}
+        {isRecentPage && !isRecentPageWithSearch && (
+          <FilterTags onGetGalleryData={getGalleryData} />
+        )}
 
         {isSignedIn && isPreviewPage && (
           <FavoriteButton
