@@ -1,10 +1,11 @@
-import { Box, Flex, Image } from '@chakra-ui/react';
+import { Box, Image } from '@chakra-ui/react';
 import { GetServerSideProps } from 'next';
 import { NextSeo } from 'next-seo';
 
 import { ImageDtoWithTags } from '../../@types/api/img';
 import { Content } from '../../components/Content';
-import { TagButton } from '../../components/TagButton';
+import { OptionsBox } from '../../components/Preview/OptionsBox';
+import { TagBox } from '../../components/Preview/TagBox';
 import { getImageById } from '../../server/query/image.query';
 import { getTagByIdList } from '../../server/query/tag.query';
 import { imageToDtoWithTags } from '../../utils/converter-data';
@@ -12,6 +13,14 @@ import { imageToDtoWithTags } from '../../utils/converter-data';
 interface PreviewProps {
   image: ImageDtoWithTags;
 }
+
+const GridTemplate = {
+  base: `"img img"
+        "tags option"`,
+  lg: `"option img"
+      "tags img"
+    `,
+};
 
 export default function Preview({ image }: PreviewProps) {
   return (
@@ -26,12 +35,12 @@ export default function Preview({ image }: PreviewProps) {
       >
         <Box
           display={'grid'}
-          gridTemplate={{
-            base: `"img"
-                  "tags"`,
-            lg: `"tags img"`,
-          }}
+          gridTemplate={GridTemplate}
           gridTemplateColumns={{ base: '1fr', lg: '350px 1fr' }}
+          gridTemplateRows={{
+            base: 'auto',
+            lg: '4.5rem auto auto auto',
+          }}
           h={'100%'}
         >
           <Image
@@ -42,24 +51,14 @@ export default function Preview({ image }: PreviewProps) {
             gridArea={'img'}
           />
 
-          <Box padding={'1rem 0'} gridArea={'tags'}>
-            <Flex
-              justifyContent={'flex-start'}
-              direction={'column'}
-              alignItems={'flex-start'}
-            >
-              <Box p={'0 1rem'}>
-                {image.tags.map(({ id, name, description }) => (
-                  <TagButton
-                    key={id}
-                    tag={name}
-                    tooltipLabel={description}
-                    m={'0.25rem'}
-                  />
-                ))}
-              </Box>
-            </Flex>
-          </Box>
+          <OptionsBox
+            name={image.imgurId}
+            url={image.imgurUrl}
+            padding={'1.15rem 0'}
+            gridArea={'option'}
+          />
+
+          <TagBox tags={image.tags} padding={'1rem 0'} gridArea={'tags'} />
         </Box>
       </Content>
     </>
@@ -84,9 +83,7 @@ export const getServerSideProps: GetServerSideProps = async ({ params }) => {
     };
   }
 
-  const { tags, ...image } = ImgData;
-
-  const tagsData = await getTagByIdList(tags);
+  const tagsData = await getTagByIdList(ImgData.tags);
   const returnedImage = imageToDtoWithTags(ImgData, tagsData);
 
   return {
