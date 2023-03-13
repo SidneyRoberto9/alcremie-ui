@@ -39,13 +39,25 @@ export const theme = extendTheme({
   components: {
     Button: {
       variants: {
-        default: {
+        primary: {
           fontSize: '1rem',
           fontWeight: '500',
           cursor: 'pointer',
           textTransform: 'capitalize',
           color: 'white',
           bg: 'green.300',
+          transition: 'filter 250ms ease-in-out',
+          _hover: {
+            filter: 'brightness(0.75)',
+          },
+        },
+        danger: {
+          fontSize: '1rem',
+          fontWeight: '500',
+          cursor: 'pointer',
+          textTransform: 'capitalize',
+          color: 'white',
+          bg: 'red.400',
           transition: 'filter 250ms ease-in-out',
           _hover: {
             filter: 'brightness(0.75)',

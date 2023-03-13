@@ -113,7 +113,7 @@ export default function Manager({ tags }: ManagerProps) {
             </InputGroup>
           )}
 
-          <Button variant={'default'} p={'0 2rem'} onClick={onOpenAdd}>
+          <Button variant={'primary'} p={'0 2rem'} onClick={onOpenAdd}>
             Add Tag
           </Button>
         </Flex>

@@ -229,7 +229,7 @@ export function FormUpload({ tags }: FormUploadProps) {
             <Flex width={'100%'} justifyContent={'flex-end'}>
               <Button
                 type="submit"
-                variant={'default'}
+                variant={'primary'}
                 isDisabled={isSubmitting}
                 isLoading={isSubmitting}
               >

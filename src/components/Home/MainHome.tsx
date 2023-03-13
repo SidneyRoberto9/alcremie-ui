@@ -102,7 +102,7 @@ export function MainHome({ image, imageId }: MainHomeProps) {
           </Text>
 
           <HStack>
-            <Button variant={'default'} onClick={handleNavigateToGallery}>
+            <Button variant={'primary'} onClick={handleNavigateToGallery}>
               Gallery
             </Button>
           </HStack>

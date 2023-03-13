@@ -146,7 +146,7 @@ export function AddModal({ isOpen, onClose }: AddModalProps) {
             </Button>
             <Button
               type="submit"
-              variant={'default'}
+              variant={'primary'}
               isDisabled={isSubmitting}
               isLoading={isSubmitting}
             >

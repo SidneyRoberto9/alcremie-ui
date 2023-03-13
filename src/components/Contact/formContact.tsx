@@ -131,7 +131,7 @@ export function FormContact() {
             <Flex width={'100%'} justifyContent={'flex-end'}>
               <Button
                 type="submit"
-                variant={'default'}
+                variant={'primary'}
                 _disabled={{
                   filter: 'brightness(0.9)',
                   cursor: 'not-allowed',
