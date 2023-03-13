@@ -1,4 +1,4 @@
-import { Image } from '@chakra-ui/react';
+import { Image, Link } from '@chakra-ui/react';
 import { useRouter } from 'next/router';
 
 interface MasonryItemProps {
@@ -14,15 +14,17 @@ export function MasonryItem({ id, url }: MasonryItemProps) {
   }
 
   return (
-    <Image
-      width={'100%'}
-      display={'block'}
-      loading={'lazy'}
-      fit={'cover'}
-      cursor={'pointer'}
-      alt={id}
-      src={url}
-      onClick={handleOpenNewTab}
-    />
+    <Link target={'_self'} href={`preview/${id}`}>
+      <Image
+        width={'100%'}
+        display={'block'}
+        loading={'lazy'}
+        fit={'cover'}
+        cursor={'pointer'}
+        alt={id}
+        src={url}
+        onClick={handleOpenNewTab}
+      />
+    </Link>
   );
 }
