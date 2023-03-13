@@ -87,7 +87,7 @@ export const uploadTagStyle: StylesConfig<
 > = {
   container: (provided) => ({
     ...provided,
-    width: '10rem',
+    width: '100%',
     padding: '0.37rem 0.1rem',
     margin: '0',
     background: '#272727',

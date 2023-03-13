@@ -1,17 +1,20 @@
-import { Box, Image } from '@chakra-ui/react';
+import { Box, Image, useDisclosure } from '@chakra-ui/react';
 import { GetServerSideProps } from 'next';
 import { NextSeo } from 'next-seo';
 
 import { ImageDtoWithTags } from '../../@types/api/img';
+import { Tag } from '../../@types/api/tag';
 import { Content } from '../../components/Content';
+import { EditModal } from '../../components/Preview/EditModal';
 import { OptionsBox } from '../../components/Preview/OptionsBox';
 import { TagBox } from '../../components/Preview/TagBox';
 import { getImageById } from '../../server/query/image.query';
-import { getTagByIdList } from '../../server/query/tag.query';
+import { getAllTags, getTagByIdList } from '../../server/query/tag.query';
 import { imageToDtoWithTags } from '../../utils/converter-data';
 
 interface PreviewProps {
   image: ImageDtoWithTags;
+  tags: Tag[];
 }
 
 const GridTemplate = {
@@ -22,9 +25,21 @@ const GridTemplate = {
     `,
 };
 
-export default function Preview({ image }: PreviewProps) {
+export default function Preview({ image, tags }: PreviewProps) {
+  const {
+    isOpen: isEditorOpen,
+    onOpen: onOpenEditor,
+    onClose: onCloseEditor,
+  } = useDisclosure();
+
   return (
     <>
+      <EditModal
+        isOpen={isEditorOpen}
+        onClose={onCloseEditor}
+        image={image}
+        tags={tags}
+      />
       <NextSeo title="Preview | Alcremie" />
 
       <Content
@@ -52,6 +67,7 @@ export default function Preview({ image }: PreviewProps) {
           />
 
           <OptionsBox
+            handleEdit={onOpenEditor}
             name={image.imgurId}
             url={image.imgurUrl}
             padding={'1.15rem 0'}
@@ -85,10 +101,12 @@ export const getServerSideProps: GetServerSideProps = async ({ params }) => {
 
   const tagsData = await getTagByIdList(ImgData.tags);
   const returnedImage = imageToDtoWithTags(ImgData, tagsData);
+  const tags = await getAllTags();
 
   return {
     props: {
       image: returnedImage,
+      tags,
     },
   };
 };
