@@ -8,6 +8,7 @@ import {
   ImageProps,
 } from '../../@types/api/img';
 import { queryForFilterImagesSchemaType } from '../../pages/api/img/[page]';
+import { BodyForUpdateImageSchema } from '../../pages/api/img/update';
 import { imageToDto } from '../../utils/converter-data';
 import { isEmpty } from '../../utils/valitation';
 import { prisma } from '../prisma';
@@ -211,4 +212,31 @@ export async function getUserFavoritesImages(userId: string) {
   });
 
   return images.map(imageToDto);
+}
+
+export async function updateImageData(data: BodyForUpdateImageSchema) {
+  const { id, tags, nsfw, source } = data;
+
+  const image = await prisma.image.findUnique({
+    where: {
+      id,
+    },
+  });
+
+  if (image === null) {
+    return null;
+  }
+
+  await prisma.image.update({
+    where: {
+      id,
+    },
+    data: {
+      isNsfw: nsfw,
+      source,
+      tags,
+    },
+  });
+
+  return true;
 }
