@@ -18,8 +18,8 @@ export function FilterTags({ onGetGalleryData }: FilterTagsProps) {
   const data = useContextSelector(tagsContext, ({ data }) => data);
 
   const options: SelectOption[] = [
-    { value: 0, label: 'All' },
-    { value: 1, label: 'NSFW' },
+    { value: '0', label: 'All' },
+    { value: '1', label: 'NSFW' },
   ];
 
   data.forEach((tag) =>
@@ -31,9 +31,9 @@ export function FilterTags({ onGetGalleryData }: FilterTagsProps) {
     const label = props?.label || false;
 
     const isFilter = {
-      isAll: label === 'All' || value === 0 || value === '0',
-      isNsfw: label === 'NSFW' || value === 1 || value === '1',
-      isTag: value != 0 && value != 1 && value != '0' && value != '1',
+      isAll: label === 'All' || value === '0',
+      isNsfw: label === 'NSFW' || value === '1',
+      isTag: value != '0' && value != '1',
     };
 
     const params: GetGalleryDataParams = {
