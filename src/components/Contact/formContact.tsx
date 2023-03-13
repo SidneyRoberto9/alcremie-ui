@@ -79,12 +79,14 @@ export function FormContact() {
           alignItems={'center'}
           justifyContent={'center'}
           padding={'1rem'}
+          maxW={'40rem'}
+          w={isLessThan680 ? '21rem' : '40rem'}
         >
           <TextTitle>Contact Us</TextTitle>
 
           <Flex
             as={'form'}
-            width={isLessThan680 ? '19rem' : '23rem'}
+            width={'100%'}
             flexDirection={'column'}
             alignItems={'flex-start'}
             gap={'0.875rem'}

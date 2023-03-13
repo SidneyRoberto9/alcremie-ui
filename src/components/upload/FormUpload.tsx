@@ -120,7 +120,8 @@ export function FormUpload({ tags }: FormUploadProps) {
         </Absolute>
       ) : (
         <Flex
-          w={isLessThan680 ? '21rem' : '100%'}
+          maxW={'40rem'}
+          w={isLessThan680 ? '21rem' : '40rem'}
           flexDirection={'column'}
           alignItems={'center'}
           justifyContent={'center'}
@@ -130,6 +131,7 @@ export function FormUpload({ tags }: FormUploadProps) {
 
           <Flex
             as={'form'}
+            width={'100%'}
             flexDirection={'column'}
             alignItems={'flex-start'}
             gap={'0.875rem'}
