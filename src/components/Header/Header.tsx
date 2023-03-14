@@ -7,7 +7,6 @@ import { useContextSelector } from 'use-context-selector';
 import { galleryContext } from '../../context/useGallery';
 import { useNav } from '../../context/useNav';
 import { Avatar } from './Avatar';
-import { FavoriteButton } from './FavoriteButton';
 import { FilterTags } from './FilterTags';
 
 export function Header() {
@@ -23,7 +22,6 @@ export function Header() {
 
   const isSignedIn = status === 'authenticated';
   const isSessionLoading = status === 'loading';
-  const isPreviewPage = router.pathname.includes('preview');
   const isRecentPage = router.pathname.includes('recent');
   const isRecentPageWithSearch = router.query.include_tags !== undefined;
 
@@ -86,13 +84,6 @@ export function Header() {
 
         {isRecentPage && !isRecentPageWithSearch && (
           <FilterTags onGetGalleryData={getGalleryData} />
-        )}
-
-        {isSignedIn && isPreviewPage && (
-          <FavoriteButton
-            imageId={String(router.query.id)}
-            userId={String(data?.user.id)}
-          />
         )}
 
         <Button
