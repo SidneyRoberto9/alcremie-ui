@@ -1,6 +1,7 @@
-import { Box, Image, useDisclosure } from '@chakra-ui/react';
+import { Box, useDisclosure } from '@chakra-ui/react';
 import { GetServerSideProps } from 'next';
 import { NextSeo } from 'next-seo';
+import Image from 'next/image';
 
 import { ImageDtoWithTags } from '../../@types/api/img';
 import { Tag } from '../../@types/api/tag';
@@ -18,8 +19,9 @@ interface PreviewProps {
 }
 
 const GridTemplate = {
-  base: `"img img"
-        "tags option"`,
+  base: `"img"
+        "option"
+        "tags"`,
   lg: `"option img"
       "tags img"
     `,
@@ -34,13 +36,13 @@ export default function Preview({ image, tags }: PreviewProps) {
 
   return (
     <>
+      <NextSeo title="Preview | Alcremie" />
       <EditModal
         isOpen={isEditorOpen}
         onClose={onCloseEditor}
         image={image}
         tags={tags}
       />
-      <NextSeo title="Preview | Alcremie" />
 
       <Content
         display={'flex'}
@@ -58,13 +60,27 @@ export default function Preview({ image, tags }: PreviewProps) {
           }}
           h={'100%'}
         >
-          <Image
-            padding={'1rem'}
+          <Box
+            w={{ base: '100%', md: '720' }}
+            h={{ base: '100%', md: '1280' }}
+            position={'relative'}
+            cursor={'pointer'}
             display={'block'}
-            width={'auto'}
-            src={image.imgurUrl}
+            padding={'1rem'}
             gridArea={'img'}
-          />
+          >
+            <Image
+              alt={image.imgurId}
+              src={image.imgurUrl}
+              width={3840}
+              height={2160}
+              priority
+              quality={100}
+              style={{
+                objectFit: 'cover',
+              }}
+            />
+          </Box>
 
           <OptionsBox
             handleEdit={onOpenEditor}
@@ -82,6 +98,7 @@ export default function Preview({ image, tags }: PreviewProps) {
 }
 
 export const getServerSideProps: GetServerSideProps = async ({ params }) => {
+  console.log(params);
   if (!params) {
     return {
       notFound: true,

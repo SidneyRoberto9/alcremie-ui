@@ -1,10 +1,14 @@
-import { Image, Link } from '@chakra-ui/react';
+import { Box, Link } from '@chakra-ui/react';
+import Image from 'next/image';
 import { useRouter } from 'next/router';
 
 interface MasonryItemProps {
   id: string;
   url: string;
 }
+
+const blurDataUrl =
+  'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNMrAcAAUcA4mVEDmEAAAAASUVORK5CYII=';
 
 export function MasonryItem({ id, url }: MasonryItemProps) {
   const router = useRouter();
@@ -15,16 +19,23 @@ export function MasonryItem({ id, url }: MasonryItemProps) {
 
   return (
     <Link target={'_self'} href={`preview/${id}`}>
-      <Image
-        width={'100%'}
-        display={'block'}
-        loading={'lazy'}
-        fit={'cover'}
+      <Box
+        w={'100%'}
+        h={'100%'}
+        position={'relative'}
         cursor={'pointer'}
-        alt={id}
-        src={url}
-        onClick={handleOpenNewTab}
-      />
+        display={'block'}
+      >
+        <Image
+          alt={id}
+          src={url}
+          onClick={handleOpenNewTab}
+          width={1920}
+          height={1080}
+          quality={60}
+          placeholder={'empty'}
+        />
+      </Box>
     </Link>
   );
 }
