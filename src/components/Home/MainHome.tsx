@@ -1,12 +1,5 @@
-import {
-  Box,
-  Button,
-  Flex,
-  Heading,
-  HStack,
-  Image,
-  Text,
-} from '@chakra-ui/react';
+import { Box, Button, Flex, Heading, HStack, Text } from '@chakra-ui/react';
+import Image from 'next/image';
 import { useRouter } from 'next/router';
 import { CheckCircle } from 'phosphor-react';
 
@@ -113,28 +106,38 @@ export function MainHome({ image, imageId }: MainHomeProps) {
           alignItems={'center'}
           w={'100%'}
           minW={{ base: 'auto', lg: '400px' }}
-          h={'100%'}
+          h={{ base: '90vh', lg: '100%' }}
           transition={'all 250ms ease-in-out'}
           _hover={{
             transform: 'scale(1.05)',
           }}
         >
-          <Image
-            onClick={handleOpenImage}
-            src={image}
-            fallbackSrc={'/unset.png'}
-            fallbackStrategy={'onError'}
+          <Box
             w={'100%'}
             h={'100%'}
-            objectFit={'cover'}
-            borderRadius={'8px'}
-            cursor={'pointer'}
+            position={'relative'}
             __css={{
               WebkitBoxShadow: '0px 0px 25px 1px rgba(0,0,0,0.75)',
               MozBoxShadow: '0px 0px 25px 1px rgba(0,0,0,0.75)',
               boxShadow: '0px 0px 25px 1px rgba(0,0,0,0.75)',
             }}
-          />
+          >
+            <Image
+              alt={imageId}
+              src={image}
+              onClick={handleOpenImage}
+              fill
+              priority
+              quality={100}
+              placeholder={'empty'}
+              style={{
+                borderRadius: '8px',
+                objectFit: 'cover',
+                cursor: 'pointer',
+              }}
+            />
+          </Box>
+
           <Text
             display={'flex'}
             alignItems={'center'}
