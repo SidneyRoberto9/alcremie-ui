@@ -1,7 +1,6 @@
-import { Box, useDisclosure } from '@chakra-ui/react';
+import { Box, Image as Img, useDisclosure } from '@chakra-ui/react';
 import { GetServerSideProps } from 'next';
 import { NextSeo } from 'next-seo';
-import Image from 'next/image';
 
 import { ImageDtoWithTags } from '../../@types/api/img';
 import { Tag } from '../../@types/api/tag';
@@ -60,27 +59,17 @@ export default function Preview({ image, tags }: PreviewProps) {
           }}
           h={'100%'}
         >
-          <Box
+          <Img
             w={{ base: '100%', md: '720' }}
             h={{ base: '100%', md: '1280' }}
-            position={'relative'}
             cursor={'pointer'}
             display={'block'}
             padding={'1rem'}
             gridArea={'img'}
-          >
-            <Image
-              alt={image.imgurId}
-              src={image.imgurUrl}
-              width={3840}
-              height={2160}
-              priority
-              quality={100}
-              style={{
-                objectFit: 'cover',
-              }}
-            />
-          </Box>
+            alt={image.imgurId}
+            src={image.imgurUrl}
+            objectFit={'cover'}
+          />
 
           <OptionsBox
             handleEdit={onOpenEditor}
