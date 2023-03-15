@@ -15,6 +15,9 @@ export function LabelPageText({ label }: LabelPageTextProps) {
       userSelect={'none'}
       pointerEvents={'none'}
       textAlign={'center'}
+      w={'3.125rem'}
+      maxW={'3.125rem'}
+      minW={'3.125rem'}
     >
       {label}
     </Text>
