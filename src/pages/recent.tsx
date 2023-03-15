@@ -24,30 +24,9 @@ interface RecentProps {
 }
 
 export default function Recent({ content, tags }: RecentProps) {
-  const {
-    isLoading,
-    contentTotalSize,
-    pageSize,
-    actualPage,
-    onChangePage,
-    onSetContent,
-    setFilterParams,
-  } = useContextSelector(
+  const { onSetContent, setFilterParams } = useContextSelector(
     galleryContext,
-    ({
-      contentTotalSize,
-      isLoading,
-      pageSize,
-      actualPage,
-      onChangePage,
-      onSetContent,
-      setFilterParams,
-    }) => ({
-      isLoading,
-      contentTotalSize,
-      pageSize,
-      actualPage,
-      onChangePage,
+    ({ onSetContent, setFilterParams }) => ({
       onSetContent,
       setFilterParams,
     }),
@@ -63,9 +42,9 @@ export default function Recent({ content, tags }: RecentProps) {
   };
 
   useEffect(() => {
+    setFilterParams(params);
     onSetContent(content);
     setTags(tags);
-    setFilterParams(params);
   }, []);
 
   return (
@@ -74,13 +53,7 @@ export default function Recent({ content, tags }: RecentProps) {
 
       <Content>
         <MasonryBox />
-        <Pagination
-          pageSize={pageSize}
-          isLoading={isLoading}
-          actualPage={actualPage}
-          onChangePage={onChangePage}
-          contentTotalSize={contentTotalSize}
-        />
+        <Pagination />
       </Content>
     </>
   );

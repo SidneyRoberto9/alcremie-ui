@@ -8,14 +8,13 @@ export function LabelPageText({ label }: LabelPageTextProps) {
   return (
     <Text
       display={'inline-block'}
-      padding={'0.375rem 0.75rem'}
-      fontSize={'1.25rem'}
+      padding={'0.3rem 0.75rem'}
+      fontSize={'1rem'}
       color={'white.900'}
       lineHeight={'1.5'}
       userSelect={'none'}
       pointerEvents={'none'}
-      minWidth={'3.5rem'}
-      width={'3.5rem'}
+      textAlign={'center'}
     >
       {label}
     </Text>
