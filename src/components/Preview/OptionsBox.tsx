@@ -36,7 +36,7 @@ export function OptionsBox({
 
         {actualUserIsAdmin && (
           <Button onClick={handleEdit} variant={'danger'} m={'0.25rem'}>
-            Edit
+            Editor
           </Button>
         )}
 
