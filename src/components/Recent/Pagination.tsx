@@ -1,11 +1,14 @@
-import { Flex } from '@chakra-ui/react';
+import { Flex, useDisclosure } from '@chakra-ui/react';
 import { useContextSelector } from 'use-context-selector';
 
 import { galleryContext } from '../../context/useGallery';
+import { GoToPageModal } from './GoToPageModal';
 import { LabelPageText } from './LabelPageText';
 import { PaginationButton } from './PaginationButton';
 
 export function Pagination() {
+  const { isOpen, onOpen, onClose } = useDisclosure();
+
   const { pageSize, isLoading, actualPage, onChangePage, contentTotalSize } =
     useContextSelector(
       galleryContext,
@@ -51,47 +54,53 @@ export function Pagination() {
   }
 
   return (
-    <Flex
-      position={'fixed'}
-      bottom={'2%'}
-      left={'50vw'}
-      transform={'translate(-50%, 0%)'}
-      padding={'0.25rem'}
-      bg={'gray.800'}
-      borderRadius={'8px'}
-      direction={'column'}
-    >
+    <>
+      <GoToPageModal isOpen={isOpen} onClose={onClose} />
       <Flex
-        direction={'row'}
-        alignItems={'center'}
-        justifyContent={'space-between'}
+        position={'fixed'}
+        bottom={'2%'}
+        left={'50vw'}
+        transform={'translate(-50%, 0%)'}
+        padding={'0.25rem'}
+        bg={'gray.800'}
+        borderRadius={'8px'}
+        direction={'column'}
       >
-        <PaginationButton
-          onClick={handleFirstPage}
-          isDisabled={disabledPreviousAndFirstButton}
-          label={'first'}
-        />
+        <Flex
+          direction={'row'}
+          alignItems={'center'}
+          justifyContent={'space-between'}
+        >
+          <PaginationButton
+            onClick={handleFirstPage}
+            isDisabled={disabledPreviousAndFirstButton}
+            label={'first'}
+          />
 
-        <PaginationButton
-          onClick={handlePreviousPage}
-          isDisabled={disabledPreviousAndFirstButton}
-          label={'previous'}
-        />
+          <PaginationButton
+            onClick={handlePreviousPage}
+            isDisabled={disabledPreviousAndFirstButton}
+            label={'previous'}
+          />
 
-        <LabelPageText label={`${actualPage}/${totalPages || 1}`} />
+          <LabelPageText
+            label={`${actualPage}/${totalPages || 1}`}
+            onClick={onOpen}
+          />
 
-        <PaginationButton
-          onClick={handleNextPage}
-          isDisabled={disabledNextAndLastButton}
-          label={'next'}
-        />
+          <PaginationButton
+            onClick={handleNextPage}
+            isDisabled={disabledNextAndLastButton}
+            label={'next'}
+          />
 
-        <PaginationButton
-          onClick={handleLastPage}
-          isDisabled={disabledNextAndLastButton}
-          label={'last'}
-        />
+          <PaginationButton
+            onClick={handleLastPage}
+            isDisabled={disabledNextAndLastButton}
+            label={'last'}
+          />
+        </Flex>
       </Flex>
-    </Flex>
+    </>
   );
 }
