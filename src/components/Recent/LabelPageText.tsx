@@ -1,10 +1,10 @@
-import { Text } from '@chakra-ui/react';
+import { Text, TextProps } from '@chakra-ui/react';
 
-interface LabelPageTextProps {
+interface LabelPageTextProps extends TextProps {
   label: string;
 }
 
-export function LabelPageText({ label }: LabelPageTextProps) {
+export function LabelPageText({ label, ...rest }: LabelPageTextProps) {
   return (
     <Text
       display={'inline-block'}
@@ -13,11 +13,12 @@ export function LabelPageText({ label }: LabelPageTextProps) {
       color={'white.900'}
       lineHeight={'1.5'}
       userSelect={'none'}
-      pointerEvents={'none'}
       textAlign={'center'}
-      w={'3.125rem'}
-      maxW={'3.125rem'}
+      cursor={'pointer'}
+      w={'100%'}
+      maxW={'10rem'}
       minW={'3.125rem'}
+      {...rest}
     >
       {label}
     </Text>
