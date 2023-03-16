@@ -87,7 +87,6 @@ export default function Preview({ image, tags }: PreviewProps) {
 }
 
 export const getServerSideProps: GetServerSideProps = async ({ params }) => {
-  console.log(params);
   if (!params) {
     return {
       notFound: true,
