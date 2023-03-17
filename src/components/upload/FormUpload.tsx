@@ -23,7 +23,7 @@ import { TagProps } from '../../@types/api/tag';
 import { SelectOption } from '../../@types/gallery';
 import { api } from '../../server/api';
 import { uploadTagStyle } from '../../styles/react-select-tag';
-import { Capitalize } from '../../utils/captalize';
+import { createSelectOptionWithTags } from '../../utils/create-select-option';
 import { Absolute } from '../Absolute';
 import { TextTitle } from '../TextTitle';
 
@@ -44,7 +44,7 @@ export function FormUpload({ tags }: FormUploadProps) {
     register,
     reset,
     handleSubmit,
-    formState: { isSubmitting, errors, isValid },
+    formState: { isSubmitting, errors },
   } = useForm<UploadSchema>({
     resolver: zodResolver(uploadSchema),
   });
@@ -54,9 +54,7 @@ export function FormUpload({ tags }: FormUploadProps) {
   const [isLoadingSubmit, setIsLoadingSubmit] = useState<boolean>(false);
   const [isLessThan680] = useMediaQuery('(max-width: 680px)');
 
-  const options: SelectOption[] = tags.map((tag) => {
-    return { value: String(tag.id), label: Capitalize(tag.name) };
-  });
+  const options = createSelectOptionWithTags(tags);
 
   async function handleUpload(data: UploadSchema) {
     setIsLoadingSubmit(true);
@@ -85,8 +83,6 @@ export function FormUpload({ tags }: FormUploadProps) {
         },
       });
 
-      setIsLoadingSubmit(false);
-      reset();
       toast({
         title: 'Image uploaded!',
         description: 'The image was uploaded successfully.',
@@ -95,7 +91,6 @@ export function FormUpload({ tags }: FormUploadProps) {
         isClosable: true,
       });
     } catch (error) {
-      setIsLoadingSubmit(false);
       toast({
         title: 'Image not uploaded!',
         description: 'The image was not uploaded successfully.',
@@ -103,6 +98,9 @@ export function FormUpload({ tags }: FormUploadProps) {
         duration: 3500,
         isClosable: true,
       });
+    } finally {
+      setIsLoadingSubmit(false);
+      reset();
     }
   }
 
