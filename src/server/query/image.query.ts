@@ -224,10 +224,10 @@ export async function updateImageData(data: BodyForUpdateImageSchema) {
   });
 
   if (image === null) {
-    return null;
+    throw new Error('Image not found');
   }
 
-  await prisma.image.update({
+  const updatedImage = await prisma.image.update({
     where: {
       id,
     },
@@ -238,5 +238,5 @@ export async function updateImageData(data: BodyForUpdateImageSchema) {
     },
   });
 
-  return true;
+  return updatedImage;
 }
