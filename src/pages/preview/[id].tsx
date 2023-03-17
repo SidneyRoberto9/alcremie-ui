@@ -1,6 +1,7 @@
 import { Box, Image as Img, useDisclosure } from '@chakra-ui/react';
 import { GetServerSideProps } from 'next';
 import { NextSeo } from 'next-seo';
+import { useState } from 'react';
 
 import { ImageDtoWithTags } from '../../@types/api/img';
 import { Tag } from '../../@types/api/tag';
@@ -27,6 +28,8 @@ const GridTemplate = {
 };
 
 export default function Preview({ image, tags }: PreviewProps) {
+  const [imgData, setImgData] = useState<ImageDtoWithTags>(image);
+
   const {
     isOpen: isEditorOpen,
     onOpen: onOpenEditor,
@@ -36,10 +39,12 @@ export default function Preview({ image, tags }: PreviewProps) {
   return (
     <>
       <NextSeo title="Preview | Alcremie" />
+
       <EditModal
         isOpen={isEditorOpen}
         onClose={onCloseEditor}
-        image={image}
+        onChangeImageData={setImgData}
+        image={imgData}
         tags={tags}
       />
 
@@ -66,20 +71,20 @@ export default function Preview({ image, tags }: PreviewProps) {
             display={'block'}
             padding={'1rem'}
             gridArea={'img'}
-            alt={image.imgurId}
-            src={image.imgurUrl}
+            alt={imgData.imgurId}
+            src={imgData.imgurUrl}
             objectFit={'cover'}
           />
 
           <OptionsBox
             handleEdit={onOpenEditor}
-            name={image.imgurId}
-            url={image.imgurUrl}
+            name={imgData.imgurId}
+            url={imgData.imgurUrl}
             padding={'1.15rem 0'}
             gridArea={'option'}
           />
 
-          <TagBox tags={image.tags} padding={'1rem 0'} gridArea={'tags'} />
+          <TagBox tags={imgData.tags} padding={'1rem 0'} gridArea={'tags'} />
         </Box>
       </Content>
     </>

@@ -16,7 +16,6 @@ import {
   useToast,
 } from '@chakra-ui/react';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { useRouter } from 'next/router';
 import { FormEvent, useRef } from 'react';
 import { useForm } from 'react-hook-form';
 import ReactSelect from 'react-select';
@@ -27,13 +26,14 @@ import { Tag } from '../../@types/api/tag';
 import { SelectOption } from '../../@types/gallery';
 import { api } from '../../server/api';
 import { uploadTagStyle } from '../../styles/react-select-tag';
-import { Capitalize } from '../../utils/captalize';
+import { createSelectOptionWithTags } from '../../utils/create-select-option';
 
 interface EditModalProps {
   isOpen: boolean;
   onClose: () => void;
   image: ImageDtoWithTags;
   tags: Tag[];
+  onChangeImageData: (image: ImageDtoWithTags) => void;
 }
 
 const editImageSchema = z.object({
@@ -43,13 +43,17 @@ const editImageSchema = z.object({
 
 type EditImageSchema = z.infer<typeof editImageSchema>;
 
-export function EditModal({ isOpen, onClose, image, tags }: EditModalProps) {
+export function EditModal({
+  isOpen,
+  onClose,
+  image,
+  tags,
+  onChangeImageData,
+}: EditModalProps) {
   const {
     register,
     handleSubmit,
-    setValue,
-    reset,
-    formState: { isSubmitting, errors },
+    formState: { isSubmitting },
   } = useForm<EditImageSchema>({
     resolver: zodResolver(editImageSchema),
     defaultValues: {
@@ -57,30 +61,28 @@ export function EditModal({ isOpen, onClose, image, tags }: EditModalProps) {
       nsfw: image.isNsfw,
     },
   });
+
   const toast = useToast();
-  const router = useRouter();
-
   const selectedRef = useRef<any>(null);
-  const options: SelectOption[] = tags.map((tag) => {
-    return { value: String(tag.id), label: Capitalize(tag.name) };
-  });
 
-  const selectedOptions: SelectOption[] = image.tags.map((tag) => {
-    return { value: String(tag.id), label: Capitalize(tag.name) };
-  });
+  const options = createSelectOptionWithTags(tags);
+  const selectedOptions = createSelectOptionWithTags(image.tags);
 
   async function handleEditImage(data: EditImageSchema) {
+    const selectedTagList: String[] = selectedRef.current
+      .getValue()
+      .map((tag: SelectOption) => tag.value);
+
     const formData = {
-      source: data.source,
-      nsfw: data.nsfw,
-      tags: selectedRef.current
-        .getValue()
-        .map((tag: SelectOption) => tag.value),
       id: image.id,
+      nsfw: data.nsfw,
+      source: data.source,
+      tags: selectedTagList,
     };
 
     try {
-      await api.put('/img/update', formData);
+      const { data } = await api.put<ImageDtoWithTags>('/img/update', formData);
+      onChangeImageData(data);
       onClose();
       toast({
         title: 'Image updated.',
@@ -97,9 +99,6 @@ export function EditModal({ isOpen, onClose, image, tags }: EditModalProps) {
         duration: 3500,
         isClosable: true,
       });
-    } finally {
-      reset();
-      router.reload();
     }
   }
 
