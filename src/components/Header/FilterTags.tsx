@@ -3,28 +3,24 @@ import ReactSelect from 'react-select';
 import { useContextSelector } from 'use-context-selector';
 
 import { GetGalleryDataParams, SelectOption } from '../../@types/gallery';
+import { galleryContext } from '../../context/useGallery';
 import { tagsContext } from '../../context/useTags';
 import { selectTagStyle } from '../../styles/react-select-tag';
-import { Capitalize } from '../../utils/captalize';
+import { createSelectOptionWithTags } from '../../utils/create-select-option';
 
-interface FilterTagsProps {
-  onGetGalleryData: (
-    page: number,
-    params: GetGalleryDataParams,
-  ) => Promise<void>;
-}
+export function FilterTags() {
+  const getGalleryData = useContextSelector(
+    galleryContext,
+    ({ getGalleryData }) => getGalleryData,
+  );
 
-export function FilterTags({ onGetGalleryData }: FilterTagsProps) {
   const data = useContextSelector(tagsContext, ({ data }) => data);
 
   const options: SelectOption[] = [
     { value: '0', label: 'All' },
     { value: '1', label: 'NSFW' },
+    ...createSelectOptionWithTags(data),
   ];
-
-  data.forEach((tag) =>
-    options.push({ value: tag.id, label: Capitalize(tag.name) }),
-  );
 
   async function handleChange(props: any) {
     const value = props?.value || false;
@@ -42,7 +38,7 @@ export function FilterTags({ onGetGalleryData }: FilterTagsProps) {
       included_tags: isFilter.isTag ? label.toLowerCase() : '',
     };
 
-    await onGetGalleryData(0, params);
+    await getGalleryData(0, params);
   }
 
   return (

@@ -1,4 +1,4 @@
-import { createContext, useContext } from 'react';
+import { createContext, useCallback, useContext } from 'react';
 import { ReactNode, useState } from 'react';
 
 interface NavProps {
@@ -15,9 +15,12 @@ const navContext = createContext({} as NavProps);
 export function NavProvider({ children }: ContextProps) {
   const [isOpen, setIsOpen] = useState<boolean>(false);
 
-  function toggleNav(state: boolean) {
-    setIsOpen(state);
-  }
+  const toggleNav = useCallback(
+    (state: boolean) => {
+      setIsOpen(state);
+    },
+    [isOpen],
+  );
 
   return (
     <navContext.Provider

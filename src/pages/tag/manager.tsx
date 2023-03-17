@@ -12,7 +12,7 @@ import {
 import { GetServerSideProps } from 'next';
 import { getSession } from 'next-auth/react';
 import { NextSeo } from 'next-seo';
-import { ChangeEvent, useEffect, useState } from 'react';
+import { ChangeEvent, useCallback, useEffect, useState } from 'react';
 import { useContextSelector } from 'use-context-selector';
 
 import { Tag } from '../../@types/api/tag';
@@ -56,10 +56,13 @@ export default function Manager({ tags }: ManagerProps) {
     filterTag(search);
   }
 
-  function onDelete(id: string) {
-    setTagId(id);
-    onOpenDelete();
-  }
+  const onDelete = useCallback(
+    (id: string) => {
+      setTagId(id);
+      onOpenDelete();
+    },
+    [tagId],
+  );
 
   useEffect(() => {
     setTags(tags);

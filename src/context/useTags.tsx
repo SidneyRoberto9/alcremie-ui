@@ -1,4 +1,4 @@
-import { ReactNode, useState } from 'react';
+import { ReactNode, useCallback, useState } from 'react';
 import { createContext } from 'use-context-selector';
 
 import { Tag } from '../@types/api/tag';
@@ -29,43 +29,54 @@ export function TagsContextProvider({ children }: ContextProps) {
   const [tags, setTags] = useState<Tag[]>([]);
   const [isLoading, setIsLoading] = useState(false);
 
-  function filterTag(search: string) {
-    if (search.length < 1) {
-      return setTags(InitialTags);
-    }
+  const filterTag = useCallback(
+    (search: string) => {
+      if (search.length < 1) {
+        return setTags(InitialTags);
+      }
 
-    setTags((state) =>
-      state.filter((tag) => tag.name.toLowerCase().includes(search)),
-    );
-  }
+      setTags((state) =>
+        state.filter((tag) => tag.name.toLowerCase().includes(search)),
+      );
+    },
+    [tags, InitialTags],
+  );
 
-  function setTagContent(tags: Tag[]) {
-    setTags(tags);
-    setInitialTags(tags);
-  }
+  const setTagContent = useCallback(
+    (tags: Tag[]) => {
+      setTags(tags);
+      setInitialTags(tags);
+    },
+    [tags, InitialTags],
+  );
 
-  async function getTags() {
+  const getTags = useCallback(async () => {
     setIsLoading(true);
     const { data } = await api.get('/tag');
-
     setInitialTags(data.tags);
     setTags(data.tags);
     setIsLoading(false);
-  }
+  }, [InitialTags, tags, isLoading]);
 
-  async function createTag(name: string, description: string, isNsfw: boolean) {
-    setIsLoading(true);
-    await api.post('/tag', {
-      name,
-      description,
-      is_nsfw: isNsfw,
-    });
-  }
+  const createTag = useCallback(
+    async (name: string, description: string, isNsfw: boolean) => {
+      setIsLoading(true);
+      await api.post('/tag', {
+        name,
+        description,
+        is_nsfw: isNsfw,
+      });
+    },
+    [isLoading],
+  );
 
-  async function deleteTag(id: string) {
-    setIsLoading(true);
-    await api.delete(`/tag/${id}`);
-  }
+  const deleteTag = useCallback(
+    async (id: string) => {
+      setIsLoading(true);
+      await api.delete(`/tag/${id}`);
+    },
+    [isLoading],
+  );
 
   return (
     <tagsContext.Provider

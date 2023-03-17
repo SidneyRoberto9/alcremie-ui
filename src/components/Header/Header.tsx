@@ -2,9 +2,7 @@ import { Box, Button, Flex } from '@chakra-ui/react';
 import { signIn, signOut, useSession } from 'next-auth/react';
 import { useRouter } from 'next/router';
 import { List } from 'phosphor-react';
-import { useContextSelector } from 'use-context-selector';
 
-import { galleryContext } from '../../context/useGallery';
 import { useNav } from '../../context/useNav';
 import { Avatar } from './Avatar';
 import { FilterTags } from './FilterTags';
@@ -12,11 +10,6 @@ import { FilterTags } from './FilterTags';
 export function Header() {
   const { isOpen, toggleNav } = useNav();
   const { data, status } = useSession();
-
-  const getGalleryData = useContextSelector(
-    galleryContext,
-    ({ getGalleryData }) => getGalleryData,
-  );
 
   const router = useRouter();
 
@@ -51,6 +44,7 @@ export function Header() {
     >
       <Flex gap={2} margin={'0 0.12rem'}>
         <Button
+          onClick={handleOpenNav}
           display={'flex'}
           alignItems={'center'}
           justifyContent={'center'}
@@ -67,7 +61,6 @@ export function Header() {
           _active={{
             filter: 'brightness(0.8)',
           }}
-          onClick={handleOpenNav}
         >
           <List size={30} weight="regular" />
         </Button>
@@ -82,9 +75,7 @@ export function Header() {
           )}
         </Box>
 
-        {isRecentPage && !isRecentPageWithSearch && (
-          <FilterTags onGetGalleryData={getGalleryData} />
-        )}
+        {isRecentPage && !isRecentPageWithSearch && <FilterTags />}
 
         <Button
           onClick={isSignedIn ? handleLogout : handleLogin}

@@ -7,9 +7,6 @@ interface MasonryItemProps {
   url: string;
 }
 
-const blurDataUrl =
-  'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNMrAcAAUcA4mVEDmEAAAAASUVORK5CYII=';
-
 export function MasonryItem({ id, url }: MasonryItemProps) {
   const router = useRouter();
 

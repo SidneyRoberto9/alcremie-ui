@@ -1,4 +1,10 @@
-import { Dispatch, ReactNode, SetStateAction, useState } from 'react';
+import {
+  Dispatch,
+  ReactNode,
+  SetStateAction,
+  useCallback,
+  useState,
+} from 'react';
 import { createContext } from 'use-context-selector';
 
 import {
@@ -38,34 +44,40 @@ export function GalleryProvider({ children }: ContextProps) {
     is_nsfw: false,
   });
 
-  function onSetContent(data: GalleryFetchDataResponse) {
-    setResponseData(data);
-    setIsLoading(false);
-    setPage(0);
-  }
+  const onSetContent = useCallback(
+    (data: GalleryFetchDataResponse) => {
+      setResponseData(data);
+      setIsLoading(false);
+      setPage(0);
+    },
+    [responseData, page, isLoading],
+  );
 
-  async function getGalleryData(
-    pageNumber: number,
-    params: GetGalleryDataParams,
-  ) {
-    setIsLoading(true);
-    const { data } = await api.get(`/img/${pageNumber}`, {
-      params: {
-        pageSize: 25,
-        ...filterParams,
-        ...params,
-      },
-    });
+  const getGalleryData = useCallback(
+    async (pageNumber: number, params: GetGalleryDataParams) => {
+      setIsLoading(true);
+      const { data } = await api.get(`/img/${pageNumber}`, {
+        params: {
+          pageSize: 25,
+          ...filterParams,
+          ...params,
+        },
+      });
 
-    setFilterParams(params);
-    setResponseData(data);
-    setPage(pageNumber);
-    setIsLoading(false);
-  }
+      setFilterParams(params);
+      setResponseData(data);
+      setPage(pageNumber);
+      setIsLoading(false);
+    },
+    [responseData, page, isLoading, filterParams],
+  );
 
-  async function onChangePage(change: number) {
-    await getGalleryData(page + change, filterParams);
-  }
+  const onChangePage = useCallback(
+    async (change: number) => {
+      await getGalleryData(page + change, filterParams);
+    },
+    [page, filterParams],
+  );
 
   return (
     <galleryContext.Provider
