@@ -4,6 +4,8 @@ import { z } from 'zod';
 
 import { updateImageData } from '../../../server/query/image.query';
 import { addRequest } from '../../../server/query/statistic.query';
+import { getTagByIdList } from '../../../server/query/tag.query';
+import { imageToDtoWithTags } from '../../../utils/converter-data';
 
 export const bodyForUpdateImageSchema = z.object({
   id: z.string(),
@@ -31,9 +33,11 @@ apiRoute.put(async (req, res) => {
     req.body,
   );
 
-  await updateImageData(data);
+  const image = await updateImageData(data);
+  const tagsInImage = await getTagByIdList(image.tags);
+  const returnedImageData = imageToDtoWithTags(image, tagsInImage);
 
-  res.status(200).json({});
+  res.status(200).json({ ...returnedImageData });
 });
 
 export default apiRoute;
