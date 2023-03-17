@@ -61,7 +61,7 @@ export function Pagination() {
         bottom={'2%'}
         left={'50vw'}
         transform={'translate(-50%, 0%)'}
-        padding={'0.25rem'}
+        padding={'0.15rem'}
         bg={'gray.800'}
         borderRadius={'8px'}
         direction={'column'}

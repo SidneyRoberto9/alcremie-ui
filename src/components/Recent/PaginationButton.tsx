@@ -7,12 +7,12 @@ interface PaginationProps extends ButtonProps {
 export function PaginationButton({ label, ...rest }: PaginationProps) {
   return (
     <Button
-      width={'4.75rem'}
-      minWidth={'4.75rem'}
+      width={'4.3rem'}
+      minWidth={'4.3rem'}
       borderRadius={'4px'}
-      height={'1.75rem'}
+      height={'1.65rem'}
       margin={'0.15rem 0.25rem'}
-      fontSize={'1rem'}
+      fontSize={'0.9rem'}
       fontWeight={'500'}
       cursor={'pointer'}
       textTransform={'capitalize'}
