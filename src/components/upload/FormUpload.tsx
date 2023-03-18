@@ -33,7 +33,7 @@ const uploadSchema = z.object({
   nsfw: z.boolean().default(false),
 });
 
-export type UploadSchema = z.infer<typeof uploadSchema>;
+type UploadSchema = z.infer<typeof uploadSchema>;
 
 interface FormUploadProps {
   tags: TagProps[];

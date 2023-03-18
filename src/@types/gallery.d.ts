@@ -1,4 +1,3 @@
-import { UploadSchema } from '../components/Upload/FormUpload';
 import { TagIds } from './api/tag';
 
 export interface GalleryFetchDataResponse {
@@ -28,6 +27,9 @@ export interface GetGalleryDataParams {
   is_nsfw: boolean;
 }
 
-export interface UploadData extends UploadSchema {
+export interface UploadData {
+  file: any;
+  source: string;
+  nsfw: boolean;
   tags: TagIds[];
 }
