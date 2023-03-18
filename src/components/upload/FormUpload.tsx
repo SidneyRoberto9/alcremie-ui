@@ -20,7 +20,7 @@ import { useContextSelector } from 'use-context-selector';
 import { z } from 'zod';
 
 import { TagIds, TagProps } from '../../@types/api/tag';
-import { SelectOption, UploadData } from '../../@types/gallery';
+import { SelectOption } from '../../@types/gallery';
 import { galleryContext } from '../../context/useGallery';
 import { uploadTagStyle } from '../../styles/react-select-tag';
 import { createSelectOptionWithTags } from '../../utils/create-select-option';
@@ -72,7 +72,7 @@ export function FormUpload({ tags }: FormUploadProps) {
 
     const { source, nsfw, file } = data;
 
-    const document: UploadData = {
+    const document = {
       file: file[0],
       source,
       nsfw,

@@ -17,7 +17,6 @@ import { createContext } from 'use-context-selector';
 import {
   GalleryFetchDataResponse,
   GetGalleryDataParams,
-  UploadData,
 } from '../@types/gallery';
 import { api } from '../server/api';
 
@@ -28,7 +27,7 @@ interface GalleryContextProps {
   onChangePage: (page: number) => void;
   setFilterParams: Dispatch<SetStateAction<GetGalleryDataParams>>;
   filterData: (page: number, params: GetGalleryDataParams) => void;
-  createImage: UseMutateAsyncFunction<any, unknown, UploadData, unknown>;
+  createImage: UseMutateAsyncFunction<any, unknown, any, unknown>;
 }
 
 interface ContextProps {
@@ -79,7 +78,7 @@ export function GalleryProvider({ children }: ContextProps) {
   );
 
   const { isLoading: isLoadingMutation, mutateAsync } = useMutation(
-    async (data: UploadData) => {
+    async (data: any) => {
       const formData = new FormData();
       formData.append('picture', data.file);
       formData.append(

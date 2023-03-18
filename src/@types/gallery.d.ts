@@ -1,5 +1,3 @@
-import { TagIds } from './api/tag';
-
 export interface GalleryFetchDataResponse {
   totalContent: number;
   pageSize: number;
@@ -25,11 +23,4 @@ export interface GetGalleryDataParams {
   all: boolean;
   included_tags: string;
   is_nsfw: boolean;
-}
-
-export interface UploadData {
-  file: any;
-  source: string;
-  nsfw: boolean;
-  tags: TagIds[];
 }
