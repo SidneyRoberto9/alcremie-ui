@@ -1,39 +1,47 @@
 import { Button, Tooltip } from '@chakra-ui/react';
 import { Heart } from 'phosphor-react';
-import { useEffect, useState } from 'react';
+import { useMutation, useQuery, useQueryClient } from 'react-query';
 
 import { api } from '../../server/api';
 
-interface FavoriteButtonProps {
+interface FavoriteImageData {
   userId: string;
   imageId: string;
 }
 
+interface FavoriteButtonProps extends FavoriteImageData {}
+
 export function FavoriteButton({ imageId, userId }: FavoriteButtonProps) {
-  const [isLoading, setIsLoading] = useState<boolean>(true);
-  const [isFavorite, setIsFavorite] = useState<boolean>(false);
+  const { invalidateQueries } = useQueryClient();
+  const queryIdentifier = ['img/fav', userId, imageId];
+  const {
+    data: isFavorite,
+    isLoading,
+    isFetching,
+  } = useQuery(queryIdentifier, async () => {
+    const response = await api.get<boolean>(`/img/fav/${userId}/${imageId}`);
+    return response.data;
+  });
 
-  async function onImageIsFavorite() {
-    const { data } = await api.get(`/img/fav/${userId}/${imageId}`);
+  const { mutateAsync, isLoading: isLoadingMutation } = useMutation(
+    async (data: FavoriteImageData) => {
+      const response = await api.post(`/img/fav`, {
+        userId: data.userId,
+        imageId: data.imageId,
+      });
 
-    setIsFavorite(data);
-    setIsLoading(false);
-  }
+      return response.data;
+    },
+    {
+      onSuccess: () => {
+        invalidateQueries(queryIdentifier);
+      },
+    },
+  );
 
   async function handleFavoriteStatus() {
-    setIsLoading(true);
-    const { data } = await api.post(`/img/fav`, {
-      userId,
-      imageId,
-    });
-
-    setIsFavorite(data);
-    setIsLoading(false);
+    await mutateAsync({ userId, imageId });
   }
-
-  useEffect(() => {
-    onImageIsFavorite();
-  }, []);
 
   return (
     <Tooltip
@@ -45,7 +53,7 @@ export function FavoriteButton({ imageId, userId }: FavoriteButtonProps) {
     >
       <Button
         onClick={handleFavoriteStatus}
-        isLoading={isLoading}
+        isLoading={isLoading || isFetching || isLoadingMutation}
         variant={isFavorite ? 'favorite' : 'notFavorite'}
         width={'4rem'}
         p={'0'}
