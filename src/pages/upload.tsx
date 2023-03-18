@@ -3,7 +3,7 @@ import { NextSeo } from 'next-seo';
 
 import { TagProps } from '../@types/api/tag';
 import { Content } from '../components/Content';
-import { FormUpload } from '../components/upload/FormUpload';
+import { FormUpload } from '../components/Upload/FormUpload';
 import { getAllTags } from '../server/query/tag.query';
 
 interface UploadProps {

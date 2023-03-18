@@ -23,44 +23,35 @@ interface GoToPageModalProps {
 }
 
 export function GoToPageModal({ isOpen, onClose }: GoToPageModalProps) {
-  const {
-    content,
-    pageSize,
-    isLoading,
-    actualPage,
-    onChangePage,
-    contentTotalSize,
-  } = useContextSelector(
-    galleryContext,
-    ({
-      content,
-      pageSize,
-      isLoading,
-      actualPage,
-      onChangePage,
-      contentTotalSize,
-    }) => ({
-      content,
-      pageSize,
-      isLoading,
-      actualPage,
-      onChangePage,
-      contentTotalSize,
-    }),
-  );
-
-  const totalPages =
-    contentTotalSize == 0
-      ? Math.ceil(1 / pageSize)
-      : Math.ceil(contentTotalSize / pageSize);
+  const { isLoading, actualPage, contentData, onChangePage } =
+    useContextSelector(
+      galleryContext,
+      ({ isLoading, actualPage, contentData, onChangePage }) => ({
+        isLoading,
+        actualPage,
+        contentData,
+        onChangePage,
+      }),
+    );
 
   const { getInputProps, getIncrementButtonProps, getDecrementButtonProps } =
     useNumberInput({
       step: 1,
       defaultValue: actualPage,
       min: 1,
-      max: totalPages,
+      max: contentData?.totalContent,
     });
+
+  if (contentData == undefined) {
+    return null;
+  }
+
+  const { content, totalContent, pageSize } = contentData;
+
+  const totalPages =
+    totalContent == 0
+      ? Math.ceil(1 / pageSize)
+      : Math.ceil(totalContent / pageSize);
 
   const inc = getIncrementButtonProps();
   const dec = getDecrementButtonProps();

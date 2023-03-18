@@ -21,19 +21,22 @@ interface MasonryBoxProps {
 }
 
 export function MasonryBox({ data = null }: MasonryBoxProps) {
-  const { content, isLoading } = useContextSelector(
+  const { contentData, isLoading } = useContextSelector(
     galleryContext,
-    ({ content, isLoading }) => ({
-      content,
+    ({ contentData, isLoading }) => ({
+      contentData,
       isLoading,
     }),
   );
 
-  if (isLoading && data == null) {
+  if ((isLoading && data == null) || contentData == undefined) {
     return <LoadingSpinner />;
   }
 
-  if (content?.length == 0 || (content == null && data?.length == 0)) {
+  if (
+    contentData.content?.length == 0 ||
+    (contentData.content == null && data?.length == 0)
+  ) {
     return <NoContentScreen />;
   }
 
@@ -41,7 +44,7 @@ export function MasonryBox({ data = null }: MasonryBoxProps) {
     <ResponsiveMasonry columnsCountBreakPoints={Breakpoints}>
       <Masonry>
         {data == null
-          ? content?.map(({ imgurUrl, id }) => (
+          ? contentData.content?.map(({ imgurUrl, id }) => (
               <MasonryItem url={imgurUrl} key={id} id={id} />
             ))
           : data.map(({ imgurUrl, id }) => (

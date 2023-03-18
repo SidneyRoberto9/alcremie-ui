@@ -11,17 +11,17 @@ import {
   InputLeftAddon,
   Text,
   useMediaQuery,
-  useToast,
 } from '@chakra-ui/react';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useRef, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import ReactSelect from 'react-select';
+import { useContextSelector } from 'use-context-selector';
 import { z } from 'zod';
 
-import { TagProps } from '../../@types/api/tag';
+import { TagIds, TagProps } from '../../@types/api/tag';
 import { SelectOption } from '../../@types/gallery';
-import { api } from '../../server/api';
+import { galleryContext } from '../../context/useGallery';
 import { uploadTagStyle } from '../../styles/react-select-tag';
 import { createSelectOptionWithTags } from '../../utils/create-select-option';
 import { Absolute } from '../Absolute';
@@ -35,11 +35,20 @@ const uploadSchema = z.object({
 
 type UploadSchema = z.infer<typeof uploadSchema>;
 
+export interface UploadData extends UploadSchema {
+  tags: TagIds[];
+}
+
 interface FormUploadProps {
   tags: TagProps[];
 }
 
 export function FormUpload({ tags }: FormUploadProps) {
+  const createImage = useContextSelector(
+    galleryContext,
+    ({ createImage }) => createImage,
+  );
+
   const {
     register,
     reset,
@@ -49,7 +58,6 @@ export function FormUpload({ tags }: FormUploadProps) {
     resolver: zodResolver(uploadSchema),
   });
 
-  const toast = useToast();
   const selectedRef = useRef<any>(null);
   const [isLoadingSubmit, setIsLoadingSubmit] = useState<boolean>(false);
   const [isLessThan680] = useMediaQuery('(max-width: 680px)');
@@ -58,50 +66,26 @@ export function FormUpload({ tags }: FormUploadProps) {
 
   async function handleUpload(data: UploadSchema) {
     setIsLoadingSubmit(true);
-    const tags = selectedRef.current.getValue().map((tag: SelectOption) => {
-      return {
-        id: tag.value,
-      };
-    });
+    const tags: TagIds[] = selectedRef.current
+      .getValue()
+      .map((tag: SelectOption) => {
+        return {
+          id: tag.value,
+        };
+      });
 
     const { source, nsfw, file } = data;
 
-    const document = {
+    const document: UploadData = {
+      file: file[0],
       source,
-      is_nsfw: nsfw,
+      nsfw,
       tags,
     };
 
-    const formData = new FormData();
-    formData.append('picture', file[0]);
-    formData.append('document', JSON.stringify(document));
-
-    try {
-      await api.post('/img', formData, {
-        headers: {
-          'Content-Type': 'multipart/form-data',
-        },
-      });
-
-      toast({
-        title: 'Image uploaded!',
-        description: 'The image was uploaded successfully.',
-        status: 'success',
-        duration: 3500,
-        isClosable: true,
-      });
-    } catch (error) {
-      toast({
-        title: 'Image not uploaded!',
-        description: 'The image was not uploaded successfully.',
-        status: 'error',
-        duration: 3500,
-        isClosable: true,
-      });
-    } finally {
-      setIsLoadingSubmit(false);
-      reset();
-    }
+    await createImage(document);
+    setIsLoadingSubmit(false);
+    reset();
   }
 
   return (

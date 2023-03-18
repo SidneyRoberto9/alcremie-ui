@@ -9,28 +9,27 @@ import { PaginationButton } from './PaginationButton';
 export function Pagination() {
   const { isOpen, onOpen, onClose } = useDisclosure();
 
-  const { pageSize, isLoading, actualPage, onChangePage, contentTotalSize } =
+  const { isLoading, actualPage, contentData, onChangePage } =
     useContextSelector(
       galleryContext,
-      ({
-        pageSize,
+      ({ isLoading, actualPage, contentData, onChangePage }) => ({
         isLoading,
         actualPage,
+        contentData,
         onChangePage,
-        contentTotalSize,
-      }) => ({
-        pageSize,
-        isLoading,
-        actualPage,
-        onChangePage,
-        contentTotalSize,
       }),
     );
 
+  if (contentData == undefined) {
+    return null;
+  }
+
+  const { totalContent, pageSize } = contentData;
+
   const totalPages =
-    contentTotalSize == 0
+    totalContent == 0
       ? Math.ceil(1 / pageSize)
-      : Math.ceil(contentTotalSize / pageSize);
+      : Math.ceil(totalContent / pageSize);
 
   const isFirstPage = actualPage == 1;
   const isLastPage = actualPage === totalPages;

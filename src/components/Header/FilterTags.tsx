@@ -9,9 +9,9 @@ import { selectTagStyle } from '../../styles/react-select-tag';
 import { createSelectOptionWithTags } from '../../utils/create-select-option';
 
 export function FilterTags() {
-  const getGalleryData = useContextSelector(
+  const filterData = useContextSelector(
     galleryContext,
-    ({ getGalleryData }) => getGalleryData,
+    ({ filterData }) => filterData,
   );
 
   const data = useContextSelector(tagsContext, ({ data }) => data);
@@ -38,7 +38,7 @@ export function FilterTags() {
       included_tags: isFilter.isTag ? label.toLowerCase() : '',
     };
 
-    await getGalleryData(0, params);
+    filterData(0, params);
   }
 
   return (
