@@ -2,6 +2,7 @@ import { ChakraProvider } from '@chakra-ui/react';
 import { SessionProvider } from 'next-auth/react';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
+import { QueryClient, QueryClientProvider } from 'react-query';
 
 import { Header } from '../components/Header/Header';
 import { Nav } from '../components/NavBar/Nav';
@@ -12,6 +13,9 @@ import { TagsContextProvider } from '../context/useTags';
 import { theme } from '../styles/theme';
 
 import type { AppProps } from 'next/app';
+
+const queryClient = new QueryClient();
+
 export default function App({
   Component,
   pageProps: { session, ...pageProps },
@@ -41,19 +45,20 @@ export default function App({
 
   return (
     <ChakraProvider theme={theme} portalZIndex={11}>
-      <SessionProvider session={session}>
-        <LoadingScreen isLoading={isLoading} />
-        <GalleryProvider>
-          <TagsContextProvider>
-            <NavProvider>
-              <Nav />
-              <Header />
-              <Component {...pageProps} />
-            </NavProvider>
-          </TagsContextProvider>
-        </GalleryProvider>
-      </SessionProvider>
+      <QueryClientProvider client={queryClient}>
+        <SessionProvider session={session}>
+          <LoadingScreen isLoading={isLoading} />
+          <GalleryProvider>
+            <TagsContextProvider>
+              <NavProvider>
+                <Nav />
+                <Header />
+                <Component {...pageProps} />
+              </NavProvider>
+            </TagsContextProvider>
+          </GalleryProvider>
+        </SessionProvider>
+      </QueryClientProvider>
     </ChakraProvider>
   );
 }
-
