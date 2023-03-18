@@ -1,3 +1,6 @@
+import { UploadSchema } from '../components/Upload/FormUpload';
+import { TagIds } from './api/tag';
+
 export interface GalleryFetchDataResponse {
   totalContent: number;
   pageSize: number;
@@ -23,4 +26,8 @@ export interface GetGalleryDataParams {
   all: boolean;
   included_tags: string;
   is_nsfw: boolean;
+}
+
+export interface UploadData extends UploadSchema {
+  tags: TagIds[];
 }

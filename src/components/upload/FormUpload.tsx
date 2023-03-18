@@ -20,7 +20,7 @@ import { useContextSelector } from 'use-context-selector';
 import { z } from 'zod';
 
 import { TagIds, TagProps } from '../../@types/api/tag';
-import { SelectOption } from '../../@types/gallery';
+import { SelectOption, UploadData } from '../../@types/gallery';
 import { galleryContext } from '../../context/useGallery';
 import { uploadTagStyle } from '../../styles/react-select-tag';
 import { createSelectOptionWithTags } from '../../utils/create-select-option';
@@ -33,11 +33,7 @@ const uploadSchema = z.object({
   nsfw: z.boolean().default(false),
 });
 
-type UploadSchema = z.infer<typeof uploadSchema>;
-
-export interface UploadData extends UploadSchema {
-  tags: TagIds[];
-}
+export type UploadSchema = z.infer<typeof uploadSchema>;
 
 interface FormUploadProps {
   tags: TagProps[];

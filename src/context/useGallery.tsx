@@ -17,8 +17,8 @@ import { createContext } from 'use-context-selector';
 import {
   GalleryFetchDataResponse,
   GetGalleryDataParams,
+  UploadData,
 } from '../@types/gallery';
-import { UploadData } from '../components/Upload/FormUpload';
 import { api } from '../server/api';
 
 interface GalleryContextProps {
