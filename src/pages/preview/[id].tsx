@@ -60,26 +60,25 @@ export default function Preview({ image, tags }: PreviewProps) {
           gridTemplateColumns={{ base: '1fr', lg: '350px 1fr' }}
           gridTemplateRows={{
             base: 'auto',
-            lg: '4.5rem auto auto auto',
+            lg: '6.25rem auto auto auto',
           }}
           h={'100%'}
         >
           <Img
-            w={{ base: '100%', md: '720' }}
-            h={{ base: '100%', md: '1280' }}
-            cursor={'pointer'}
+            w={'100%'}
+            h={'100%'}
             display={'block'}
             padding={'1rem'}
             gridArea={'img'}
             alt={imgData.imgurId}
             src={imgData.imgurUrl}
-            objectFit={'cover'}
           />
 
           <OptionsBox
             handleEdit={onOpenEditor}
             name={imgData.imgurId}
             url={imgData.imgurUrl}
+            source={imgData.source}
             padding={'1.15rem 0'}
             gridArea={'option'}
           />

@@ -8,12 +8,14 @@ import { FavoriteButton } from './FavoriteButton';
 interface OptionsBoxProps extends BoxProps {
   url: string;
   name: string;
+  source: string;
   handleEdit: () => void;
 }
 
 export function OptionsBox({
   url,
   name,
+  source,
   handleEdit,
   ...rest
 }: OptionsBoxProps) {
@@ -22,9 +24,14 @@ export function OptionsBox({
 
   const actualUserIsAuthenticated = status === 'authenticated';
   const actualUserIsAdmin = actualUserIsAuthenticated && data?.user?.isAdmin;
+  const sourceUrlExists = source.includes('http');
 
   function handleDownload() {
     saveAs(url, name + '.png');
+  }
+
+  function handleOpenSource() {
+    window.open(source, '_blank');
   }
 
   return (
@@ -37,6 +44,17 @@ export function OptionsBox({
         {actualUserIsAdmin && (
           <Button onClick={handleEdit} variant={'danger'} m={'0.25rem'}>
             Editor
+          </Button>
+        )}
+
+        {sourceUrlExists && (
+          <Button
+            onClick={handleOpenSource}
+            variant={'solid'}
+            colorScheme={'twitter'}
+            m={'0.25rem'}
+          >
+            Source
           </Button>
         )}
 
