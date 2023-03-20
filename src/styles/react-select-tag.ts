@@ -7,10 +7,15 @@ export const selectTagStyle: StylesConfig<
 > = {
   container: (provided) => ({
     ...provided,
-    width: '10rem',
+    width: '30rem',
+    min: '10rem',
     padding: '0.37rem 0.1rem',
     margin: '0',
     background: '#272727',
+
+    '@media (max-width: 768px)': {
+      width: '10rem',
+    },
   }),
   control: (provided) => ({
     ...provided,
