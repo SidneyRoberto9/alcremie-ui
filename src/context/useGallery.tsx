@@ -15,6 +15,7 @@ import {
 import { createContext } from 'use-context-selector';
 
 import {
+  CreateImg,
   GalleryFetchDataResponse,
   GetGalleryDataParams,
 } from '../@types/gallery';
@@ -27,7 +28,7 @@ interface GalleryContextProps {
   onChangePage: (page: number) => void;
   setFilterParams: Dispatch<SetStateAction<GetGalleryDataParams>>;
   filterData: (page: number, params: GetGalleryDataParams) => void;
-  createImage: UseMutateAsyncFunction<any, unknown, any, unknown>;
+  createImage: UseMutateAsyncFunction<null, unknown, CreateImg, unknown>;
 }
 
 interface ContextProps {
@@ -78,20 +79,19 @@ export function GalleryProvider({ children }: ContextProps) {
   );
 
   const { isLoading: isLoadingMutation, mutateAsync } = useMutation(
-    async (data: any) => {
+    async ({ file, nsfw, source, tags }: CreateImg) => {
+      const document = JSON.stringify({
+        source: source,
+        is_nsfw: nsfw,
+        tags: tags,
+      });
+
       const formData = new FormData();
-      formData.append('picture', data.file);
-      formData.append(
-        'document',
-        JSON.stringify({
-          source: data.source,
-          is_nsfw: data.nsfw,
-          tags: data.tags,
-        }),
-      );
+      formData.append('picture', file);
+      formData.append('document', document);
 
       try {
-        const response = await api.post('/img', formData, {
+        await api.post('/img', formData, {
           headers: {
             'Content-Type': 'multipart/form-data',
           },
@@ -104,8 +104,6 @@ export function GalleryProvider({ children }: ContextProps) {
           duration: 3500,
           isClosable: true,
         });
-
-        return response.data;
       } catch (error) {
         toast({
           title: 'Image not uploaded!',
@@ -115,6 +113,8 @@ export function GalleryProvider({ children }: ContextProps) {
           isClosable: true,
         });
       }
+
+      return null;
     },
     {
       onSuccess: () => {

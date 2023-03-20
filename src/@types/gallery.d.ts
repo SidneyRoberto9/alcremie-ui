@@ -24,3 +24,10 @@ export interface GetGalleryDataParams {
   included_tags: string;
   is_nsfw: boolean;
 }
+
+export interface CreateImg {
+  file: any;
+  source: string;
+  nsfw: boolean;
+  tags: TagIds[];
+}

@@ -49,6 +49,9 @@ export const theme = extendTheme({
           transition: 'filter 250ms ease-in-out',
           _hover: {
             filter: 'brightness(0.75)',
+            _disabled: {
+              bg: 'green.300',
+            },
           },
         },
         danger: {
