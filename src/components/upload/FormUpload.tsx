@@ -76,6 +76,8 @@ export function FormUpload({ tags }: FormUploadProps) {
       nsfw,
       tags,
     } satisfies CreateImg);
+
+    selectedRef.current.clearValue();
     reset();
   }
 
