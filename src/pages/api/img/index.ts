@@ -19,9 +19,9 @@ const upload = multer({
 const uploadMiddleware = upload.single('picture');
 
 const CreateNewImagePostSchema = z.object({
-  source: z.string().min(1),
+  source: z.string(),
   is_nsfw: z.boolean(),
-  tags: z.array(z.object({ id: z.string().min(1) })),
+  tags: z.array(z.object({ id: z.string().min(1) })).min(1),
 });
 
 const apiRoute = nextConnect<MulterRequest, NextApiResponse>({

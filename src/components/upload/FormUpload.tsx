@@ -29,7 +29,7 @@ import { Absolute } from '../Absolute';
 import { TextTitle } from '../TextTitle';
 
 const uploadSchema = z.object({
-  source: z.string().min(1),
+  source: z.string().optional(),
   file: z.any(),
   nsfw: z.boolean().default(false),
 });
@@ -48,6 +48,7 @@ export function FormUpload({ tags }: FormUploadProps) {
 
   const {
     reset,
+    setError,
     register,
     handleSubmit,
     formState: { isSubmitting, errors },
@@ -68,11 +69,23 @@ export function FormUpload({ tags }: FormUploadProps) {
         };
       });
 
+    if (tags.length <= 0) {
+      return setError('file', {
+        message: 'Please select at least 1 tags!!',
+      });
+    }
+
     const { source, nsfw, file } = data;
+
+    if (file.length <= 0) {
+      return setError('file', {
+        message: 'Please select an image!!',
+      });
+    }
 
     await createImage({
       file: file[0] as File,
-      source,
+      source: source || '',
       nsfw,
       tags,
     } satisfies CreateImg);
@@ -117,7 +130,7 @@ export function FormUpload({ tags }: FormUploadProps) {
                 }}
                 type="text"
                 placeholder="https://www.pixiv.net/en/artworks/90302611"
-                {...register('source', { required: true })}
+                {...register('source')}
               />
             </FormControl>
           ) : (
@@ -133,7 +146,7 @@ export function FormUpload({ tags }: FormUploadProps) {
                   borderColor: 'green.300',
                 }}
                 placeholder="https://www.pixiv.net/en/artworks/90302611"
-                {...register('source', { required: true })}
+                {...register('source')}
               />
             </InputGroup>
           )}
@@ -194,8 +207,8 @@ export function FormUpload({ tags }: FormUploadProps) {
             </Checkbox>
           </InputGroup>
 
-          {(errors.file || errors.source) && (
-            <Text color={'red'}>Preencha os campos necessários...</Text>
+          {errors.file && (
+            <Text color={'red'}>{String(errors.file.message)}</Text>
           )}
 
           <Flex width={'100%'} justifyContent={'flex-end'}>
