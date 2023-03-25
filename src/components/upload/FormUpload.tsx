@@ -2,14 +2,10 @@ import {
   Box,
   Button,
   Checkbox,
-  CircularProgress,
   Flex,
   FormControl,
   FormLabel,
-  Image,
-  Input,
   InputGroup,
-  InputLeftAddon,
   Text,
   useMediaQuery,
 } from '@chakra-ui/react';
@@ -27,6 +23,8 @@ import { uploadTagStyle } from '../../styles/react-select-tag';
 import { createSelectOptionWithTags } from '../../utils/create-select-option';
 import { Absolute } from '../Absolute';
 import { TextTitle } from '../TextTitle';
+import { InputFileUpload } from './InputFileUpload';
+import { InputTextUpload } from './InputTextUpload';
 
 const uploadSchema = z.object({
   source: z.string().optional(),
@@ -34,7 +32,8 @@ const uploadSchema = z.object({
   nsfw: z.boolean().default(false),
 });
 
-type UploadSchema = z.infer<typeof uploadSchema>;
+export type UploadSchema = z.infer<typeof uploadSchema>;
+export type UploadSchemaKeys = Required<keyof UploadSchema>;
 
 interface FormUploadProps {
   tags: TagProps[];
@@ -68,6 +67,8 @@ export function FormUpload({ tags }: FormUploadProps) {
           id: tag.value,
         };
       });
+
+    console.log(data);
 
     if (tags.length <= 0) {
       return setError('file', {
@@ -121,61 +122,18 @@ export function FormUpload({ tags }: FormUploadProps) {
           padding={'1.25rem 1.75rem'}
           onSubmit={handleSubmit(handleUpload)}
         >
-          {isLessThan680 ? (
-            <FormControl width={'100%'}>
-              <FormLabel fontWeight={'bold'}>Source</FormLabel>
-              <Input
-                _focusVisible={{
-                  borderColor: 'green.300',
-                }}
-                type="text"
-                placeholder="https://www.pixiv.net/en/artworks/90302611"
-                {...register('source')}
-              />
-            </FormControl>
-          ) : (
-            <InputGroup>
-              <InputLeftAddon
-                children="Source"
-                color={'gray.900'}
-                fontWeight={'bold'}
-              />
-              <Input
-                type="text"
-                _focusVisible={{
-                  borderColor: 'green.300',
-                }}
-                placeholder="https://www.pixiv.net/en/artworks/90302611"
-                {...register('source')}
-              />
-            </InputGroup>
-          )}
+          <InputTextUpload
+            name="source"
+            label="Source"
+            placeholder="https://www.pixiv.net/en/artworks/90302611"
+            register={register}
+          />
 
-          {isLessThan680 ? (
-            <FormControl width={'100%'}>
-              <FormLabel fontWeight={'bold'}>Choose File</FormLabel>
-              <Input
-                padding={'0.45rem 1rem'}
-                accept="image/*"
-                type="file"
-                {...register('file', { required: true })}
-              />
-            </FormControl>
-          ) : (
-            <InputGroup>
-              <InputLeftAddon
-                children="Choose File"
-                color={'gray.900'}
-                fontWeight={'bold'}
-              />
-              <Input
-                padding={'0.45rem 1rem'}
-                accept="image/*"
-                type="file"
-                {...register('file', { required: true })}
-              />
-            </InputGroup>
-          )}
+          <InputFileUpload
+            label="Choose File"
+            name="file"
+            register={register}
+          />
 
           <FormControl width={'100%'}>
             {isLessThan680 && (
