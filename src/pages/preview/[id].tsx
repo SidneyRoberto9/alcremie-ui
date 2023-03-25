@@ -75,12 +75,13 @@ export default function Preview({ image, tags }: PreviewProps) {
           />
 
           <OptionsBox
-            handleEdit={onOpenEditor}
+            gridArea={'option'}
+            padding={'1.15rem 0'}
             name={imgData.imgurId}
             url={imgData.imgurUrl}
             source={imgData.source}
-            padding={'1.15rem 0'}
-            gridArea={'option'}
+            handleEdit={onOpenEditor}
+            deleteHashImageId={imgData.imgurDeleteHash}
           />
 
           <TagBox tags={imgData.tags} padding={'1rem 0'} gridArea={'tags'} />

@@ -16,6 +16,16 @@ export async function addNewImage() {
     },
   });
 }
+export async function removeImage() {
+  return await prisma.statistics.update({
+    ...where,
+    data: {
+      totalImages: {
+        decrement: 1,
+      },
+    },
+  });
+}
 
 export async function addNewTag() {
   return await prisma.statistics.update({

@@ -3,12 +3,14 @@ import { saveAs } from 'file-saver';
 import { useSession } from 'next-auth/react';
 import { useRouter } from 'next/router';
 
+import { DeleteButton } from './DeleteButton';
 import { FavoriteButton } from './FavoriteButton';
 
 interface OptionsBoxProps extends BoxProps {
   url: string;
   name: string;
   source: string;
+  deleteHashImageId: string;
   handleEdit: () => void;
 }
 
@@ -16,6 +18,7 @@ export function OptionsBox({
   url,
   name,
   source,
+  deleteHashImageId,
   handleEdit,
   ...rest
 }: OptionsBoxProps) {
@@ -57,6 +60,8 @@ export function OptionsBox({
             Source
           </Button>
         )}
+
+        {actualUserIsAdmin && <DeleteButton imageId={deleteHashImageId} />}
 
         {actualUserIsAuthenticated && (
           <FavoriteButton

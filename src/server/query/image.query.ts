@@ -240,3 +240,23 @@ export async function updateImageData(data: BodyForUpdateImageSchema) {
 
   return updatedImage;
 }
+
+export async function deleteImageByHashDeleteId(id: string) {
+  const image = await prisma.image.findUnique({
+    where: {
+      imgurDeleteHash: id,
+    },
+  });
+
+  if (image === null) {
+    throw new Error('Image not found');
+  }
+
+  const deletedImage = await prisma.image.delete({
+    where: {
+      id: image.id,
+    },
+  });
+
+  return deletedImage;
+}
