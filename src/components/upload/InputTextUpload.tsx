@@ -8,11 +8,11 @@ import {
 } from '@chakra-ui/react';
 import { UseFormRegister } from 'react-hook-form';
 
-import { UploadSchema } from './FormUpload';
+import { UploadSchema, UploadSchemaKeys } from './FormUpload';
 
 interface InputTextUploadProps {
   register: UseFormRegister<UploadSchema>;
-  name: 'source' | 'file' | 'nsfw' | `file.${string}`;
+  name: UploadSchemaKeys;
   label: string;
   placeholder: string;
 }
