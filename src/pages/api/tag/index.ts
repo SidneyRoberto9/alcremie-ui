@@ -3,6 +3,7 @@ import nextConnect from 'next-connect';
 import { z } from 'zod';
 
 import { TagProps } from '../../../@types/api/tag';
+import { setupCors } from '../../../server/cors';
 import { addNewTag, addRequest } from '../../../server/query/statistic.query';
 import {
   createNewTag,
@@ -25,6 +26,8 @@ const apiRoute = nextConnect<NextApiRequest, NextApiResponse>({
     res.status(404).end('Page is not found');
   },
 });
+
+apiRoute.use(setupCors);
 
 apiRoute.get(async (req, res) => {
   await addRequest();

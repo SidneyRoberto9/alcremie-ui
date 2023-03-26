@@ -4,6 +4,7 @@ import nextConnect from 'next-connect';
 import { z } from 'zod';
 
 import { ImageProps } from '../../../@types/api/img';
+import { setupCors } from '../../../server/cors';
 import { createNewImage } from '../../../server/query/image.query';
 import { addNewImage, addRequest } from '../../../server/query/statistic.query';
 import { imgurUpload } from '../../../server/services/imgur-upload';
@@ -34,6 +35,7 @@ const apiRoute = nextConnect<MulterRequest, NextApiResponse>({
   },
 });
 
+apiRoute.use(setupCors);
 apiRoute.use(uploadMiddleware);
 
 apiRoute.post(async (req, res) => {
