@@ -29,6 +29,7 @@
     "next-auth": "^4.20.1",
     "next-connect": "^0.13.0",
     "next-seo": "^5.15.0",
+    "nextjs-cors": "^2.1.2",
     "nodemailer": "^6.9.1",
     "nookies": "^2.5.2",
     "phosphor-react": "^1.4.1",
