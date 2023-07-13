@@ -1,8 +1,8 @@
-import { ReactNode, useCallback, useState } from 'react';
 import { createContext } from 'use-context-selector';
+import { ReactNode, useState, useCallback } from 'react';
 
-import { Tag } from '../@types/api/tag';
 import { api } from '../server/api';
+import { Tag } from '../@types/api/tag';
 
 interface TagsProps {
   data: Tag[];
@@ -11,11 +11,7 @@ interface TagsProps {
   filterTag: (search: string) => void;
   getTags: () => Promise<void>;
   deleteTag: (id: string) => Promise<void>;
-  createTag: (
-    name: string,
-    description: string,
-    isNsfw: boolean,
-  ) => Promise<void>;
+  createTag: (name: string, description: string, isNsfw: boolean) => Promise<void>;
 }
 
 interface ContextProps {
@@ -35,9 +31,7 @@ export function TagsContextProvider({ children }: ContextProps) {
         return setTags(InitialTags);
       }
 
-      setTags((state) =>
-        state.filter((tag) => tag.name.toLowerCase().includes(search)),
-      );
+      setTags((state) => state.filter((tag) => tag.name.toLowerCase().includes(search)));
     },
     [tags, InitialTags],
   );
@@ -88,8 +82,7 @@ export function TagsContextProvider({ children }: ContextProps) {
         deleteTag,
         filterTag,
         setTags: setTagContent,
-      }}
-    >
+      }}>
       {children}
     </tagsContext.Provider>
   );

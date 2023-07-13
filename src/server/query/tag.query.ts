@@ -1,5 +1,5 @@
-import { createTagDto } from '../../@types/api/tag';
 import { prisma } from '../prisma';
+import { createTagDto } from '../../@types/api/tag';
 
 export async function getTagById(id: string) {
   return await prisma.tag.findUnique({
@@ -37,11 +37,41 @@ export async function getTagByIdList(idList: string[]) {
 }
 
 export async function createNewTag(data: createTagDto) {
+  const tag = await prisma.tag.findUnique({
+    where: {
+      name: data.name,
+    },
+  });
+
+  if (tag) {
+    return tag;
+  }
+
   return await prisma.tag.create({
     data: {
       name: data.name,
       description: data.description,
       is_nsfw: data.is_nsfw,
+    },
+  });
+}
+
+export async function createNewTagOnlyByName(name: string) {
+  const tag = await prisma.tag.findUnique({
+    where: {
+      name: name,
+    },
+  });
+
+  if (tag) {
+    return tag;
+  }
+
+  return await prisma.tag.create({
+    data: {
+      name: name,
+      description: 'blank',
+      is_nsfw: false,
     },
   });
 }

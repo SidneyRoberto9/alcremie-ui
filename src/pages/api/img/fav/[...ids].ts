@@ -1,8 +1,8 @@
-import { NextApiRequest, NextApiResponse } from 'next';
 import nextConnect from 'next-connect';
+import { NextApiResponse, NextApiRequest } from 'next';
 
-import { addRequest } from '../../../../server/query/statistic.query';
 import { getUserById } from '../../../../server/query/user.query';
+import { addRequest } from '../../../../server/query/statistic.query';
 
 const apiRoute = nextConnect<NextApiRequest, NextApiResponse>({
   onError: (err, req, res, next) => {

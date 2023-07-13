@@ -1,10 +1,10 @@
-import { NextApiRequest, NextApiResponse } from 'next';
-import nextConnect from 'next-connect';
 import { z } from 'zod';
+import nextConnect from 'next-connect';
+import { NextApiResponse, NextApiRequest } from 'next';
 
-import { getImagesResponse } from '../../../@types/api/img';
-import { getImagesResponseData } from '../../../server/query/image.query';
 import { addRequest } from '../../../server/query/statistic.query';
+import { getImagesResponseData } from '../../../server/query/image.query';
+import { getImagesResponse } from '../../../@types/api/img';
 
 export const queryForFilterImagesSchema = z.object({
   page: z.string().transform((value) => Number(value)),
@@ -24,9 +24,7 @@ export const queryForFilterImagesSchema = z.object({
     .transform((value) => Number(value)),
 });
 
-export type queryForFilterImagesSchemaType = z.infer<
-  typeof queryForFilterImagesSchema
->;
+export type queryForFilterImagesSchemaType = z.infer<typeof queryForFilterImagesSchema>;
 
 const apiRoute = nextConnect<NextApiRequest, NextApiResponse>({
   onError: (err, req, res, next) => {
@@ -41,8 +39,7 @@ const apiRoute = nextConnect<NextApiRequest, NextApiResponse>({
 apiRoute.get(async (req, res) => {
   await addRequest();
 
-  const parameters: queryForFilterImagesSchemaType =
-    queryForFilterImagesSchema.parse(req.query);
+  const parameters: queryForFilterImagesSchemaType = queryForFilterImagesSchema.parse(req.query);
 
   const resData: getImagesResponse = await getImagesResponseData(parameters);
 

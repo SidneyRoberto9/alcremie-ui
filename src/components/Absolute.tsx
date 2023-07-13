@@ -1,5 +1,6 @@
-import { Box, BoxProps } from '@chakra-ui/react';
 import { ReactNode } from 'react';
+
+import { BoxProps, Box } from '@chakra-ui/react';
 
 interface AbsoluteProps extends BoxProps {
   children: ReactNode;
@@ -14,8 +15,7 @@ export function Absolute({ children, ...rest }: AbsoluteProps) {
       transform={'translate(-50%, -50%)'}
       bg={'gray.850'}
       borderRadius={'1rem'}
-      {...rest}
-    >
+      {...rest}>
       {children}
     </Box>
   );

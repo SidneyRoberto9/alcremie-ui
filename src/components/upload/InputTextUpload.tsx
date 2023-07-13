@@ -1,14 +1,15 @@
-import {
-  FormControl,
-  FormLabel,
-  Input,
-  InputGroup,
-  InputLeftAddon,
-  useMediaQuery,
-} from '@chakra-ui/react';
 import { UseFormRegister } from 'react-hook-form';
 
-import { UploadSchema, UploadSchemaKeys } from './FormUpload';
+import {
+  InputLeftAddon,
+  InputGroup,
+  Input,
+  FormLabel,
+  FormControl,
+  useMediaQuery,
+} from '@chakra-ui/react';
+
+import { UploadSchemaKeys, UploadSchema } from './FormUpload';
 
 interface InputTextUploadProps {
   register: UseFormRegister<UploadSchema>;
@@ -17,12 +18,7 @@ interface InputTextUploadProps {
   placeholder: string;
 }
 
-export function InputTextUpload({
-  register,
-  label,
-  name,
-  placeholder,
-}: InputTextUploadProps) {
+export function InputTextUpload({ register, label, name, placeholder }: InputTextUploadProps) {
   const [isLessThan680] = useMediaQuery('(max-width: 680px)');
 
   return isLessThan680 ? (

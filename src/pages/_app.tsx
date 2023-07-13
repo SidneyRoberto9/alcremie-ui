@@ -1,25 +1,23 @@
-import { ChakraProvider } from '@chakra-ui/react';
-import { SessionProvider } from 'next-auth/react';
+import { QueryClientProvider, QueryClient } from 'react-query';
+import { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
-import { useEffect, useState } from 'react';
-import { QueryClient, QueryClientProvider } from 'react-query';
+import { SessionProvider } from 'next-auth/react';
 
-import { Header } from '../components/Header/Header';
-import { Nav } from '../components/NavBar/Nav';
-import { LoadingScreen } from '../components/Screens/LoadingScreen';
-import { GalleryProvider } from '../context/useGallery';
-import { NavProvider } from '../context/useNav';
-import { TagsContextProvider } from '../context/useTags';
+import { ChakraProvider } from '@chakra-ui/react';
+
 import { theme } from '../styles/theme';
+import { TagsContextProvider } from '../context/useTags';
+import { NavProvider } from '../context/useNav';
+import { GalleryProvider } from '../context/useGallery';
+import { LoadingScreen } from '../components/Screens/LoadingScreen';
+import { Nav } from '../components/NavBar/Nav';
+import { Header } from '../components/Header/Header';
 
 import type { AppProps } from 'next/app';
 
 const queryClient = new QueryClient();
 
-export default function App({
-  Component,
-  pageProps: { session, ...pageProps },
-}: AppProps) {
+export default function App({ Component, pageProps: { session, ...pageProps } }: AppProps) {
   const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
 

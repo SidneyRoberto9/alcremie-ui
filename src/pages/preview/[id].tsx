@@ -1,17 +1,18 @@
-import { Box, Image as Img, useDisclosure } from '@chakra-ui/react';
-import { GetServerSideProps } from 'next';
-import { NextSeo } from 'next-seo';
 import { useState } from 'react';
+import { NextSeo } from 'next-seo';
+import { GetServerSideProps } from 'next';
 
-import { ImageDtoWithTags } from '../../@types/api/img';
-import { Tag } from '../../@types/api/tag';
-import { Content } from '../../components/Content';
-import { EditModal } from '../../components/Preview/EditModal';
-import { OptionsBox } from '../../components/Preview/OptionsBox';
-import { TagBox } from '../../components/Preview/TagBox';
-import { getImageById } from '../../server/query/image.query';
-import { getAllTags, getTagByIdList } from '../../server/query/tag.query';
+import { Image as Img, Box, useDisclosure } from '@chakra-ui/react';
+
 import { imageToDtoWithTags } from '../../utils/converter-data';
+import { getTagByIdList, getAllTags } from '../../server/query/tag.query';
+import { getImageById } from '../../server/query/image.query';
+import { TagBox } from '../../components/Preview/TagBox';
+import { OptionsBox } from '../../components/Preview/OptionsBox';
+import { EditModal } from '../../components/Preview/EditModal';
+import { Content } from '../../components/Content';
+import { Tag } from '../../@types/api/tag';
+import { ImageDtoWithTags } from '../../@types/api/img';
 
 interface PreviewProps {
   image: ImageDtoWithTags;
@@ -30,11 +31,7 @@ const GridTemplate = {
 export default function Preview({ image, tags }: PreviewProps) {
   const [imgData, setImgData] = useState<ImageDtoWithTags>(image);
 
-  const {
-    isOpen: isEditorOpen,
-    onOpen: onOpenEditor,
-    onClose: onCloseEditor,
-  } = useDisclosure();
+  const { isOpen: isEditorOpen, onOpen: onOpenEditor, onClose: onCloseEditor } = useDisclosure();
 
   return (
     <>
@@ -48,12 +45,7 @@ export default function Preview({ image, tags }: PreviewProps) {
         tags={tags}
       />
 
-      <Content
-        display={'flex'}
-        h={'auto'}
-        alignItems={'center'}
-        justifyContent={'center'}
-      >
+      <Content display={'flex'} h={'auto'} alignItems={'center'} justifyContent={'center'}>
         <Box
           display={'grid'}
           gridTemplate={GridTemplate}
@@ -62,26 +54,25 @@ export default function Preview({ image, tags }: PreviewProps) {
             base: 'auto',
             lg: '6.25rem auto auto auto',
           }}
-          h={'100%'}
-        >
+          h={'100%'}>
           <Img
             w={'100%'}
             h={'100%'}
             display={'block'}
             padding={'1rem'}
             gridArea={'img'}
-            alt={imgData.imgurId}
-            src={imgData.imgurUrl}
+            alt={imgData.imageAssetId}
+            src={imgData.imageUrl}
           />
 
           <OptionsBox
             gridArea={'option'}
             padding={'1.15rem 0'}
-            name={imgData.imgurId}
-            url={imgData.imgurUrl}
+            name={imgData.imageAssetId}
+            url={imgData.imageUrl}
             source={imgData.source}
             handleEdit={onOpenEditor}
-            deleteHashImageId={imgData.imgurDeleteHash}
+            deleteHashImageId={imgData.imageAssetId}
           />
 
           <TagBox tags={imgData.tags} padding={'1rem 0'} gridArea={'tags'} />

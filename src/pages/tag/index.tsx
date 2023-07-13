@@ -1,14 +1,15 @@
-import { Accordion, Flex, useMediaQuery } from '@chakra-ui/react';
-import { GetServerSideProps } from 'next';
 import { NextSeo } from 'next-seo';
+import { GetServerSideProps } from 'next';
 
-import { TagProps } from '../../@types/api/tag';
-import { Absolute } from '../../components/Absolute';
-import { Content } from '../../components/Content';
-import { CollapseItem } from '../../components/Tag/CollapseItem';
-import { TagButton } from '../../components/TagButton';
-import { TextTitle } from '../../components/TextTitle';
+import { Flex, Accordion, useMediaQuery } from '@chakra-ui/react';
+
 import { getAllTags } from '../../server/query/tag.query';
+import { TextTitle } from '../../components/TextTitle';
+import { TagButton } from '../../components/TagButton';
+import { CollapseItem } from '../../components/Tag/CollapseItem';
+import { Content } from '../../components/Content';
+import { Absolute } from '../../components/Absolute';
+import { TagProps } from '../../@types/api/tag';
 
 interface TagServerSideProps {
   sfw: TagProps[];
@@ -27,16 +28,10 @@ export default function Tag({ sfw, nsfw }: TagServerSideProps) {
             flexDirection={'column'}
             alignItems={'center'}
             justifyContent={'center'}
-            padding={'1rem'}
-          >
+            padding={'1rem'}>
             <TextTitle>Tags</TextTitle>
 
-            <Accordion
-              w={'100%'}
-              margin={'2rem'}
-              borderColor={'gray.850'}
-              allowToggle
-            >
+            <Accordion w={'100%'} margin={'2rem'} borderColor={'gray.850'} allowToggle>
               <CollapseItem title="sfw">
                 {sfw.map(({ name, description, id }) => (
                   <TagButton

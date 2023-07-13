@@ -1,13 +1,13 @@
-import { GetServerSideProps } from 'next';
 import { NextSeo } from 'next-seo';
+import { GetServerSideProps } from 'next';
 
-import { StatisticsData } from '../@types/api/status';
-import { Content } from '../components/Content';
-import { MainHome } from '../components/Home/MainHome';
-import { Statistics } from '../components/Home/Statistics';
-import { getRandomImage } from '../server/query/image.query';
-import { getStatistics } from '../server/query/statistic.query';
 import { statisticsToDto } from '../utils/converter-data';
+import { getStatistics } from '../server/query/statistic.query';
+import { getRandomImage } from '../server/query/image.query';
+import { Statistics } from '../components/Home/Statistics';
+import { MainHome } from '../components/Home/MainHome';
+import { Content } from '../components/Content';
+import { StatisticsData } from '../@types/api/status';
 
 interface RandomImageData {
   id: string;
@@ -27,8 +27,7 @@ export default function Home({ randomImage, statistics }: HomeProps) {
         paddingTop={{ base: '5rem', lg: '8rem' }}
         marginX={'auto'}
         paddingX={{ base: '1rem', lg: '3.75rem' }}
-        maxW={'1240px'}
-      >
+        maxW={'1240px'}>
         <MainHome image={randomImage.image} imageId={randomImage.id} />
         <Statistics data={statistics} />
       </Content>

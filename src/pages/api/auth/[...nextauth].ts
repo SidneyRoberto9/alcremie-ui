@@ -1,6 +1,6 @@
-import { NextApiRequest, NextApiResponse, NextPageContext } from 'next';
-import NextAuth, { NextAuthOptions } from 'next-auth';
 import GoogleProvider, { GoogleProfile } from 'next-auth/providers/google';
+import NextAuth, { NextAuthOptions } from 'next-auth';
+import { NextPageContext, NextApiResponse, NextApiRequest } from 'next';
 
 import { PrismaAdapter } from '../../../server/auth/prisma-adapter';
 

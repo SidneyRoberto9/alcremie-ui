@@ -1,5 +1,6 @@
-import { Button, ButtonProps, Tooltip } from '@chakra-ui/react';
 import { useRouter } from 'next/router';
+
+import { Tooltip, ButtonProps, Button } from '@chakra-ui/react';
 
 interface TagButtonProps extends ButtonProps {
   tooltipLabel: string;
@@ -20,8 +21,7 @@ export function TagButton({ tooltipLabel, tag, ...rest }: TagButtonProps) {
       padding={'1.5rem'}
       placement={'top'}
       bg={'white'}
-      color={'gray.750'}
-    >
+      color={'gray.750'}>
       <Button
         {...rest}
         onClick={handleNavigateToTag}
@@ -30,8 +30,7 @@ export function TagButton({ tooltipLabel, tag, ...rest }: TagButtonProps) {
         _hover={{
           bg: 'white',
           color: 'gray.750',
-        }}
-      >
+        }}>
         {tag}
       </Button>
     </Tooltip>

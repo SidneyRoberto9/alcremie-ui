@@ -1,11 +1,8 @@
-import { NextApiRequest, NextApiResponse } from 'next';
 import nextConnect from 'next-connect';
+import { NextApiResponse, NextApiRequest } from 'next';
 
-import {
-  addRequest,
-  getStatistics,
-} from '../../../server/query/statistic.query';
 import { statisticsToDto } from '../../../utils/converter-data';
+import { getStatistics, addRequest } from '../../../server/query/statistic.query';
 
 const apiRoute = nextConnect<NextApiRequest, NextApiResponse>({
   onError: (err, req, res, next) => {

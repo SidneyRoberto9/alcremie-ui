@@ -1,23 +1,24 @@
-import {
-  Button,
-  CircularProgress,
-  Flex,
-  FormControl,
-  FormLabel,
-  Input,
-  Text,
-  Textarea,
-  useMediaQuery,
-  useToast,
-} from '@chakra-ui/react';
-import { zodResolver } from '@hookform/resolvers/zod';
-import { useState } from 'react';
-import { useForm } from 'react-hook-form';
 import { z } from 'zod';
+import { useForm } from 'react-hook-form';
+import { useState } from 'react';
 
-import { api } from '../../server/api';
-import { Absolute } from '../Absolute';
+import { zodResolver } from '@hookform/resolvers/zod';
+import {
+  Textarea,
+  Text,
+  Input,
+  FormLabel,
+  FormControl,
+  Flex,
+  CircularProgress,
+  Button,
+  useToast,
+  useMediaQuery,
+} from '@chakra-ui/react';
+
 import { TextTitle } from '../TextTitle';
+import { Absolute } from '../Absolute';
+import { api } from '../../server/api';
 
 const contactDataEmailSchema = z.object({
   name: z.string().min(1).max(100),
@@ -80,8 +81,7 @@ export function FormContact() {
           justifyContent={'center'}
           padding={'1rem'}
           maxW={'40rem'}
-          w={isLessThan680 ? '21rem' : '40rem'}
-        >
+          w={isLessThan680 ? '21rem' : '40rem'}>
           <TextTitle>Contact Us</TextTitle>
 
           <Flex
@@ -91,8 +91,7 @@ export function FormContact() {
             alignItems={'flex-start'}
             gap={'0.875rem'}
             padding={'1.25rem 1.75rem'}
-            onSubmit={handleSubmit(handleSendEmail)}
-          >
+            onSubmit={handleSubmit(handleSendEmail)}>
             <FormControl width={'100%'}>
               <FormLabel fontWeight={'bold'}>Name</FormLabel>
               <Input
@@ -143,9 +142,8 @@ export function FormContact() {
                   filter: 'brightness(0.75)',
                 }}
                 isDisabled={isSubmitting || !isValid}
-                isLoading={isSubmitting || isLoadingSubmit}
-              >
-                Upload
+                isLoading={isSubmitting || isLoadingSubmit}>
+                Send
               </Button>
             </Flex>
           </Flex>

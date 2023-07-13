@@ -1,17 +1,16 @@
 import { Image } from '@prisma/client';
 
-import { ImageDto, ImageDtoWithTags } from '../@types/api/img';
-import { Statistics, StatisticsDto } from '../@types/api/status';
 import { Tag } from '../@types/api/tag';
+import { StatisticsDto, Statistics } from '../@types/api/status';
+import { ImageDtoWithTags, ImageDto } from '../@types/api/img';
 
 export function imageToDto(image: Image) {
   const imageDto: ImageDto = {
     id: image.id,
     isNsfw: image.isNsfw,
     source: image.source,
-    imgurId: image.imgurId,
-    imgurDeleteHash: image.imgurDeleteHash,
-    imgurUrl: image.imgurUrl,
+    imageAssetId: image.imageAssetId,
+    imageUrl: image.imageUrl,
     tags: image.tags,
   };
 
@@ -23,9 +22,8 @@ export function imageToDtoWithTags(image: Image, tags: Tag[]) {
     id: image.id,
     isNsfw: image.isNsfw,
     source: image.source,
-    imgurId: image.imgurId,
-    imgurDeleteHash: image.imgurDeleteHash,
-    imgurUrl: image.imgurUrl,
+    imageAssetId: image.imageAssetId,
+    imageUrl: image.imageUrl,
     tags: tags,
   };
 

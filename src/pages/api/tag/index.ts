@@ -1,19 +1,15 @@
-import { NextApiRequest, NextApiResponse } from 'next';
-import nextConnect from 'next-connect';
 import { z } from 'zod';
+import nextConnect from 'next-connect';
+import { NextApiResponse, NextApiRequest } from 'next';
 
-import { TagProps } from '../../../@types/api/tag';
+import { getTagsBySize, getAllTags, createNewTag } from '../../../server/query/tag.query';
+import { addRequest, addNewTag } from '../../../server/query/statistic.query';
 import { setupCors } from '../../../server/cors';
-import { addNewTag, addRequest } from '../../../server/query/statistic.query';
-import {
-  createNewTag,
-  getAllTags,
-  getTagsBySize,
-} from '../../../server/query/tag.query';
+import { TagProps } from '../../../@types/api/tag';
 
 const CreateNewTagSchema = z.object({
   name: z.string().min(1),
-  description: z.string().min(1),
+  description: z.string(),
   is_nsfw: z.boolean(),
 });
 

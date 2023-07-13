@@ -1,13 +1,10 @@
-import { NextApiRequest, NextApiResponse } from 'next';
-import nextConnect from 'next-connect';
 import { z } from 'zod';
+import nextConnect from 'next-connect';
+import { NextApiResponse, NextApiRequest } from 'next';
 
-import { deleteImageByHashDeleteId } from '../../../../server/query/image.query';
-import {
-  addRequest,
-  removeImage,
-} from '../../../../server/query/statistic.query';
 import { imgurDelete } from '../../../../server/services/imgur-delete';
+import { removeImage, addRequest } from '../../../../server/query/statistic.query';
+import { deleteImageByHashDeleteId } from '../../../../server/query/image.query';
 
 export const bodyForDeleteImageSchema = z.object({
   id: z.string(),
@@ -29,9 +26,7 @@ apiRoute.delete(async (req, res) => {
   await addRequest();
   await removeImage();
 
-  const { id }: BodyForDeleteImageSchema = bodyForDeleteImageSchema.parse(
-    req.query,
-  );
+  const { id }: BodyForDeleteImageSchema = bodyForDeleteImageSchema.parse(req.query);
 
   const image = await deleteImageByHashDeleteId(id);
   await imgurDelete(id);

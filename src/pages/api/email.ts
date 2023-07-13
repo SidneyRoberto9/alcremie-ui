@@ -1,12 +1,8 @@
-import { NextApiRequest, NextApiResponse } from 'next';
-import nextConnect from 'next-connect';
 import { z } from 'zod';
+import nextConnect from 'next-connect';
+import { NextApiResponse, NextApiRequest } from 'next';
 
-import {
-  generateEmailContent,
-  mailOptions,
-  transporter,
-} from '../../server/services/nodemailer';
+import { transporter, mailOptions, generateEmailContent } from '../../server/services/nodemailer';
 
 const contactDataEmailSchema = z.object({
   name: z.string().min(1).max(100),

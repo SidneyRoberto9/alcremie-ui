@@ -1,11 +1,11 @@
-import { GetServerSideProps } from 'next';
-import { getSession } from 'next-auth/react';
 import { NextSeo } from 'next-seo';
+import { getSession } from 'next-auth/react';
+import { GetServerSideProps } from 'next';
 
-import { ImageDto } from '../@types/api/img';
-import { Content } from '../components/Content';
-import { MasonryBox } from '../components/Recent/MasonryBox';
 import { getUserFavoritesImages } from '../server/query/image.query';
+import { MasonryBox } from '../components/Recent/MasonryBox';
+import { Content } from '../components/Content';
+import { ImageDto } from '../@types/api/img';
 
 interface FavoritesProps {
   images: ImageDto[];

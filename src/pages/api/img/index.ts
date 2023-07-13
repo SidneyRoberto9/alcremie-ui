@@ -1,13 +1,15 @@
-import multer from 'multer';
-import { NextApiRequest, NextApiResponse } from 'next';
-import nextConnect from 'next-connect';
 import { z } from 'zod';
+import nextConnect from 'next-connect';
+import { NextApiResponse, NextApiRequest } from 'next';
+import multer from 'multer';
 
-import { ImageProps } from '../../../@types/api/img';
-import { setupCors } from '../../../server/cors';
-import { createNewImage } from '../../../server/query/image.query';
-import { addNewImage, addRequest } from '../../../server/query/statistic.query';
+import { cloudinaryUpload } from '@/server/services/cloudinary';
+
 import { imgurUpload } from '../../../server/services/imgur-upload';
+import { addRequest, addNewImage } from '../../../server/query/statistic.query';
+import { createNewImage } from '../../../server/query/image.query';
+import { setupCors } from '../../../server/cors';
+import { ImageProps } from '../../../@types/api/img';
 
 interface MulterRequest extends NextApiRequest {
   file: Express.Multer.File;
@@ -43,20 +45,29 @@ apiRoute.post(async (req, res) => {
   const data = CreateNewImagePostSchema.parse(JSON.parse(req.body.document));
   const { buffer } = req.file;
 
-  const { ImgurData } = await imgurUpload(buffer);
+  const { asset_id, url } = await cloudinaryUpload(buffer);
 
-  if (ImgurData === null) {
-    return res.status(400).json({
-      message: 'No image provided',
-    });
-  }
+  //const { ImgurData } = await imgurUpload(buffer);
+
+  // if (ImgurData === null) {
+  //   return res.status(400).json({
+  //     message: 'No image provided',
+  //   });
+  // }
+
+  // const imageData: ImageProps = {
+  //   isNsfw: data.is_nsfw,
+  //   source: data.source,
+  //   imgurId: ImgurData.id,
+  //   imgurDeleteHash: ImgurData.deleteHash,
+  //   imgurUrl: ImgurData.link,
+  // };
 
   const imageData: ImageProps = {
     isNsfw: data.is_nsfw,
     source: data.source,
-    imgurId: ImgurData.id,
-    imgurDeleteHash: ImgurData.deleteHash,
-    imgurUrl: ImgurData.link,
+    imageAssetId: asset_id,
+    imageUrl: url,
   };
 
   const newImage = await createNewImage({ imageData, tags: data.tags });

@@ -68,8 +68,6 @@ export function FormUpload({ tags }: FormUploadProps) {
         };
       });
 
-    console.log(data);
-
     if (tags.length <= 0) {
       return setError('file', {
         message: 'Please select at least 1 tags!!',

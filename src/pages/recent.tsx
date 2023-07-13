@@ -1,27 +1,24 @@
-import { GetServerSideProps } from 'next';
-import { NextSeo } from 'next-seo';
-import { useRouter } from 'next/router';
-import { useEffect } from 'react';
 import { useContextSelector } from 'use-context-selector';
+import { useEffect } from 'react';
+import { useRouter } from 'next/router';
+import { NextSeo } from 'next-seo';
+import { GetServerSideProps } from 'next';
 
-import { Tag } from '../@types/api/tag';
-import { GetGalleryDataParams } from '../@types/gallery';
-import { Content } from '../components/Content';
-import { MasonryBox } from '../components/Recent/MasonryBox';
-import { Pagination } from '../components/Recent/Pagination';
-import { galleryContext } from '../context/useGallery';
-import { tagsContext } from '../context/useTags';
 import { getAllTags } from '../server/query/tag.query';
+import { tagsContext } from '../context/useTags';
+import { galleryContext } from '../context/useGallery';
+import { Pagination } from '../components/Recent/Pagination';
+import { MasonryBox } from '../components/Recent/MasonryBox';
+import { Content } from '../components/Content';
+import { GetGalleryDataParams } from '../@types/gallery';
+import { Tag } from '../@types/api/tag';
 
 interface RecentProps {
   tags: Tag[];
 }
 
 export default function Recent({ tags }: RecentProps) {
-  const filterData = useContextSelector(
-    galleryContext,
-    ({ filterData }) => filterData,
-  );
+  const filterData = useContextSelector(galleryContext, ({ filterData }) => filterData);
 
   const setTags = useContextSelector(tagsContext, ({ setTags }) => setTags);
   const router = useRouter();

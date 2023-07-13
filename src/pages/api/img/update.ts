@@ -1,11 +1,11 @@
-import { NextApiRequest, NextApiResponse } from 'next';
-import nextConnect from 'next-connect';
 import { z } from 'zod';
+import nextConnect from 'next-connect';
+import { NextApiResponse, NextApiRequest } from 'next';
 
-import { updateImageData } from '../../../server/query/image.query';
-import { addRequest } from '../../../server/query/statistic.query';
-import { getTagByIdList } from '../../../server/query/tag.query';
 import { imageToDtoWithTags } from '../../../utils/converter-data';
+import { getTagByIdList } from '../../../server/query/tag.query';
+import { addRequest } from '../../../server/query/statistic.query';
+import { updateImageData } from '../../../server/query/image.query';
 
 export const bodyForUpdateImageSchema = z.object({
   id: z.string(),
@@ -29,9 +29,7 @@ const apiRoute = nextConnect<NextApiRequest, NextApiResponse>({
 apiRoute.put(async (req, res) => {
   await addRequest();
 
-  const data: BodyForUpdateImageSchema = bodyForUpdateImageSchema.parse(
-    req.body,
-  );
+  const data: BodyForUpdateImageSchema = bodyForUpdateImageSchema.parse(req.body);
 
   const image = await updateImageData(data);
   const tagsInImage = await getTagByIdList(image.tags);

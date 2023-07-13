@@ -1,11 +1,11 @@
-import Masonry, { ResponsiveMasonry } from 'react-responsive-masonry';
 import { useContextSelector } from 'use-context-selector';
+import Masonry, { ResponsiveMasonry } from 'react-responsive-masonry';
 
-import { ImageDto } from '../../@types/api/img';
-import { galleryContext } from '../../context/useGallery';
-import { LoadingSpinner } from '../LoadingSpinner';
-import { NoContentScreen } from '../Screens/NoContentScreen';
 import { MasonryItem } from './MasonryItem';
+import { NoContentScreen } from '../Screens/NoContentScreen';
+import { LoadingSpinner } from '../LoadingSpinner';
+import { galleryContext } from '../../context/useGallery';
+import { ImageDto } from '../../@types/api/img';
 
 const Breakpoints = {
   760: 2,
@@ -33,10 +33,7 @@ export function MasonryBox({ data = null }: MasonryBoxProps) {
     return <LoadingSpinner />;
   }
 
-  if (
-    contentData.content?.length == 0 ||
-    (contentData.content == null && data?.length == 0)
-  ) {
+  if (contentData.content?.length == 0 || (contentData.content == null && data?.length == 0)) {
     return <NoContentScreen />;
   }
 
@@ -44,12 +41,10 @@ export function MasonryBox({ data = null }: MasonryBoxProps) {
     <ResponsiveMasonry columnsCountBreakPoints={Breakpoints}>
       <Masonry>
         {data == null
-          ? contentData.content?.map(({ imgurUrl, id }) => (
-              <MasonryItem url={imgurUrl} key={id} id={id} />
+          ? contentData.content?.map(({ imageUrl, id }) => (
+              <MasonryItem url={imageUrl} key={id} id={id} />
             ))
-          : data.map(({ imgurUrl, id }) => (
-              <MasonryItem url={imgurUrl} key={id} id={id} />
-            ))}
+          : data.map(({ imageUrl, id }) => <MasonryItem url={imageUrl} key={id} id={id} />)}
       </Masonry>
     </ResponsiveMasonry>
   );

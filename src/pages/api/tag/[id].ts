@@ -1,8 +1,8 @@
-import { NextApiRequest, NextApiResponse } from 'next';
 import nextConnect from 'next-connect';
+import { NextApiResponse, NextApiRequest } from 'next';
 
-import { addRequest, removeTag } from '../../../server/query/statistic.query';
 import { deleteTag } from '../../../server/query/tag.query';
+import { removeTag, addRequest } from '../../../server/query/statistic.query';
 
 const apiRoute = nextConnect<NextApiRequest, NextApiResponse>({
   onError: (err, req, res, next) => {

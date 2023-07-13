@@ -1,18 +1,18 @@
 import { ObjectId } from 'bson';
 
-import {
-  createImageData,
-  getImageProps,
-  getImagesResponse,
-  getImagesSizeProps,
-  ImageProps,
-} from '../../@types/api/img';
+import { getTagByName } from './tag.query';
+import { prisma } from '../prisma';
+import { isEmpty } from '../../utils/valitation';
+import { imageToDto } from '../../utils/converter-data';
 import { queryForFilterImagesSchemaType } from '../../pages/api/img/[page]';
 import { BodyForUpdateImageSchema } from '../../pages/api/img/update';
-import { imageToDto } from '../../utils/converter-data';
-import { isEmpty } from '../../utils/valitation';
-import { prisma } from '../prisma';
-import { getTagByName } from './tag.query';
+import {
+  ImageProps,
+  getImageProps,
+  getImagesSizeProps,
+  getImagesResponse,
+  createImageData,
+} from '../../@types/api/img';
 
 export async function getImages({
   allImages,
@@ -79,11 +79,7 @@ export async function getImageById(id: string) {
   });
 }
 
-export async function getImagesSize({
-  allImages,
-  includedTags,
-  isNsfw,
-}: getImagesSizeProps) {
+export async function getImagesSize({ allImages, includedTags, isNsfw }: getImagesSizeProps) {
   if (allImages) {
     return await prisma.image.count();
   }
@@ -135,10 +131,10 @@ export async function createNewImage(data: createImageData) {
       id: image.id,
       isNsfw: image.isNsfw,
       source: image.source,
-      imgurId: image.imgurId,
-      imgurDeleteHash: image.imgurDeleteHash,
-      imgurUrl: image.imgurUrl,
+      imageAssetId: imageData.imageAssetId,
+      imageUrl: imageData.imageUrl,
       tags: tagsInImageIdList,
+      createdAt: new Date(),
     },
   });
 }
@@ -152,7 +148,7 @@ export async function getRandomImage() {
 
   const imagesUrl = images.map((image) => {
     return {
-      image: image.imgurUrl,
+      image: image.imageUrl,
       id: image.id,
     };
   });
@@ -162,9 +158,7 @@ export async function getRandomImage() {
   return randomImage;
 }
 
-export async function getImagesResponseData(
-  parameters: queryForFilterImagesSchemaType,
-) {
+export async function getImagesResponseData(parameters: queryForFilterImagesSchemaType) {
   const tag = await getTagByName(parameters.included_tags);
 
   const imagesFromDatabase = await getImages({
@@ -244,7 +238,7 @@ export async function updateImageData(data: BodyForUpdateImageSchema) {
 export async function deleteImageByHashDeleteId(id: string) {
   const image = await prisma.image.findUnique({
     where: {
-      imgurDeleteHash: id,
+      imageAssetId: id,
     },
   });
 

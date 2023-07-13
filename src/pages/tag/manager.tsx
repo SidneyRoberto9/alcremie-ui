@@ -1,27 +1,28 @@
-import {
-  Button,
-  Flex,
-  FormControl,
-  FormLabel,
-  Input,
-  InputGroup,
-  InputLeftAddon,
-  useDisclosure,
-  useMediaQuery,
-} from '@chakra-ui/react';
-import { GetServerSideProps } from 'next';
-import { getSession } from 'next-auth/react';
-import { NextSeo } from 'next-seo';
-import { ChangeEvent, useCallback, useEffect, useState } from 'react';
 import { useContextSelector } from 'use-context-selector';
+import { ChangeEvent, useState, useEffect, useCallback } from 'react';
+import { NextSeo } from 'next-seo';
+import { getSession } from 'next-auth/react';
+import { GetServerSideProps } from 'next';
 
-import { Tag } from '../../@types/api/tag';
-import { Content } from '../../components/Content';
-import { AddModal } from '../../components/Manager/AddModal';
-import { DeleteModal } from '../../components/Manager/DeleteModal';
-import { TableTags } from '../../components/Manager/TableTags';
-import { tagsContext } from '../../context/useTags';
+import {
+  InputLeftAddon,
+  InputGroup,
+  Input,
+  FormLabel,
+  FormControl,
+  Flex,
+  Button,
+  useMediaQuery,
+  useDisclosure,
+} from '@chakra-ui/react';
+
 import { getAllTags } from '../../server/query/tag.query';
+import { tagsContext } from '../../context/useTags';
+import { TableTags } from '../../components/Manager/TableTags';
+import { DeleteModal } from '../../components/Manager/DeleteModal';
+import { AddModal } from '../../components/Manager/AddModal';
+import { Content } from '../../components/Content';
+import { Tag } from '../../@types/api/tag';
 
 interface ManagerProps {
   tags: Tag[];
@@ -36,17 +37,9 @@ export default function Manager({ tags }: ManagerProps) {
       setTags,
     }),
   );
-  const {
-    isOpen: isOpenAdd,
-    onOpen: onOpenAdd,
-    onClose: onCloseAdd,
-  } = useDisclosure();
+  const { isOpen: isOpenAdd, onOpen: onOpenAdd, onClose: onCloseAdd } = useDisclosure();
 
-  const {
-    isOpen: isOpenDelete,
-    onOpen: onOpenDelete,
-    onClose: onCloseDelete,
-  } = useDisclosure();
+  const { isOpen: isOpenDelete, onOpen: onOpenDelete, onClose: onCloseDelete } = useDisclosure();
 
   const [tagId, setTagId] = useState<string | null>(null);
   const [isLessThan680] = useMediaQuery('(max-width: 680px)');
@@ -72,11 +65,7 @@ export default function Manager({ tags }: ManagerProps) {
     <>
       <NextSeo title="Tag Manager | Alcremie" />
       <AddModal isOpen={isOpenAdd} onClose={onCloseAdd} />
-      <DeleteModal
-        isOpen={isOpenDelete}
-        onClose={onCloseDelete}
-        tagId={String(tagId)}
-      />
+      <DeleteModal isOpen={isOpenDelete} onClose={onCloseDelete} tagId={String(tagId)} />
 
       <Content>
         <Flex
@@ -84,8 +73,7 @@ export default function Manager({ tags }: ManagerProps) {
           padding={'3rem'}
           gap={'2rem'}
           align={'center'}
-          justifyContent={'space-between'}
-        >
+          justifyContent={'space-between'}>
           {isLessThan680 ? (
             <FormControl mt={'-2rem'}>
               <FormLabel fontWeight={'bold'}>Search</FormLabel>
@@ -100,11 +88,7 @@ export default function Manager({ tags }: ManagerProps) {
             </FormControl>
           ) : (
             <InputGroup>
-              <InputLeftAddon
-                children="Search"
-                color={'black'}
-                fontWeight={'bold'}
-              />
+              <InputLeftAddon children="Search" color={'black'} fontWeight={'bold'} />
               <Input
                 type="text"
                 _focusVisible={{

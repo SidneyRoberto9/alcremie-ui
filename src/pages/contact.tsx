@@ -1,7 +1,7 @@
 import { NextSeo } from 'next-seo';
 
-import { FormContact } from '../components/Contact/formContact';
 import { Content } from '../components/Content';
+import { FormContact } from '../components/Contact/formContact';
 
 export default function Contact() {
   return (

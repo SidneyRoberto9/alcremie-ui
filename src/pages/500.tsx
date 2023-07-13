@@ -1,7 +1,7 @@
 import { NextSeo } from 'next-seo';
 
-import { Content } from '../components/Content';
 import { InternalServerErrorScreen } from '../components/Screens/InternalServerErrorScreen';
+import { Content } from '../components/Content';
 
 export default function Custom500() {
   return (

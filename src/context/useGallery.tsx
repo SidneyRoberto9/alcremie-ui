@@ -1,25 +1,11 @@
-import { useToast } from '@chakra-ui/react';
-import {
-  Dispatch,
-  ReactNode,
-  SetStateAction,
-  useCallback,
-  useState,
-} from 'react';
-import {
-  UseMutateAsyncFunction,
-  useMutation,
-  useQuery,
-  useQueryClient,
-} from 'react-query';
 import { createContext } from 'use-context-selector';
+import { UseMutateAsyncFunction, useQueryClient, useQuery, useMutation } from 'react-query';
+import { SetStateAction, ReactNode, Dispatch, useState, useCallback } from 'react';
 
-import {
-  CreateImg,
-  GalleryFetchDataResponse,
-  GetGalleryDataParams,
-} from '../@types/gallery';
+import { useToast } from '@chakra-ui/react';
+
 import { api } from '../server/api';
+import { GetGalleryDataParams, GalleryFetchDataResponse, CreateImg } from '../@types/gallery';
 
 interface GalleryContextProps {
   contentData: GalleryFetchDataResponse | undefined;
@@ -148,8 +134,7 @@ export function GalleryProvider({ children }: ContextProps) {
         onChangePage,
         setFilterParams,
         createImage: mutateAsync,
-      }}
-    >
+      }}>
       {children}
     </galleryContext.Provider>
   );

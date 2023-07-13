@@ -8,9 +8,8 @@ export interface ImageData {
   id: string;
   isNsfw: boolean;
   source: string;
-  imgurId: string;
-  imgurDeleteHash: string;
-  imgurUrl: string;
+  imageId: string;
+  imageUrl: string;
   tags: string[];
 }
 
