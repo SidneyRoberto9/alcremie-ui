@@ -35,7 +35,7 @@ export interface ImageProps {
 
 export interface createImageData {
   imageData: ImageProps;
-  tags: TagIds[];
+  tags: string[];
 }
 
 export interface getImageProps {

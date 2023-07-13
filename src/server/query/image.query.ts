@@ -1,6 +1,6 @@
 import { ObjectId } from 'bson';
 
-import { getTagByName } from './tag.query';
+import { getTagByName, createNewTagOnlyByName } from './tag.query';
 import { prisma } from '../prisma';
 import { isEmpty } from '../../utils/valitation';
 import { imageToDto } from '../../utils/converter-data';
@@ -119,8 +119,8 @@ export async function getImagesSize({ allImages, includedTags, isNsfw }: getImag
 }
 
 export async function createNewImage(data: createImageData) {
-  const { imageData, tags } = data;
-  const tagsInImageIdList = tags.map((tag) => tag.id);
+  const { imageData, tags: tagsWithId } = data;
+
   const image: ImageProps = {
     ...imageData,
     id: new ObjectId().toHexString(),
@@ -133,7 +133,7 @@ export async function createNewImage(data: createImageData) {
       source: image.source,
       imageAssetId: imageData.imageAssetId,
       imageUrl: imageData.imageUrl,
-      tags: tagsInImageIdList,
+      tags: tagsWithId,
       createdAt: new Date(),
     },
   });

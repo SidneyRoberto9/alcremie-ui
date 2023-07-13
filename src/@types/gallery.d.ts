@@ -27,6 +27,4 @@ export interface GetGalleryDataParams {
 export interface CreateImg {
   file: any;
   source: string;
-  nsfw: boolean;
-  tags: TagIds[];
 }

@@ -65,12 +65,8 @@ export function GalleryProvider({ children }: ContextProps) {
   );
 
   const { isLoading: isLoadingMutation, mutateAsync } = useMutation(
-    async ({ file, nsfw, source, tags }: CreateImg) => {
-      const document = JSON.stringify({
-        source: source,
-        is_nsfw: nsfw,
-        tags: tags,
-      });
+    async ({ file, source }: CreateImg) => {
+      const document = JSON.stringify({ source: source });
 
       const formData = new FormData();
       formData.append('picture', file);
