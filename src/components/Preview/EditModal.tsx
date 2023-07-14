@@ -1,38 +1,36 @@
+import { z } from 'zod';
+import AsyncSelect from 'react-select/async';
+import { useForm } from 'react-hook-form';
+import { useRef } from 'react';
+
+import { zodResolver } from '@hookform/resolvers/zod';
 import {
-  Button,
-  Checkbox,
-  Flex,
-  FormControl,
-  FormLabel,
-  Input,
-  InputGroup,
-  Modal,
-  ModalBody,
-  ModalCloseButton,
-  ModalContent,
-  ModalFooter,
-  ModalHeader,
   ModalOverlay,
+  ModalHeader,
+  ModalFooter,
+  ModalContent,
+  ModalCloseButton,
+  ModalBody,
+  Modal,
+  InputGroup,
+  Input,
+  FormLabel,
+  FormControl,
+  Flex,
+  Checkbox,
+  Button,
   useToast,
 } from '@chakra-ui/react';
-import { zodResolver } from '@hookform/resolvers/zod';
-import { FormEvent, useRef } from 'react';
-import { useForm } from 'react-hook-form';
-import ReactSelect from 'react-select';
-import { z } from 'zod';
-
-import { ImageDtoWithTags } from '../../@types/api/img';
-import { Tag } from '../../@types/api/tag';
-import { SelectOption } from '../../@types/gallery';
-import { api } from '../../server/api';
-import { uploadTagStyle } from '../../styles/react-select-tag';
-import { createSelectOptionWithTags } from '../../utils/create-select-option';
+import { createSelectOptionWithTags } from '@/utils/create-select-option';
+import { uploadTagStyle } from '@/styles/react-select-tag';
+import { api } from '@/server/api';
+import { SelectOption } from '@/@types/gallery';
+import { ImageDtoWithTags } from '@/@types/api/img';
 
 interface EditModalProps {
   isOpen: boolean;
   onClose: () => void;
   image: ImageDtoWithTags;
-  tags: Tag[];
   onChangeImageData: (image: ImageDtoWithTags) => void;
 }
 
@@ -43,13 +41,7 @@ const editImageSchema = z.object({
 
 type EditImageSchema = z.infer<typeof editImageSchema>;
 
-export function EditModal({
-  isOpen,
-  onClose,
-  image,
-  tags,
-  onChangeImageData,
-}: EditModalProps) {
+export function EditModal({ isOpen, onClose, image, onChangeImageData }: EditModalProps) {
   const {
     register,
     handleSubmit,
@@ -64,9 +56,13 @@ export function EditModal({
 
   const toast = useToast();
   const selectedRef = useRef<any>(null);
-
-  const options = createSelectOptionWithTags(tags);
   const selectedOptions = createSelectOptionWithTags(image.tags);
+
+  async function optionsFromApi(inputValue: string) {
+    const { data } = await api.get(`/tag/search?text=${inputValue}`);
+
+    return createSelectOptionWithTags(data.tags);
+  }
 
   async function handleEditImage(data: EditImageSchema) {
     const selectedTagList: String[] = selectedRef.current
@@ -115,8 +111,7 @@ export function EditModal({
         bg={'gray.850'}
         borderRadius={'1rem'}
         as={'form'}
-        onSubmit={handleSubmit(handleEditImage)}
-      >
+        onSubmit={handleSubmit(handleEditImage)}>
         <ModalHeader>Edit Preview</ModalHeader>
         <ModalCloseButton />
         <ModalBody>
@@ -124,8 +119,7 @@ export function EditModal({
             flexDirection={'column'}
             alignItems={'flex-start'}
             gap={'0.875rem'}
-            padding={{ base: '0.35rem', lg: '1.25rem 1.75rem' }}
-          >
+            padding={{ base: '0.35rem', lg: '1.25rem 1.75rem' }}>
             <FormControl width={'100%'}>
               <FormLabel fontWeight={'bold'}>Source</FormLabel>
               <Input
@@ -139,11 +133,13 @@ export function EditModal({
             <FormControl width={'100%'}>
               <FormLabel fontWeight={'bold'}>Select your tags</FormLabel>
 
-              <ReactSelect
+              <AsyncSelect
                 id={'select-box-3'}
                 instanceId={'select-box-3'}
                 defaultValue={selectedOptions}
-                options={options}
+                cacheOptions
+                defaultOptions
+                loadOptions={optionsFromApi}
                 isMulti
                 placeholder={'Select your tags'}
                 styles={uploadTagStyle}
@@ -153,11 +149,7 @@ export function EditModal({
             </FormControl>
 
             <InputGroup>
-              <Checkbox
-                iconSize="2rem"
-                colorScheme={'whiteAlpha'}
-                {...register('nsfw')}
-              >
+              <Checkbox iconSize="2rem" colorScheme={'whiteAlpha'} {...register('nsfw')}>
                 NSFW
               </Checkbox>
             </InputGroup>
@@ -171,8 +163,7 @@ export function EditModal({
             variant={'primary'}
             type={'submit'}
             isLoading={isSubmitting}
-            isDisabled={isSubmitting}
-          >
+            isDisabled={isSubmitting}>
             Editar
           </Button>
         </ModalFooter>

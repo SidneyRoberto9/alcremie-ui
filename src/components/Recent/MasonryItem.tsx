@@ -1,6 +1,8 @@
-import { Box, Link } from '@chakra-ui/react';
-import Image from 'next/image';
 import { useRouter } from 'next/router';
+import Link from 'next/link';
+import Image from 'next/image';
+
+import { Link as ChakraUILink, Box } from '@chakra-ui/react';
 
 interface MasonryItemProps {
   id: string;
@@ -15,14 +17,8 @@ export function MasonryItem({ id, url }: MasonryItemProps) {
   }
 
   return (
-    <Link target={'_self'} href={`preview/${id}`}>
-      <Box
-        w={'100%'}
-        h={'100%'}
-        position={'relative'}
-        cursor={'pointer'}
-        display={'block'}
-      >
+    <ChakraUILink as={Link} href={`preview/${id}`} prefetch={false}>
+      <Box w={'100%'} h={'100%'} position={'relative'} cursor={'pointer'} display={'block'}>
         <Image
           alt={id}
           src={url}
@@ -33,6 +29,6 @@ export function MasonryItem({ id, url }: MasonryItemProps) {
           placeholder={'empty'}
         />
       </Box>
-    </Link>
+    </ChakraUILink>
   );
 }

@@ -16,7 +16,6 @@ import { ImageDtoWithTags } from '../../@types/api/img';
 
 interface PreviewProps {
   image: ImageDtoWithTags;
-  tags: Tag[];
 }
 
 const GridTemplate = {
@@ -28,7 +27,7 @@ const GridTemplate = {
     `,
 };
 
-export default function Preview({ image, tags }: PreviewProps) {
+export default function Preview({ image }: PreviewProps) {
   const [imgData, setImgData] = useState<ImageDtoWithTags>(image);
 
   const { isOpen: isEditorOpen, onOpen: onOpenEditor, onClose: onCloseEditor } = useDisclosure();
@@ -42,7 +41,6 @@ export default function Preview({ image, tags }: PreviewProps) {
         onClose={onCloseEditor}
         onChangeImageData={setImgData}
         image={imgData}
-        tags={tags}
       />
 
       <Content display={'flex'} h={'auto'} alignItems={'center'} justifyContent={'center'}>
@@ -102,12 +100,10 @@ export const getServerSideProps: GetServerSideProps = async ({ params }) => {
 
   const tagsData = await getTagByIdList(ImgData.tags);
   const returnedImage = imageToDtoWithTags(ImgData, tagsData);
-  const tags = await getAllTags();
 
   return {
     props: {
       image: returnedImage,
-      tags,
     },
   };
 };
