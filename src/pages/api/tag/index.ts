@@ -2,7 +2,13 @@ import { z } from 'zod';
 import nextConnect from 'next-connect';
 import { NextApiResponse, NextApiRequest } from 'next';
 
-import { getTagsBySize, getAllTags, createNewTag } from '../../../server/query/tag.query';
+import {
+  getTagsSize,
+  getTagsPaged,
+  getTagsBySize,
+  getAllTags,
+  createNewTag,
+} from '../../../server/query/tag.query';
 import { addRequest, addNewTag } from '../../../server/query/statistic.query';
 import { setupCors } from '../../../server/cors';
 import { TagProps } from '../../../@types/api/tag';
@@ -27,9 +33,15 @@ apiRoute.use(setupCors);
 
 apiRoute.get(async (req, res) => {
   await addRequest();
-  const { size } = req.query;
+  const { size, page } = req.query;
 
   let allTags: TagProps[] = [];
+
+  if (page) {
+    const tagsWithImageCount = await getTagsPaged(Number(page) - 1);
+    const tagsSize = await getTagsSize();
+    res.status(200).json({ tags: tagsWithImageCount, size: tagsSize });
+  }
 
   if (size) {
     allTags = await getTagsBySize(Number(size));

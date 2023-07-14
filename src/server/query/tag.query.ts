@@ -1,5 +1,5 @@
 import { prisma } from '../prisma';
-import { createTagDto } from '../../@types/api/tag';
+import { TagWithImageCount, createTagDto } from '../../@types/api/tag';
 
 export async function getTagById(id: string) {
   return await prisma.tag.findUnique({
@@ -7,6 +7,39 @@ export async function getTagById(id: string) {
       id: id,
     },
   });
+}
+
+export async function getTagsSize() {
+  return await prisma.tag.count();
+}
+
+export async function getTagsPaged(page: number) {
+  const tags = await prisma.tag.findMany({
+    skip: page * 5,
+    take: 5,
+    orderBy: {
+      name: 'asc',
+    },
+  });
+
+  const tagsWithImageCount: TagWithImageCount[] = [];
+
+  for await (const tag of tags) {
+    const imagesWithTag = await prisma.image.count({
+      where: {
+        tags: {
+          has: tag.id,
+        },
+      },
+    });
+
+    tagsWithImageCount.push({
+      ...tag,
+      image_size: imagesWithTag,
+    });
+  }
+
+  return tagsWithImageCount;
 }
 
 export async function getAllTags() {

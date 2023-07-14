@@ -21,3 +21,11 @@ export interface createTagDto {
 export interface TagIds {
   id: string;
 }
+
+export interface TagWithImageCount {
+  image_size: number;
+  id: string;
+  name: string;
+  description: string;
+  is_nsfw: boolean;
+}

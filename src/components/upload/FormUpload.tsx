@@ -1,21 +1,9 @@
 import { z } from 'zod';
 import { useContextSelector } from 'use-context-selector';
-import ReactSelect from 'react-select';
 import { useForm } from 'react-hook-form';
-import { useRef } from 'react';
 
 import { zodResolver } from '@hookform/resolvers/zod';
-import {
-  Text,
-  InputGroup,
-  FormLabel,
-  FormControl,
-  Flex,
-  Checkbox,
-  Button,
-  Box,
-  useMediaQuery,
-} from '@chakra-ui/react';
+import { Text, Flex, Button, useMediaQuery } from '@chakra-ui/react';
 
 import { InputTextUpload } from './InputTextUpload';
 import { InputFileUpload } from './InputFileUpload';

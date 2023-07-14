@@ -1,17 +1,17 @@
 import { createContext } from 'use-context-selector';
-import { ReactNode, useState, useCallback } from 'react';
+import { ReactNode, useState, useEffect, useCallback } from 'react';
 
 import { api } from '../server/api';
-import { Tag } from '../@types/api/tag';
+import { TagWithImageCount, createTagDto } from '../@types/api/tag';
 
 interface TagsProps {
-  data: Tag[];
+  data: TagWithImageCount[];
+  page: number;
+  totalTags: number;
   isLoading: boolean;
-  setTags: (tags: Tag[]) => void;
-  filterTag: (search: string) => void;
-  getTags: () => Promise<void>;
-  deleteTag: (id: string) => Promise<void>;
-  createTag: (name: string, description: string, isNsfw: boolean) => Promise<void>;
+  deleteTag: (id: number | string) => Promise<void>;
+  createTag: (dto: createTagDto) => void;
+  onChangePage: (nextPage: number) => void;
 }
 
 interface ContextProps {
@@ -20,68 +20,65 @@ interface ContextProps {
 
 export const tagsContext = createContext({} as TagsProps);
 
+async function fetchCreateTag(dto: createTagDto) {
+  return await api.post('/tag', {
+    name: dto.name,
+    description: dto.description,
+    is_nsfw: dto.is_nsfw,
+  });
+}
+
 export function TagsContextProvider({ children }: ContextProps) {
-  const [InitialTags, setInitialTags] = useState<Tag[]>([]);
-  const [tags, setTags] = useState<Tag[]>([]);
-  const [isLoading, setIsLoading] = useState(false);
+  const [totalTags, setTotalTags] = useState<number>(0);
+  const [page, setPage] = useState<number>(1);
+  const [data, setData] = useState<TagWithImageCount[]>([]);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
 
-  const filterTag = useCallback(
-    (search: string) => {
-      if (search.length < 1) {
-        return setTags(InitialTags);
-      }
-
-      setTags((state) => state.filter((tag) => tag.name.toLowerCase().includes(search)));
-    },
-    [tags, InitialTags],
-  );
-
-  const setTagContent = useCallback(
-    (tags: Tag[]) => {
-      setTags(tags);
-      setInitialTags(tags);
-    },
-    [tags, InitialTags],
-  );
-
-  const getTags = useCallback(async () => {
+  const createTag = useCallback(async (dto: createTagDto) => {
     setIsLoading(true);
-    const { data } = await api.get('/tag');
-    setInitialTags(data.tags);
-    setTags(data.tags);
+    await fetchCreateTag(dto);
     setIsLoading(false);
-  }, [InitialTags, tags, isLoading]);
+  }, []);
 
-  const createTag = useCallback(
-    async (name: string, description: string, isNsfw: boolean) => {
-      setIsLoading(true);
-      await api.post('/tag', {
-        name,
-        description,
-        is_nsfw: isNsfw,
-      });
+  const handlePageChange = useCallback(
+    (nextPage: number) => {
+      setPage(nextPage);
     },
-    [isLoading],
+    [page],
   );
 
-  const deleteTag = useCallback(
-    async (id: string) => {
-      setIsLoading(true);
-      await api.delete(`/tag/${id}`);
-    },
-    [isLoading],
-  );
+  const deleteTag = useCallback(async (id: number | string) => {
+    setIsLoading(true);
+    await api.delete(`/tag/${id}`);
+    setIsLoading(false);
+  }, []);
+
+  const getTagsData = useCallback(async () => {
+    setIsLoading(true);
+    const { data } = await api.get('/tag', {
+      params: {
+        page,
+      },
+    });
+    setTotalTags(data['size']);
+    setData(data['tags']);
+    setIsLoading(false);
+  }, [page]);
+
+  useEffect(() => {
+    getTagsData();
+  }, [page]);
 
   return (
     <tagsContext.Provider
       value={{
-        data: tags,
+        page,
+        totalTags,
+        data,
         isLoading,
-        getTags,
         createTag,
         deleteTag,
-        filterTag,
-        setTags: setTagContent,
+        onChangePage: handlePageChange,
       }}>
       {children}
     </tagsContext.Provider>

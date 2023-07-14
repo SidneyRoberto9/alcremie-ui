@@ -2,25 +2,16 @@ import { useContextSelector } from 'use-context-selector';
 import { useEffect } from 'react';
 import { useRouter } from 'next/router';
 import { NextSeo } from 'next-seo';
-import { GetServerSideProps } from 'next';
 
-import { getAllTags } from '../server/query/tag.query';
-import { tagsContext } from '../context/useTags';
 import { galleryContext } from '../context/useGallery';
 import { Pagination } from '../components/Recent/Pagination';
 import { MasonryBox } from '../components/Recent/MasonryBox';
 import { Content } from '../components/Content';
 import { GetGalleryDataParams } from '../@types/gallery';
-import { Tag } from '../@types/api/tag';
 
-interface RecentProps {
-  tags: Tag[];
-}
-
-export default function Recent({ tags }: RecentProps) {
+export default function Recent() {
   const filterData = useContextSelector(galleryContext, ({ filterData }) => filterData);
 
-  const setTags = useContextSelector(tagsContext, ({ setTags }) => setTags);
   const router = useRouter();
 
   const params: GetGalleryDataParams = {
@@ -31,7 +22,6 @@ export default function Recent({ tags }: RecentProps) {
 
   useEffect(() => {
     filterData(0, params);
-    setTags(tags);
   }, []);
 
   return (
@@ -45,11 +35,3 @@ export default function Recent({ tags }: RecentProps) {
     </>
   );
 }
-
-export const getServerSideProps: GetServerSideProps = async (context) => {
-  const tags = await getAllTags();
-
-  return {
-    props: { tags },
-  };
-};

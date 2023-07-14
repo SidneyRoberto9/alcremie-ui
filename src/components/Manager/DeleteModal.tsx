@@ -1,17 +1,18 @@
+import { useContextSelector } from 'use-context-selector';
+
 import {
-  Button,
-  Flex,
-  Modal,
-  ModalBody,
-  ModalCloseButton,
-  ModalContent,
-  ModalFooter,
-  ModalHeader,
-  ModalOverlay,
   Text,
+  ModalOverlay,
+  ModalHeader,
+  ModalFooter,
+  ModalContent,
+  ModalCloseButton,
+  ModalBody,
+  Modal,
+  Flex,
+  Button,
   useToast,
 } from '@chakra-ui/react';
-import { useContextSelector } from 'use-context-selector';
 
 import { tagsContext } from '../../context/useTags';
 
@@ -22,10 +23,10 @@ interface DeleteModalProps {
 }
 
 export function DeleteModal({ isOpen, onClose, tagId }: DeleteModalProps) {
-  const { deleteTag, getTags, isLoading } = useContextSelector(
-    tagsContext,
-    ({ deleteTag, getTags, isLoading }) => ({ deleteTag, getTags, isLoading }),
-  );
+  const { deleteTag, isLoading } = useContextSelector(tagsContext, ({ deleteTag, isLoading }) => ({
+    deleteTag,
+    isLoading,
+  }));
 
   const toast = useToast();
 
@@ -49,7 +50,6 @@ export function DeleteModal({ isOpen, onClose, tagId }: DeleteModalProps) {
       });
     } finally {
       onClose();
-      await getTags();
     }
   }
 
@@ -62,12 +62,7 @@ export function DeleteModal({ isOpen, onClose, tagId }: DeleteModalProps) {
       <Modal onClose={handleClose} isOpen={isOpen} isCentered>
         <ModalOverlay />
 
-        <ModalContent
-          w={'80%'}
-          bg={'gray.850'}
-          borderRadius={'1rem'}
-          as={'form'}
-        >
+        <ModalContent w={'80%'} bg={'gray.850'} borderRadius={'1rem'} as={'form'}>
           <ModalHeader>Delete Tag</ModalHeader>
           <ModalCloseButton />
           <ModalBody>
@@ -75,8 +70,7 @@ export function DeleteModal({ isOpen, onClose, tagId }: DeleteModalProps) {
               flexDirection={'column'}
               alignItems={'flex-start'}
               gap={'0.875rem'}
-              padding={{ base: '0.35rem', lg: '1.25rem 1.75rem' }}
-            >
+              padding={{ base: '0.35rem', lg: '1.25rem 1.75rem' }}>
               <Text> Are you sure you want to delete this tag? </Text>
             </Flex>
           </ModalBody>
@@ -89,8 +83,7 @@ export function DeleteModal({ isOpen, onClose, tagId }: DeleteModalProps) {
               colorScheme={'red'}
               onClick={handleDeleteTag}
               isDisabled={isLoading}
-              isLoading={isLoading}
-            >
+              isLoading={isLoading}>
               Delete
             </Button>
           </ModalFooter>

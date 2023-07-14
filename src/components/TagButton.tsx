@@ -5,9 +5,10 @@ import { Tooltip, ButtonProps, Button } from '@chakra-ui/react';
 interface TagButtonProps extends ButtonProps {
   tooltipLabel: string;
   tag: string;
+  name: string;
 }
 
-export function TagButton({ tooltipLabel, tag, ...rest }: TagButtonProps) {
+export function TagButton({ tooltipLabel, tag, name, ...rest }: TagButtonProps) {
   const router = useRouter();
 
   function handleNavigateToTag() {
@@ -31,7 +32,7 @@ export function TagButton({ tooltipLabel, tag, ...rest }: TagButtonProps) {
           bg: 'white',
           color: 'gray.750',
         }}>
-        {tag}
+        {name}
       </Button>
     </Tooltip>
   );
