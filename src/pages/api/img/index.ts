@@ -76,8 +76,8 @@ apiRoute.post(async (req, res) => {
 
   const tagsInImageIdList: Array<string> = [];
 
-  for (let index = 0; index < tagsStringName.length; index++) {
-    const tagSource = await createNewTagOnlyByName(tagsStringName[index]);
+  for await (const tag of tagsStringName) {
+    const tagSource = await createNewTagOnlyByName(tag);
 
     tagsInImageIdList.push(tagSource.id);
   }

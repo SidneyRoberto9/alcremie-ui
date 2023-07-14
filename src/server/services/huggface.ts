@@ -1,7 +1,7 @@
 import FormData from 'form-data';
 import axios from 'axios';
 
-export async function getTagsFromImage(file: Express.Multer.File): Promise<Array<string>> {
+export async function getTagsFromImage(file: Express.Multer.File) {
   const urlReq: string = process.env.HUGGING_FACE_API as string;
 
   const { buffer, mimetype, originalname } = file;
