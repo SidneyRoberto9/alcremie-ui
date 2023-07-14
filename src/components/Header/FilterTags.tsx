@@ -1,26 +1,15 @@
-import { useEffect } from 'react';
-import ReactSelect from 'react-select';
 import { useContextSelector } from 'use-context-selector';
+import AsyncSelect from 'react-select/async';
 
-import { GetGalleryDataParams, SelectOption } from '../../@types/gallery';
-import { galleryContext } from '../../context/useGallery';
-import { tagsContext } from '../../context/useTags';
-import { selectTagStyle } from '../../styles/react-select-tag';
+import { api } from '@/server/api';
+
 import { createSelectOptionWithTags } from '../../utils/create-select-option';
+import { selectTagStyle } from '../../styles/react-select-tag';
+import { galleryContext } from '../../context/useGallery';
+import { SelectOption, GetGalleryDataParams } from '../../@types/gallery';
 
 export function FilterTags() {
-  const filterData = useContextSelector(
-    galleryContext,
-    ({ filterData }) => filterData,
-  );
-
-  const data = useContextSelector(tagsContext, ({ data }) => data);
-
-  const options: SelectOption[] = [
-    { value: '0', label: 'All' },
-    { value: '1', label: 'NSFW' },
-    ...createSelectOptionWithTags(data),
-  ];
+  const filterData = useContextSelector(galleryContext, ({ filterData }) => filterData);
 
   async function handleChange(props: any) {
     const value = props?.value || false;
@@ -41,14 +30,28 @@ export function FilterTags() {
     filterData(0, params);
   }
 
+  async function optionsFromApi(inputValue: string) {
+    const { data } = await api.get(`/tag/search?text=${inputValue}`);
+
+    const options: SelectOption[] = [
+      { value: '0', label: 'All' },
+      { value: '1', label: 'NSFW' },
+      ...createSelectOptionWithTags(data.tags),
+    ];
+
+    return options;
+  }
+
   return (
-    <ReactSelect
+    <AsyncSelect
       id={'select-box'}
       instanceId={'select-box'}
       styles={selectTagStyle}
       onChange={handleChange}
       isClearable={true}
-      options={options}
+      cacheOptions
+      defaultOptions
+      loadOptions={optionsFromApi}
     />
   );
 }

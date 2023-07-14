@@ -91,3 +91,14 @@ export async function getTagByName(name: string) {
     },
   });
 }
+
+export async function findTagByName(name: string) {
+  return await prisma.tag.findMany({
+    where: {
+      name: {
+        contains: name,
+      },
+    },
+    take: 5,
+  });
+}
