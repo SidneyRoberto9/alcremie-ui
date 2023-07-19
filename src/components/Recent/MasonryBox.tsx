@@ -37,6 +37,14 @@ export function MasonryBox({ data = null }: MasonryBoxProps) {
     return <NoContentScreen />;
   }
 
+  if (data != null && data.length == 0) {
+    return <NoContentScreen />;
+  }
+
+  if (data != null && data.length > 0 && isLoading) {
+    return <LoadingSpinner />;
+  }
+
   return (
     <ResponsiveMasonry columnsCountBreakPoints={Breakpoints}>
       <Masonry>

@@ -6,16 +6,29 @@ interface TagButtonProps extends ButtonProps {
   tooltipLabel: string;
   tag: string;
   name: string;
+  noLabel?: boolean;
 }
 
-export function TagButton({ tooltipLabel, tag, name, ...rest }: TagButtonProps) {
+export function TagButton({ tooltipLabel, tag, name, noLabel = false, ...rest }: TagButtonProps) {
   const router = useRouter();
 
   function handleNavigateToTag() {
-    router.push(`/recent?include_tags=${tag}`);
+    router.push(`/recent?include_tags=${tag.split(' ')[0]}`);
   }
 
-  return (
+  return noLabel ? (
+    <Button
+      {...rest}
+      onClick={handleNavigateToTag}
+      textTransform={'capitalize'}
+      variant={'outline'}
+      _hover={{
+        bg: 'white',
+        color: 'gray.750',
+      }}>
+      {name}
+    </Button>
+  ) : (
     <Tooltip
       hasArrow
       label={tooltipLabel}

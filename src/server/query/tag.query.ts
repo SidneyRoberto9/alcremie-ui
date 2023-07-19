@@ -1,3 +1,5 @@
+import { addNewTag } from '@/server/query/statistic.query';
+
 import { prisma } from '../prisma';
 import { TagWithImageCount, createTagDto } from '../../@types/api/tag';
 
@@ -60,12 +62,37 @@ export async function getTagsBySize(size: number = 10) {
 }
 
 export async function getTagByIdList(idList: string[]) {
-  return await prisma.tag.findMany({
+  const imageSizes: { id: string; size: number }[] = [];
+
+  for (const id of idList) {
+    const size = await prisma.image.count({
+      where: {
+        tags: {
+          has: id,
+        },
+      },
+    });
+
+    imageSizes.push({
+      id: id,
+      size: size,
+    });
+  }
+
+  const tags = await prisma.tag.findMany({
     where: {
       id: {
         in: idList,
       },
     },
+  });
+
+  return tags.map((tag) => {
+    const size = imageSizes.find((imageSize) => imageSize.id === tag.id);
+
+    tag.name = `${tag.name} (${size?.size || 0})`;
+
+    return tag;
   });
 }
 
@@ -99,6 +126,8 @@ export async function createNewTagOnlyByName(name: string) {
   if (tag) {
     return tag;
   }
+
+  await addNewTag();
 
   return await prisma.tag.create({
     data: {

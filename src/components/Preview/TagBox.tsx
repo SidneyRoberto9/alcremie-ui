@@ -13,7 +13,17 @@ export function TagBox({ tags, ...rest }: TagBoxProps) {
       <Flex justifyContent={'flex-start'} direction={'column'} alignItems={'flex-start'}>
         <Box p={'0 1rem'}>
           {tags.map(({ id, name, description }) => (
-            <TagButton name={name} key={id} tag={name} tooltipLabel={description} m={'0.25rem'} />
+            <TagButton
+              w={'full'}
+              maxW={'18rem'}
+              name={name}
+              key={id}
+              tag={name}
+              tooltipLabel={description}
+              m={'0.25rem'}
+              mr={'0.5rem'}
+              noLabel
+            />
           ))}
         </Box>
       </Flex>

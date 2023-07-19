@@ -47,7 +47,7 @@ export default function Preview({ image }: PreviewProps) {
         <Box
           display={'grid'}
           gridTemplate={GridTemplate}
-          gridTemplateColumns={{ base: '1fr', lg: '350px 1fr' }}
+          gridTemplateColumns={{ base: '1fr', lg: '380px 1fr' }}
           gridTemplateRows={{
             base: 'auto',
             lg: '6.25rem auto auto auto',
@@ -59,6 +59,7 @@ export default function Preview({ image }: PreviewProps) {
             display={'block'}
             padding={'1rem'}
             gridArea={'img'}
+            objectFit={'cover'}
             alt={imgData.imageAssetId}
             src={imgData.imageUrl}
           />
@@ -73,7 +74,7 @@ export default function Preview({ image }: PreviewProps) {
             deleteHashImageId={imgData.imageAssetId}
           />
 
-          <TagBox tags={imgData.tags} padding={'1rem 0'} gridArea={'tags'} />
+          <TagBox tags={imgData.tags} pb={'1rem'} gridArea={'tags'} />
         </Box>
       </Content>
     </>
