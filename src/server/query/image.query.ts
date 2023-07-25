@@ -1,6 +1,6 @@
 import { ObjectId } from 'bson';
 
-import { getTagByName, createNewTagOnlyByName } from './tag.query';
+import { getTagByName } from './tag.query';
 import { prisma } from '../prisma';
 import { isEmpty } from '../../utils/valitation';
 import { imageToDto } from '../../utils/converter-data';

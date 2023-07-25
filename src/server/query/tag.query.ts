@@ -97,18 +97,12 @@ export async function getTagByIdList(idList: string[]) {
 }
 
 export async function createNewTag(data: createTagDto) {
-  const tag = await prisma.tag.findUnique({
+  return await prisma.tag.upsert({
     where: {
       name: data.name,
     },
-  });
-
-  if (tag) {
-    return tag;
-  }
-
-  return await prisma.tag.create({
-    data: {
+    update: {},
+    create: {
       name: data.name,
       description: data.description,
       is_nsfw: data.is_nsfw,
@@ -117,20 +111,12 @@ export async function createNewTag(data: createTagDto) {
 }
 
 export async function createNewTagOnlyByName(name: string) {
-  const tag = await prisma.tag.findUnique({
+  return await prisma.tag.upsert({
     where: {
       name: name,
     },
-  });
-
-  if (tag) {
-    return tag;
-  }
-
-  await addNewTag();
-
-  return await prisma.tag.create({
-    data: {
+    update: {},
+    create: {
       name: name,
       description: 'blank',
       is_nsfw: false,
