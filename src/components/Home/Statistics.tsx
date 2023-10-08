@@ -1,47 +1,29 @@
-import { Box, Divider, Flex, Text } from '@chakra-ui/react';
-import { HardDrives, Image, Tag } from 'phosphor-react';
+'use client';
+import { Tag, Server, Image } from 'lucide-react';
 
-import { StatisticsData } from '../../@types/api/status';
-import { StatisticItem } from './StatisticsItem';
+import { useHome } from '@/store/home';
+import { Container } from '@/components/Container';
+import { StatisticItem } from '@/components/home/StatisticItem';
+import { RandomImage } from '@/components/home/RandomImage';
 
-interface StatisticsProps {
-  data: StatisticsData;
-}
-
-export function Statistics({ data }: StatisticsProps) {
-  const { tags, requests, images } = data;
-
+export function Statistics() {
+  const { statistics } = useHome();
   return (
-    <Box display={'block'}>
-      <Flex
-        alignItems={'center'}
-        justifyContent={'center'}
-        py={'1.5rem'}
-        flexDirection={'column'}
-      >
-        <Text fontSize={'2.5rem'} color={'white'}>
-          Statistics
-        </Text>
-        <Divider orientation="horizontal" />
-        <Flex
-          direction={{ base: 'column', md: 'row' }}
-          alignItems={'center'}
-          justifyContent={'space-around'}
-          w={'100%'}
-        >
-          <StatisticItem icon={<Tag size={92} />} number={tags} name={'Tags'} />
+    <Container className="lg:pt-32 lg:px-14 md:pt-20 pt-1 px-4">
+      <div className="flex lg:flex-row flex-col items-center justify-between">
+        <div className="h-[70vh] my-10 mx-2">
+          <RandomImage />
+        </div>
+        <div className="grid grid-col-1 w-[400px]">
+          <StatisticItem icon={<Tag size={80} />} value={statistics.tag} title={'Tags'} />
+          <StatisticItem icon={<Image size={80} />} value={statistics.image} title={'Images'} />
           <StatisticItem
-            icon={<HardDrives size={92} />}
-            number={requests}
-            name={'Requests'}
+            icon={<Server size={80} />}
+            value={statistics.request}
+            title={'Requests'}
           />
-          <StatisticItem
-            icon={<Image size={92} />}
-            number={images}
-            name={'Images'}
-          />
-        </Flex>
-      </Flex>
-    </Box>
+        </div>
+      </div>
+    </Container>
   );
 }

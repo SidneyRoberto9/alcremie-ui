@@ -2,7 +2,7 @@ import { extendTheme } from '@chakra-ui/react';
 
 export const theme = extendTheme({
   colors: {
-    gray: {
+    zinc: {
       '900': '#121214',
       '850': '#272727',
       '800': '#202024',
@@ -116,8 +116,8 @@ export const theme = extendTheme({
   styles: {
     global: {
       body: {
-        bg: 'gray.750',
-        color: 'gray.100',
+        bg: 'zinc.750',
+        color: 'zinc.100',
       },
     },
   },
