@@ -1,6 +1,7 @@
 'use client';
 
 import { useRecent } from '@/store/recent';
+import SelectPageModal from '@/components/recent/SelectPageModal';
 
 export function Pagination() {
   const { page, totalPage, setPage } = useRecent();
@@ -29,9 +30,7 @@ export function Pagination() {
           Previous
         </button>
 
-        <span className="inline-flex items-center justify-center px-2 py-3 text-sm text-zinc-100 select-none cursor-pointer w-full max-w-[10rem] min-w-[4rem]">
-          {page} / {totalPage}
-        </span>
+        <SelectPageModal />
 
         <button
           className="w-16 min-w-[4rem] rounded h-7 m-1 text-sm font-medium cursor-pointer capitalize text-zinc-100 bg-violet-400 transition-all duration-200 ease-in-out hover:brightness-90 disabled:cursor-not-allowed disabled:brightness-50"
