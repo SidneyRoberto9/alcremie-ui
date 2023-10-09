@@ -1,8 +1,8 @@
 import { Statistics } from '@/components/home/Statistics';
-import { HomeProvider } from '@/components/home/HomeProvier';
+import { HomeProvider } from '@/components/home/HomeProvider';
 import { Hero } from '@/components/home/Hero';
 
-export default function Home() {
+export default function Page() {
   return (
     <HomeProvider>
       <Hero />

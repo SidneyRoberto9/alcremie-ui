@@ -1,4 +1,5 @@
 'use client';
+
 import { QueryClientProvider, QueryClient } from 'react-query';
 import { ReactNode } from 'react';
 

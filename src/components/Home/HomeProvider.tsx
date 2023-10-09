@@ -6,7 +6,7 @@ import { ReactNode, useEffect } from 'react';
 import { useHome } from '@/store/home';
 import { api } from '@/lib/axios';
 import { LoadingPage } from '@/components/pages/LoadingPage';
-import { Status, Anime } from '@/@Types/Anime';
+import { Status, Image } from '@/@Types/Image';
 
 interface HomeProviderProps {
   children: ReactNode;
@@ -17,7 +17,7 @@ interface StatusResponse {
 }
 
 async function getRandomImage() {
-  const { data } = await api.get<Anime>('random-image');
+  const { data } = await api.get<Image>('random-image');
 
   return data;
 }
@@ -29,7 +29,7 @@ async function getStatus() {
 }
 
 export function HomeProvider({ children }: HomeProviderProps) {
-  const { setAnime, setStatistics } = useHome();
+  const { setImage, setStatistics } = useHome();
 
   const { isLoading: isLoadingRandomImage, data: randomImage } = useQuery({
     queryKey: 'random/anime',
@@ -54,7 +54,7 @@ export function HomeProvider({ children }: HomeProviderProps) {
 
   useEffect(() => {
     if (randomImage) {
-      setAnime(randomImage);
+      setImage(randomImage);
     }
 
     if (status) {

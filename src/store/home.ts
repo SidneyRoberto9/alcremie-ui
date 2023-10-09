@@ -1,17 +1,17 @@
 import { create } from 'zustand';
 
-import { Status, Anime } from '@/@Types/Anime';
+import { Status, Image } from '@/@Types/Image';
 
 interface HomeProps {
-  anime: Anime;
+  image: Image;
   statistics: Status;
-  setAnime: (anime: Anime) => void;
+  setImage: (image: Image) => void;
   setStatistics: (statistics: Status) => void;
 }
 
 export const useHome = create<HomeProps>((set) => ({
-  anime: {} as Anime,
+  image: {} as Image,
   statistics: {} as Status,
-  setAnime: (anime: Anime) => set({ anime }),
+  setImage: (image: Image) => set({ image }),
   setStatistics: (statistics: Status) => set({ statistics }),
 }));

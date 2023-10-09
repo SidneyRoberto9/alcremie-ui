@@ -1,4 +1,4 @@
-export interface Anime {
+export interface Image {
   id: string;
   assetId: string;
   isNsfw: boolean;
@@ -12,4 +12,15 @@ export interface Status {
   image: number;
   tag: number;
   request: number;
+}
+
+export interface ImageFetch {
+  content: ImageContent;
+}
+
+export interface ImageContent {
+  page: string;
+  totalPage: number;
+  hasNext: boolean;
+  data: Image[];
 }

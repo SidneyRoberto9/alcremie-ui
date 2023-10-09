@@ -5,13 +5,13 @@ import { CheckCircle } from 'lucide-react';
 import { useHome } from '@/store/home';
 
 export function RandomImage() {
-  const { anime } = useHome();
+  const { image } = useHome();
 
   return (
     <div className="min-w-[300px] w-full h-full flex flex-col items-center transition-all duration-200 ease-in-out hover:scale-105">
       <img
-        key={anime.id}
-        src={anime.url}
+        key={image.id}
+        src={image.url}
         alt="api"
         className="max-w-full w-full h-full object-cover rounded-lg cursor-pointer shadow-md"
       />
