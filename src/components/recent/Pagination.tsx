@@ -4,15 +4,17 @@ import { useRecent } from '@/store/recent';
 import SelectPageModal from '@/components/recent/SelectPageModal';
 
 export function Pagination() {
-  const { page, totalPage, setPage } = useRecent();
+  const { filter, setFilter, totalPage } = useRecent();
 
+  const page = filter.page;
   const isFirstPage = page == 1;
   const isLastPage = totalPage == page;
 
-  const handleFirstPage = () => setPage(1);
-  const handleLastPage = () => setPage(totalPage);
-  const handleNextPage = () => setPage(page + 1);
-  const handlePrevPage = () => setPage(page - 1);
+  const onChangePage = (page: number) => setFilter({ ...filter, page: page });
+  const handleFirstPage = () => onChangePage(1);
+  const handleLastPage = () => onChangePage(totalPage);
+  const handleNextPage = () => onChangePage(page + 1);
+  const handlePrevPage = () => onChangePage(page - 1);
 
   return (
     <div className="fixed flex flex-col bottom-2 left-[50vw] transform -translate-x-1/2 -translate-y-0 bg-lucide-800 rounded-lg h-auto">

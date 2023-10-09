@@ -16,12 +16,12 @@ export function RecentMasonry() {
     2144: 7,
   };
   return (
-    <div className="mt-10 w-full">
+    <div className="w-full">
       <Masonry columns={Breakpoints}>
         {images.map((item) => (
           <div className="cursor-pointer">
             <Image
-              key={item.id}
+              key={item.assetId}
               src={item.url}
               alt={item.id}
               width={500}

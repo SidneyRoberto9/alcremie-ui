@@ -17,7 +17,7 @@ import {
   AppWindow,
 } from 'lucide-react';
 
-import { SideNavItem } from '@/components/navbar/SideNavItem';
+import { SideNavItem } from '@/components/side-nav/SideNavItem';
 
 export function SideNavbar() {
   const pathname = usePathname();

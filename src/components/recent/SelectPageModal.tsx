@@ -6,16 +6,22 @@ import { Transition, Dialog } from '@headlessui/react';
 import { useRecent } from '@/store/recent';
 
 export default function SelectPageModal() {
-  const { page, totalPage, setPage } = useRecent();
-  const [isOpen, setIsOpen] = useState<boolean>(false);
-  const [inputPage, setInputPage] = useState<number>(page);
+  const { filter, setFilter, totalPage } = useRecent();
 
-  const handleClose = () => setIsOpen(false);
+  const [isOpen, setIsOpen] = useState<boolean>(false);
+  const [inputPage, setInputPage] = useState<number>(filter.page);
+
+  const page = filter.page;
+
+  const handleClose = () => {
+    setInputPage(page);
+    setIsOpen(false);
+  };
   const handleOpen = () => setIsOpen(true);
   const handlePlus = () => setInputPage(inputPage + 1);
   const handleMinus = () => setInputPage(inputPage - 1);
   const handleGoToPage = () => {
-    setPage(inputPage);
+    setFilter({ ...filter, page: inputPage });
     handleClose();
   };
 

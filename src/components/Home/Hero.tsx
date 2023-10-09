@@ -8,7 +8,7 @@ const eczar = Eczar({ subsets: ['latin'], weight: ['400', '700'] });
 
 export function Hero() {
   return (
-    <div className="mt-10 relative w-full h-[95vh] overflow-hidden">
+    <div className="mt-16 relative w-full h-[95vh] overflow-hidden">
       <div className="absolute bg-lucide-800/80 top-0 left-0 w-screen h-screen"></div>
       <div className="absolute mt-8 top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
         <div className="text-zinc-200 text-center">

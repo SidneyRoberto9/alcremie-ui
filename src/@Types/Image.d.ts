@@ -24,3 +24,9 @@ export interface ImageContent {
   hasNext: boolean;
   data: Image[];
 }
+
+export interface ImageFilter {
+  tagId: string;
+  nsfw: boolean;
+  page: number;
+}

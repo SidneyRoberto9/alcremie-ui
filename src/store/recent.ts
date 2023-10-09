@@ -1,25 +1,29 @@
 import { create } from 'zustand';
 
-import { Image } from '@/@Types/Image';
+import { ImageFilter, Image } from '@/@Types/Image';
 
 interface RecentProps {
   images: Image[];
-  page: number;
+  filter: ImageFilter;
   hasNext: boolean;
   totalPage: number;
   setImages: (images: Image[]) => void;
-  setPage: (page: number) => void;
+  setFilter: (filter: ImageFilter) => void;
   setHasNext: (hasNext: boolean) => void;
   setTotalPage: (totalPage: number) => void;
 }
 
 export const useRecent = create<RecentProps>((set) => ({
   images: [],
-  page: 1,
+  filter: {
+    tagId: '',
+    nsfw: false,
+    page: 1,
+  },
   hasNext: false,
   totalPage: 1,
   setImages: (images) => set({ images }),
-  setPage: (page) => set({ page }),
+  setFilter: (filter) => set({ filter }),
   setHasNext: (hasNext) => set({ hasNext }),
   setTotalPage: (totalPage) => set({ totalPage }),
 }));
