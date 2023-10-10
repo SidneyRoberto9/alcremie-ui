@@ -6,18 +6,6 @@
 <img src=".github/1440x1080.png" alt="exemplo imagem">
 <br />
 
-## Features
-
-...in progress
-<br />
-
-## Sobre
-
-..in progress
-
-<br />
-
 ## WebSite
 
 If you want to access the gallery or the api visit the <a href="https://alcremie.vercel.app/" target="_blank">WebSite</a>.
-
