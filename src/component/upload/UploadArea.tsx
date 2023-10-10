@@ -34,7 +34,7 @@ export function UploadArea() {
   };
 
   return (
-    <div className="md:p-16 p-4">
+    <div className="md:pt-16 md:px-16 p-4">
       <label
         onDragOver={handleDragOver}
         onDrop={handleOnDropFile}

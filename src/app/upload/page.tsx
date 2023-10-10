@@ -7,7 +7,7 @@ import { FilesView } from '@/component/upload/FilesView';
 
 export default function page() {
   return (
-    <Box>
+    <Box className="max-w-7xl m-auto mt-10">
       <UploadArea />
       <FilesView />
       <Send />

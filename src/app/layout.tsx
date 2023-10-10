@@ -26,7 +26,6 @@ export interface LayoutProps {
 export default function RootLayout({ children }: LayoutProps) {
   return (
     <html lang="en" className={roboto.className}>
-      <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests" />
       <body className="antialiased bg-lucide-600 text-zinc-100">
         <Providers>
           <Header />
