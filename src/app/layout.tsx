@@ -1,4 +1,6 @@
 import '@/styles/globals.css';
+import 'react-photo-view/dist/react-photo-view.css';
+import 'react-modern-drawer/dist/index.css';
 
 import { ReactNode } from 'react';
 import { Roboto } from 'next/font/google';

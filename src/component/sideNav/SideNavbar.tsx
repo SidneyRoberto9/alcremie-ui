@@ -1,5 +1,4 @@
 'use client';
-import 'react-modern-drawer/dist/index.css';
 
 import Drawer from 'react-modern-drawer';
 import { useState } from 'react';

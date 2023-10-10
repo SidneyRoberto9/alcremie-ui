@@ -1,5 +1,4 @@
 'use client';
-import 'react-photo-view/dist/react-photo-view.css';
 
 import { PhotoView } from 'react-photo-view';
 import Image from 'next/image';
