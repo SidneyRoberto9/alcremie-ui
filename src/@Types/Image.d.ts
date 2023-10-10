@@ -6,6 +6,7 @@ export interface Image {
   url: string;
   createdAt: Date;
   updatedAt: Date;
+  tags: Tag[];
 }
 
 export interface Status {
@@ -29,4 +30,10 @@ export interface ImageFilter {
   tagId: string;
   nsfw: boolean;
   page: number;
+}
+
+interface Tag {
+  id: string;
+  name: string;
+  slug: string;
 }

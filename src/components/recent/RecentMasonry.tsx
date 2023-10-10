@@ -1,4 +1,7 @@
 'use client';
+import 'react-photo-view/dist/react-photo-view.css';
+
+import { PhotoView } from 'react-photo-view';
 import Masonry from 'react-layout-masonry';
 import Image from 'next/image';
 
@@ -20,15 +23,17 @@ export function RecentMasonry() {
       <Masonry columns={Breakpoints}>
         {images.map((item) => (
           <div className="cursor-pointer">
-            <Image
-              key={item.assetId}
-              src={item.url}
-              alt={item.id}
-              width={500}
-              height={500}
-              className="w-full h-full object-cover block"
-              priority={true}
-            />
+            <PhotoView key={item.id} src={item.url}>
+              <Image
+                key={item.assetId}
+                src={item.url}
+                alt={item.id}
+                width={500}
+                height={500}
+                className="w-full h-full object-cover block"
+                priority={true}
+              />
+            </PhotoView>
           </div>
         ))}
       </Masonry>
