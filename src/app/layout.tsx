@@ -5,7 +5,7 @@ import { Roboto } from 'next/font/google';
 import Favicon from '/public/favicon.ico';
 
 import { Providers } from '@/components/Providers';
-import { SideNavbar } from '@/components/side-nav/SideNavbar';
+import { SideNavbar } from '@/components/sideNav/SideNavbar';
 import { Header } from '@/components/header/Header';
 
 import type { Metadata } from 'next';

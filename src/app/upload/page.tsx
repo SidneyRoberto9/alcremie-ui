@@ -7,12 +7,10 @@ import { FilesView } from '@/components/upload/FilesView';
 
 export default function page() {
   return (
-    <div>
-      <Box>
-        <UploadArea />
-        <FilesView />
-        <Send />
-      </Box>
-    </div>
+    <Box>
+      <UploadArea />
+      <FilesView />
+      <Send />
+    </Box>
   );
 }

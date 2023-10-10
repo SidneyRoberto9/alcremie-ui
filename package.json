@@ -24,6 +24,7 @@
     "react-layout-masonry": "^1.1.0",
     "react-modern-drawer": "^1.2.2",
     "react-query": "^3.39.3",
+    "sharp": "^0.32.6",
     "tailwind-merge": "^1.14.0",
     "tailwindcss-animate": "^1.0.7",
     "zustand": "^4.4.3"

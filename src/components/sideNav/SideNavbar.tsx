@@ -4,20 +4,9 @@ import 'react-modern-drawer/dist/index.css';
 import Drawer from 'react-modern-drawer';
 import { useState } from 'react';
 import { usePathname } from 'next/navigation';
-import {
-  X,
-  Upload,
-  Tag,
-  PhoneCall,
-  Menu,
-  Image,
-  Home,
-  Heart,
-  BookMarked,
-  AppWindow,
-} from 'lucide-react';
+import { X, Upload, Menu, Image, Home } from 'lucide-react';
 
-import { SideNavItem } from '@/components/side-nav/SideNavItem';
+import { SideNavItem } from '@/components/sideNav/SideNavItem';
 
 export function SideNavbar() {
   const pathname = usePathname();
@@ -59,6 +48,8 @@ export function SideNavbar() {
               icon={<Upload size={24} />}
               isActive={pathname == '/upload'}
             />
+            {/* 
+             routes that did not enter
             <SideNavItem
               title="Tag"
               link="/tag"
@@ -92,8 +83,8 @@ export function SideNavbar() {
               link="/tag/manager"
               closeDrawer={toggleDrawer}
               icon={<AppWindow size={24} />}
-              isActive={pathname == '/tag/manager'}
-            />
+              isActive={pathname == '/tag/manager'} 
+            />*/}
           </div>
         </div>
       </Drawer>
