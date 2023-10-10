@@ -4,7 +4,7 @@ import { ReactNode, useEffect } from 'react';
 
 import { useRecent } from '@/store/recent';
 import { api } from '@/lib/axios';
-import { LoadingPage } from '@/components/LoadingPage';
+import { LoadingPage } from '@/component/LoadingPage';
 import { ImageFilter, ImageFetch } from '@/@Types/Image';
 
 interface RecentProviderProps {

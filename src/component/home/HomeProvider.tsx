@@ -5,7 +5,7 @@ import { ReactNode, useEffect } from 'react';
 
 import { useHome } from '@/store/home';
 import { api } from '@/lib/axios';
-import { LoadingPage } from '@/components/LoadingPage';
+import { LoadingPage } from '@/component/LoadingPage';
 import { Status, Image } from '@/@Types/Image';
 
 interface HomeProviderProps {

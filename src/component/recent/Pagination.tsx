@@ -1,7 +1,7 @@
 'use client';
 
 import { useRecent } from '@/store/recent';
-import SelectPageModal from '@/components/recent/SelectPageModal';
+import SelectPageModal from '@/component/recent/SelectPageModal';
 
 export function Pagination() {
   const { filter, setFilter, totalPage } = useRecent();

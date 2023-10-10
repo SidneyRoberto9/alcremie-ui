@@ -2,9 +2,9 @@
 import { Tag, Server, Image } from 'lucide-react';
 
 import { useHome } from '@/store/home';
-import { Container } from '@/components/Container';
-import { StatisticItem } from '@/components/home/StatisticItem';
-import { RandomImage } from '@/components/home/RandomImage';
+import { Container } from '@/component/Container';
+import { StatisticItem } from '@/component/home/StatisticItem';
+import { RandomImage } from '@/component/home/RandomImage';
 
 export function Statistics() {
   const { statistics } = useHome();

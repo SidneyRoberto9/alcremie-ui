@@ -4,9 +4,9 @@ import { ReactNode } from 'react';
 import { Roboto } from 'next/font/google';
 import Favicon from '/public/favicon.ico';
 
-import { Providers } from '@/components/Providers';
-import { SideNavbar } from '@/components/sideNav/SideNavbar';
-import { Header } from '@/components/header/Header';
+import { Providers } from '@/component/Providers';
+import { Header } from '@/component/Header';
+import { SideNavbar } from '@/component/sideNav/SideNavbar';
 
 import type { Metadata } from 'next';
 const roboto = Roboto({ subsets: ['latin'], weight: ['400', '500', '700'] });

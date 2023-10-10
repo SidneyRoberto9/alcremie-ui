@@ -2,7 +2,7 @@
 
 import { Eczar } from 'next/font/google';
 
-import { HeroMasonry } from '@/components/home/HeroMasonry';
+import { HeroMasonry } from '@/component/home/HeroMasonry';
 
 const eczar = Eczar({ subsets: ['latin'], weight: ['400', '700'] });
 

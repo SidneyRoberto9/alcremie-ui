@@ -1,6 +1,6 @@
 import { Metadata } from 'next';
 
-import RecentProvider from '@/components/recent/RecentProvider';
+import RecentProvider from '@/component/recent/RecentProvider';
 import { LayoutProps } from '@/app/layout';
 
 export const metadata: Metadata = {

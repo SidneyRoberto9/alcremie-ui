@@ -1,9 +1,9 @@
 import React from 'react';
+import { Send } from 'lucide-react';
 
-import { Box } from '@/components/Box';
-import { UploadArea } from '@/components/upload/UploadArea';
-import { Send } from '@/components/upload/Send';
-import { FilesView } from '@/components/upload/FilesView';
+import { Box } from '@/component/Box';
+import { UploadArea } from '@/component/upload/UploadArea';
+import { FilesView } from '@/component/upload/FilesView';
 
 export default function page() {
   return (

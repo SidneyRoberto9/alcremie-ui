@@ -6,7 +6,7 @@ import { useState } from 'react';
 import { usePathname } from 'next/navigation';
 import { X, Upload, Menu, Image, Home } from 'lucide-react';
 
-import { SideNavItem } from '@/components/sideNav/SideNavItem';
+import { SideNavItem } from '@/component/sideNav/SideNavItem';
 
 export function SideNavbar() {
   const pathname = usePathname();
