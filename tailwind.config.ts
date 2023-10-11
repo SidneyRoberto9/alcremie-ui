@@ -19,6 +19,10 @@ const config: Config = {
       },
     },
   },
-  plugins: [require('tailwindcss-animate'), require('@headlessui/tailwindcss')],
+  plugins: [
+    require('tailwindcss-animate'),
+    require('@headlessui/tailwindcss'),
+    require('tailwind-scrollbar'),
+  ],
 };
 export default config;
