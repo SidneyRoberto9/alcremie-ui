@@ -3,15 +3,15 @@ import { Fragment, useState } from 'react';
 import { X, Plus, Minus } from 'lucide-react';
 
 import { Transition, Dialog } from '@headlessui/react';
-import { useRecent } from '@/store/recent';
+import { useNSFW } from '@/store/nsfw';
 
 export default function SelectPageModal() {
-  const { filter, setFilter, totalPage } = useRecent();
+  const { filter, setFilter, totalPage } = useNSFW();
 
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const [inputPage, setInputPage] = useState<number>(filter.page);
 
-  const page = filter.page;
+  const page = totalPage == 0 ? 0 : filter.page;
 
   const handleClose = () => {
     setInputPage(page);

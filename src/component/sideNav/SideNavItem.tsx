@@ -1,7 +1,7 @@
-import { ReactNode } from 'react';
+import { ReactNode, HTMLAttributes } from 'react';
 import Link from 'next/link';
 
-interface SideNavItemProps {
+interface SideNavItemProps extends HTMLAttributes<HTMLAnchorElement> {
   title: string;
   link: string;
   icon: ReactNode;
@@ -9,10 +9,18 @@ interface SideNavItemProps {
   closeDrawer: () => void;
 }
 
-export function SideNavItem({ title, link, icon, isActive, closeDrawer }: SideNavItemProps) {
+export function SideNavItem({
+  title,
+  link,
+  icon,
+  isActive,
+  closeDrawer,
+  ...props
+}: SideNavItemProps) {
   if (isActive) {
     return (
       <Link
+        {...props}
         href={link}
         prefetch={false}
         onClick={closeDrawer}
@@ -25,6 +33,7 @@ export function SideNavItem({ title, link, icon, isActive, closeDrawer }: SideNa
 
   return (
     <Link
+      {...props}
       href={link}
       prefetch={false}
       onClick={closeDrawer}

@@ -2,29 +2,18 @@
 import { useQuery } from 'react-query';
 import { ReactNode, useEffect } from 'react';
 
-import { useRecent } from '@/store/recent';
+import { useGallery } from '@/store/gallery';
 import { api } from '@/lib/axios';
 import { LoadingPage } from '@/component/LoadingPage';
 import { ImageFilter, ImageFetch } from '@/@Types/Image';
 
-interface RecentProviderProps {
+interface GalleryProviderProps {
   children: ReactNode;
 }
 
-async function getTags(text: string) {
-  const { data } = await api.get<ImageFetch>('tag', {
-    params: {
-      q: text,
-    },
-  });
-
-  return data;
-}
-
-async function getImagesPaged({ page, nsfw, tagId }: ImageFilter) {
+async function getImagesPaged({ page, tagId }: ImageFilter) {
   const { data } = await api.get<ImageFetch>('image/' + page, {
     params: {
-      nsfw: nsfw,
       q: tagId,
     },
   });
@@ -32,15 +21,15 @@ async function getImagesPaged({ page, nsfw, tagId }: ImageFilter) {
   return data;
 }
 
-export default function RecentProvider({ children }: RecentProviderProps) {
-  const { filter, setHasNext, setImages, setTotalPage } = useRecent();
+export default function GalleryProvider({ children }: GalleryProviderProps) {
+  const { filter, setHasNext, setImages, setTotalPage } = useGallery();
 
   const {
     isLoading: isLoadingFetchImage,
     data: fetchImage,
     refetch,
   } = useQuery({
-    queryKey: 'fetch/image/' + filter.page + '/' + filter.tagId,
+    queryKey: 'fetch/image/' + filter.page + '/' + filter.tagId + '/false',
     queryFn: () => getImagesPaged(filter),
     refetchOnWindowFocus: false,
     refetchOnReconnect: false,

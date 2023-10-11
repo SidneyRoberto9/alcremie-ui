@@ -2,18 +2,13 @@
 
 import { useQuery } from 'react-query';
 import Drawer from 'react-modern-drawer';
-import { useState, useEffect, use } from 'react';
-import { X, SlidersHorizontal, CircleDollarSign } from 'lucide-react';
+import { useState } from 'react';
+import { X, SlidersHorizontal } from 'lucide-react';
 
 import { Combobox } from '@headlessui/react';
-import { useRecent } from '@/store/recent';
+import { useNSFW } from '@/store/nsfw';
 import { api } from '@/lib/axios';
 import { Tag } from '@/@Types/Tag';
-
-export interface Person {
-  id: number;
-  name: string;
-}
 
 const compareTag = (a?: Tag, b?: Tag): boolean => a?.name.toLowerCase() === b?.name.toLowerCase();
 
@@ -21,7 +16,7 @@ async function getTags(text: string): Promise<Tag[]> {
   const { data } = await api.get('tag', {
     params: {
       q: text,
-      limit: 5,
+      limit: 30,
     },
   });
 
@@ -29,10 +24,9 @@ async function getTags(text: string): Promise<Tag[]> {
 }
 
 export function SideNavFilter() {
-  const { setFilter, filter } = useRecent();
+  const { setFilter } = useNSFW();
 
   const [selectedTag, setSelectedTag] = useState<Tag | undefined>(undefined);
-  const [isNsfw, SetIsNsfw] = useState<boolean>(false);
   const [query, setQuery] = useState<string>('');
   const [isOpen, setIsOpen] = useState<boolean>(false);
 
@@ -54,12 +48,12 @@ export function SideNavFilter() {
       tagId = selectedTag.id;
     }
 
-    setFilter({ ...filter, tagId: tagId, nsfw: isNsfw });
+    setFilter({ page: 1, tagId: tagId });
     setIsOpen(false);
   };
 
   const handleClear = () => {
-    setFilter({ ...filter, tagId: '', nsfw: false });
+    setFilter({ page: 1, tagId: '' });
     setIsOpen(false);
   };
 
@@ -90,7 +84,7 @@ export function SideNavFilter() {
                     />
                   </div>
 
-                  <Combobox.Options>
+                  <Combobox.Options className="max-h-64 overflow-y-scroll scrollbar-thin scrollbar-thumb-violet-300 scrollbar-track-lucide-600">
                     {tags?.map((tag) => (
                       <Combobox.Option
                         key={tag.id}
@@ -102,16 +96,6 @@ export function SideNavFilter() {
                   </Combobox.Options>
                 </Combobox>
               </div>
-            </div>
-
-            <div className="flex items-center mb-4">
-              <input
-                type="checkbox"
-                value={isNsfw ? 'true' : 'false'}
-                onChange={(event) => SetIsNsfw(event.target.checked)}
-                className="w-4 h-4 accent-violet-300 text-violet-300 bg-gray-100 border-gray-300 rounded focus:ring-violet-400  focus:ring-2"
-              />
-              <label className="ml-2 text-sm font-bold text-zinc-100">Is NSFW</label>
             </div>
 
             <div className="flex items-center justify-between mb-4">

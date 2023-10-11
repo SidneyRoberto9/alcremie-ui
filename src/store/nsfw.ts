@@ -2,7 +2,7 @@ import { create } from 'zustand';
 
 import { ImageFilter, Image } from '@/@Types/Image';
 
-interface RecentProps {
+interface NSFWProps {
   images: Image[];
   filter: ImageFilter;
   hasNext: boolean;
@@ -13,11 +13,10 @@ interface RecentProps {
   setTotalPage: (totalPage: number) => void;
 }
 
-export const useRecent = create<RecentProps>((set) => ({
+export const useNSFW = create<NSFWProps>((set) => ({
   images: [],
   filter: {
     tagId: '',
-    nsfw: false,
     page: 1,
   },
   hasNext: false,

@@ -4,11 +4,13 @@ import { PhotoView } from 'react-photo-view';
 import Masonry from 'react-layout-masonry';
 import Image from 'next/image';
 
-import { useRecent } from '@/store/recent';
+import { Image as IMG } from '@/@Types/Image';
 
-export function RecentMasonry() {
-  const { images } = useRecent();
+interface MasonryProps {
+  data?: IMG[];
+}
 
+export function CustomMasonry({ data = [] }: MasonryProps) {
   const Breakpoints = {
     760: 2,
     900: 3,
@@ -17,10 +19,11 @@ export function RecentMasonry() {
     1920: 6,
     2144: 7,
   };
+
   return (
     <div className="w-full">
       <Masonry columns={Breakpoints}>
-        {images.map((item) => (
+        {data.map((item) => (
           <div className="cursor-pointer">
             <PhotoView key={item.id} src={item.url}>
               <Image

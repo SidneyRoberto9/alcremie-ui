@@ -28,7 +28,6 @@ export interface ImageContent {
 
 export interface ImageFilter {
   tagId: string;
-  nsfw: boolean;
   page: number;
 }
 

@@ -1,10 +1,10 @@
 'use client';
 
-import { useRecent } from '@/store/recent';
-import SelectPageModal from '@/component/recent/SelectPageModal';
+import { useGallery } from '@/store/gallery';
+import { SelectPageModal } from '@/component/gallery/SelectPageModal';
 
 export function Pagination() {
-  const { filter, setFilter, totalPage } = useRecent();
+  const { filter, setFilter, totalPage } = useGallery();
 
   const page = filter.page;
   const isFirstPage = page == 1;

@@ -1,6 +1,6 @@
 import { Metadata } from 'next';
 
-import RecentProvider from '@/component/recent/RecentProvider';
+import GalleryProvider from '@/component/gallery/GalleryProvider';
 import { LayoutProps } from '@/app/layout';
 
 export const metadata: Metadata = {
@@ -9,5 +9,5 @@ export const metadata: Metadata = {
 };
 
 export default function Layout({ children }: LayoutProps) {
-  return <RecentProvider>{children}</RecentProvider>;
+  return <GalleryProvider>{children}</GalleryProvider>;
 }
