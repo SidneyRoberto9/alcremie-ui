@@ -35,7 +35,7 @@ async function getImagesPaged({ page, tagId }: ImageFilter) {
   const { data } = await api.get<ImageFetch>('image/' + page, {
     params: {
       q: tagId,
-      limit: 15,
+      limit: 35,
     },
   });
 

@@ -36,7 +36,7 @@ async function getImagesPaged({ page, tagId }: ImageFilter) {
     params: {
       q: tagId,
       nsfw: true,
-      limit: 15,
+      limit: 35,
     },
   });
 
