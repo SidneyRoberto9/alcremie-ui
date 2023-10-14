@@ -1,6 +1,6 @@
 import { Metadata } from 'next';
 
-import GalleryProvider from '@/component/gallery/GalleryProvider';
+import { GalleryContextProvider } from '@/context/gallery';
 import { LayoutProps } from '@/app/layout';
 
 export const metadata: Metadata = {
@@ -9,5 +9,5 @@ export const metadata: Metadata = {
 };
 
 export default function Layout({ children }: LayoutProps) {
-  return <GalleryProvider>{children}</GalleryProvider>;
+  return <GalleryContextProvider>{children}</GalleryContextProvider>;
 }

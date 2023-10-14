@@ -1,16 +1,16 @@
 'use client';
 
-import { useGallery } from '@/store/gallery';
+import { useGallery } from '@/context/gallery';
 import { SelectPageModal } from '@/component/gallery/SelectPageModal';
 
 export function Pagination() {
-  const { filter, setFilter, totalPage } = useGallery();
+  const { filter, search, totalPage } = useGallery();
 
   const page = filter.page;
   const isFirstPage = page == 1;
   const isLastPage = totalPage == page;
 
-  const onChangePage = (page: number) => setFilter({ ...filter, page: page });
+  const onChangePage = (page: number) => search({ ...filter, page: page });
   const handleFirstPage = () => onChangePage(1);
   const handleLastPage = () => onChangePage(totalPage);
   const handleNextPage = () => onChangePage(page + 1);

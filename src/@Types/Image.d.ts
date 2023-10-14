@@ -36,3 +36,7 @@ interface Tag {
   name: string;
   slug: string;
 }
+
+export interface StatusResponse {
+  statistics: Status;
+}

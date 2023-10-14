@@ -1,5 +1,6 @@
 import { Metadata } from 'next';
 
+import { UploadContextProvider } from '@/context/upload';
 import { LayoutProps } from '@/app/layout';
 
 export const metadata: Metadata = {
@@ -8,5 +9,5 @@ export const metadata: Metadata = {
 };
 
 export default function Layout({ children }: LayoutProps) {
-  return <>{children}</>;
+  return <UploadContextProvider>{children}</UploadContextProvider>;
 }

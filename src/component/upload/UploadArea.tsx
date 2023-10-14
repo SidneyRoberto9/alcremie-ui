@@ -2,10 +2,10 @@
 import { ChangeEvent } from 'react';
 import { Upload } from 'lucide-react';
 
-import { useUpload } from '@/store/upload';
+import { useUpload } from '@/context/upload';
 
 export function UploadArea() {
-  const { setImagesToUpload } = useUpload();
+  const { setImages } = useUpload();
 
   const handleChangeFileInput = async (e: ChangeEvent<HTMLInputElement>) => {
     e.preventDefault();
@@ -13,7 +13,7 @@ export function UploadArea() {
     const { files } = e.target;
     const selectedFiles = Array.from(files as FileList);
 
-    setImagesToUpload(selectedFiles);
+    setImages(selectedFiles);
   };
 
   const handleOnDropFile = async (e: React.DragEvent<HTMLLabelElement>) => {
@@ -26,7 +26,7 @@ export function UploadArea() {
       fileList.push(a.getAsFile() as File);
     });
 
-    setImagesToUpload(fileList);
+    setImages(fileList);
   };
 
   const handleDragOver = (e: React.DragEvent<HTMLLabelElement>) => {
@@ -34,7 +34,7 @@ export function UploadArea() {
   };
 
   return (
-    <div className="md:pt-16 md:px-16 p-4">
+    <div className="md:pt-16 md:px-16 pt-16 p-4">
       <label
         onDragOver={handleDragOver}
         onDrop={handleOnDropFile}

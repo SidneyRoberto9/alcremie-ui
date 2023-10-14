@@ -6,8 +6,8 @@ import { useState } from 'react';
 import { X, SlidersHorizontal } from 'lucide-react';
 
 import { Combobox } from '@headlessui/react';
-import { useNSFW } from '@/store/nsfw';
 import { api } from '@/lib/axios';
+import { useNSFW } from '@/context/nsfw';
 import { Tag } from '@/@Types/Tag';
 
 const compareTag = (a?: Tag, b?: Tag): boolean => a?.name.toLowerCase() === b?.name.toLowerCase();
@@ -24,7 +24,7 @@ async function getTags(text: string): Promise<Tag[]> {
 }
 
 export function SideNavFilter() {
-  const { setFilter } = useNSFW();
+  const { search } = useNSFW();
 
   const [selectedTag, setSelectedTag] = useState<Tag | undefined>(undefined);
   const [query, setQuery] = useState<string>('');
@@ -48,12 +48,12 @@ export function SideNavFilter() {
       tagId = selectedTag.id;
     }
 
-    setFilter({ page: 1, tagId: tagId });
+    search({ page: 1, tagId: tagId });
     setIsOpen(false);
   };
 
   const handleClear = () => {
-    setFilter({ page: 1, tagId: '' });
+    search({ page: 1, tagId: '' });
     setIsOpen(false);
   };
 

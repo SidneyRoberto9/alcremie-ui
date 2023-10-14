@@ -1,16 +1,16 @@
 'use client';
 
-import { useNSFW } from '@/store/nsfw';
+import { useNSFW } from '@/context/nsfw';
 import SelectPageModal from '@/component/nsfw/SelectPageModal';
 
 export function Pagination() {
-  const { filter, setFilter, totalPage } = useNSFW();
+  const { filter, search, totalPage } = useNSFW();
 
   const page = filter.page;
   const isFirstPage = page == 1;
   const isLastPage = totalPage == page;
 
-  const onChangePage = (page: number) => setFilter({ ...filter, page: page });
+  const onChangePage = (page: number) => search({ ...filter, page: page });
   const handleFirstPage = () => onChangePage(1);
   const handleLastPage = () => onChangePage(totalPage);
   const handleNextPage = () => onChangePage(page + 1);

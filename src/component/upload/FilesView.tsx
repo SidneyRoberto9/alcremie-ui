@@ -2,7 +2,7 @@
 
 import { X } from 'lucide-react';
 
-import { useUpload } from '@/store/upload';
+import { useUpload } from '@/context/upload';
 
 export function FilesView() {
   const { imagesToUpload, removeFromIndex } = useUpload();

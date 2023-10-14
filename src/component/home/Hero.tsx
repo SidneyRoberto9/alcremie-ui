@@ -1,12 +1,28 @@
 'use client';
 
+import Masonry from 'react-layout-masonry';
+import { useState, useEffect } from 'react';
+import Image from 'next/image';
 import { Eczar } from 'next/font/google';
 
-import { HeroMasonry } from '@/component/home/HeroMasonry';
+import { heroRandomImages } from '@/util/hero-home-images';
 
 const eczar = Eczar({ subsets: ['latin'], weight: ['400', '700'] });
 
 export function Hero() {
+  const [isClient, setIsClient] = useState(false);
+
+  const breakPoints = {
+    400: 2,
+    700: 4,
+    800: 5,
+    1100: 6,
+  };
+
+  useEffect(() => {
+    setIsClient(true);
+  }, []);
+
   return (
     <div className="mt-16 relative w-full h-[95vh] overflow-hidden">
       <div className="absolute bg-lucide-800/80 top-0 left-0 w-screen h-screen"></div>
@@ -24,7 +40,26 @@ export function Hero() {
         </div>
       </div>
 
-      <HeroMasonry />
+      <div className="-mt-80 w-full">
+        {isClient && (
+          <Masonry
+            columns={breakPoints}
+            suppressHydrationWarning={true}
+            suppressContentEditableWarning={true}>
+            {heroRandomImages.map((item, index) => (
+              <Image
+                key={index}
+                src={item}
+                alt="home image"
+                width={500}
+                height={500}
+                className="w-full h-full object-cover block"
+                priority={true}
+              />
+            ))}
+          </Masonry>
+        )}
+      </div>
     </div>
   );
 }

@@ -3,10 +3,10 @@ import { Fragment, useState } from 'react';
 import { X, Plus, Minus } from 'lucide-react';
 
 import { Transition, Dialog } from '@headlessui/react';
-import { useGallery } from '@/store/gallery';
+import { useGallery } from '@/context/gallery';
 
 export function SelectPageModal() {
-  const { filter, setFilter, totalPage } = useGallery();
+  const { search, totalPage, filter } = useGallery();
 
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const [inputPage, setInputPage] = useState<number>(filter.page);
@@ -21,7 +21,7 @@ export function SelectPageModal() {
   const handlePlus = () => setInputPage(inputPage + 1);
   const handleMinus = () => setInputPage(inputPage - 1);
   const handleGoToPage = () => {
-    setFilter({ ...filter, page: inputPage });
+    search({ ...filter, page: inputPage });
     handleClose();
   };
 

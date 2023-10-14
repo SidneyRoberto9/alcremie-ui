@@ -1,6 +1,6 @@
 import { Metadata } from 'next';
 
-import NsfwProvider from '@/component/nsfw/NSFWProvider';
+import { NSFWContextProvider } from '@/context/nsfw';
 import { LayoutProps } from '@/app/layout';
 
 export const metadata: Metadata = {
@@ -9,5 +9,5 @@ export const metadata: Metadata = {
 };
 
 export default function Layout({ children }: LayoutProps) {
-  return <NsfwProvider>{children}</NsfwProvider>;
+  return <NSFWContextProvider>{children}</NSFWContextProvider>;
 }

@@ -2,18 +2,18 @@
 import CountUp from 'react-countup';
 import { ReactNode } from 'react';
 
-interface StatisticItemProps {
+interface ItemProps {
   title: string;
   value: number;
-  icon: ReactNode;
+  children: ReactNode;
 }
 
-export function StatisticItem({ title, value, icon }: StatisticItemProps) {
+export function Item({ title, value, children }: ItemProps) {
   return (
     <div className="bg-transparent m-2 rounded-md">
       <div className="flex">
         <div className="p-4 m-4 rounded-md cursor-pointer transition-all duration-200 ease-in hover:scale-110 text-violet-300 bg-lucide-600 max-w-[110px]">
-          {icon}
+          {children}
         </div>
 
         <div className="flex items-center justify-center w-full mx-3 my-8 bg-lucide-600 rounded-2xl">

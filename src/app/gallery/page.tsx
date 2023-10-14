@@ -1,12 +1,17 @@
 'use client';
-import { useGallery } from '@/store/gallery';
+import { useGallery } from '@/context/gallery';
+import { LoadingPage } from '@/component/LoadingPage';
 import { CustomMasonry } from '@/component/CustomMasonry';
 import { Box } from '@/component/Box';
 import { SideNavFilter } from '@/component/gallery/SideNavFilter';
 import { Pagination } from '@/component/gallery/Pagination';
 
 export default function page() {
-  const { images } = useGallery();
+  const { images, isLoading } = useGallery();
+
+  if (isLoading) {
+    return <LoadingPage />;
+  }
 
   return (
     <Box>
