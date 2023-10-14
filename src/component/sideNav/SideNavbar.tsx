@@ -5,7 +5,6 @@ import { useState } from 'react';
 import { usePathname } from 'next/navigation';
 import { X, Upload, Menu, Image, Home, AlertOctagon } from 'lucide-react';
 
-import { useGallery } from '@/store/gallery';
 import { SideNavItem } from '@/component/sideNav/SideNavItem';
 
 export function SideNavbar() {
