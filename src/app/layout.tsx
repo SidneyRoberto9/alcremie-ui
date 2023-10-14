@@ -1,7 +1,9 @@
 import '@/styles/globals.css';
 import 'react-photo-view/dist/react-photo-view.css';
 import 'react-modern-drawer/dist/index.css';
+import 'react-toastify/dist/ReactToastify.css';
 
+import { ToastContainer } from 'react-toastify';
 import { ReactNode } from 'react';
 import { Roboto } from 'next/font/google';
 import Favicon from '/public/favicon.ico';
@@ -31,6 +33,7 @@ export default function RootLayout({ children }: LayoutProps) {
           <Header />
           <SideNavbar />
           {children}
+          <ToastContainer />
         </Providers>
       </body>
     </html>

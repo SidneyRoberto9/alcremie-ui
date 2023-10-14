@@ -1,6 +1,7 @@
 'use client';
 
-import { ReactNode, useState, useContext, createContext } from 'react';
+import { toast } from 'react-toastify';
+import { ReactNode, useState, useRef, useContext, createContext } from 'react';
 
 import { api } from '@/lib/axios';
 
@@ -51,9 +52,42 @@ export function UploadContextProvider({ children }: UploadContextProviderProps) 
 
     const formData = new FormData();
 
-    imagesToUpload.forEach((image) => formData.append('images', image));
+    imagesToUpload.forEach((image) => formData.append('image', image));
 
-    await api.post('/upload', formData);
+    await toast.promise(api.post('/upload', formData), {
+      pending: {
+        render: 'Uploading...',
+        position: toast.POSITION.BOTTOM_CENTER,
+        autoClose: false,
+        hideProgressBar: false,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: 'dark',
+      },
+      success: {
+        render: 'Upload Success!',
+        position: toast.POSITION.BOTTOM_CENTER,
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: 'dark',
+      },
+      error: {
+        render: 'Upload Failed!',
+        position: toast.POSITION.BOTTOM_CENTER,
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: 'dark',
+      },
+    });
 
     setImagesToUpload([]);
     setIsLoading(false);
