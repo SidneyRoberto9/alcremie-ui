@@ -1,6 +1,6 @@
 import { Metadata } from 'next';
 
-import { UploadContextProvider } from '@/context/upload';
+import { UploadContextProvider } from '@/context/useUpload';
 import { LayoutProps } from '@/app/layout';
 
 export const metadata: Metadata = {

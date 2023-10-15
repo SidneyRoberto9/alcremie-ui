@@ -3,7 +3,7 @@ import { Fragment, useState } from 'react';
 import { X, Plus, Minus } from 'lucide-react';
 
 import { Transition, Dialog } from '@headlessui/react';
-import { useGallery } from '@/context/gallery';
+import { useGallery } from '@/context/useGallery';
 
 export function SelectPageModal() {
   const { search, totalPage, filter } = useGallery();

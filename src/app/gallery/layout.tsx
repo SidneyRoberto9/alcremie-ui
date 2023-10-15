@@ -1,6 +1,6 @@
 import { Metadata } from 'next';
 
-import { GalleryContextProvider } from '@/context/gallery';
+import { GalleryContextProvider } from '@/context/useGallery';
 import { LayoutProps } from '@/app/layout';
 
 export const metadata: Metadata = {

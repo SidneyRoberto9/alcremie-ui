@@ -2,7 +2,7 @@
 import { ChangeEvent } from 'react';
 import { Upload } from 'lucide-react';
 
-import { useUpload } from '@/context/upload';
+import { useUpload } from '@/context/useUpload';
 
 export function UploadArea() {
   const { setImages } = useUpload();

@@ -1,6 +1,6 @@
 'use client';
 
-import { useGallery } from '@/context/gallery';
+import { useGallery } from '@/context/useGallery';
 import { SelectPageModal } from '@/component/gallery/SelectPageModal';
 
 export function Pagination() {

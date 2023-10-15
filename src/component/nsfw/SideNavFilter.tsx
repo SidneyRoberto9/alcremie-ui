@@ -7,7 +7,7 @@ import { X, SlidersHorizontal } from 'lucide-react';
 
 import { Combobox } from '@headlessui/react';
 import { api } from '@/lib/axios';
-import { useNSFW } from '@/context/nsfw';
+import { useNSFW } from '@/context/useNSFW';
 import { Tag } from '@/@Types/Tag';
 
 const compareTag = (a?: Tag, b?: Tag): boolean => a?.name.toLowerCase() === b?.name.toLowerCase();

@@ -1,6 +1,6 @@
 import { Metadata } from 'next';
 
-import { NSFWContextProvider } from '@/context/nsfw';
+import { NSFWContextProvider } from '@/context/useNSFW';
 import { LayoutProps } from '@/app/layout';
 
 export const metadata: Metadata = {

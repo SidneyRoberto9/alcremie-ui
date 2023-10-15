@@ -3,7 +3,7 @@ import { Fragment, useState } from 'react';
 import { X, Plus, Minus } from 'lucide-react';
 
 import { Transition, Dialog } from '@headlessui/react';
-import { useNSFW } from '@/context/nsfw';
+import { useNSFW } from '@/context/useNSFW';
 
 export default function SelectPageModal() {
   const { filter, search, totalPage } = useNSFW();

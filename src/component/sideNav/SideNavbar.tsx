@@ -3,7 +3,7 @@
 import Drawer from 'react-modern-drawer';
 import { useState } from 'react';
 import { usePathname } from 'next/navigation';
-import { X, Upload, Menu, Image, Home, AlertOctagon } from 'lucide-react';
+import { X, Upload, Menu, Image, Home, GalleryVertical, AlertOctagon } from 'lucide-react';
 
 import { SideNavItem } from '@/component/sideNav/SideNavItem';
 
@@ -30,29 +30,40 @@ export function SideNavbar() {
               onClick={toggleDrawer}
               link="/"
               title="Home"
-              icon={<Home size={24} />}
+              icon={Home}
               isActive={pathname == '/'}
               closeDrawer={toggleDrawer}
             />
+
+            <SideNavItem
+              title="Recent"
+              link="/recent"
+              closeDrawer={toggleDrawer}
+              icon={GalleryVertical}
+              isActive={pathname == '/recent'}
+            />
+
             <SideNavItem
               title="Gallery"
               link="/gallery"
               closeDrawer={toggleDrawer}
-              icon={<Image size={24} />}
+              icon={Image}
               isActive={pathname == '/gallery'}
             />
+
             <SideNavItem
               title="NSFW"
               link="/nsfw/validation"
               closeDrawer={toggleDrawer}
-              icon={<AlertOctagon size={24} />}
+              icon={AlertOctagon}
               isActive={pathname == '/nsfw/validation' || pathname == '/nsfw'}
             />
+
             <SideNavItem
               title="Upload"
               link="/upload"
               closeDrawer={toggleDrawer}
-              icon={<Upload size={24} />}
+              icon={Upload}
               isActive={pathname == '/upload'}
             />
             {/* 

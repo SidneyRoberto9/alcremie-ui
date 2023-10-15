@@ -1,6 +1,6 @@
 'use client';
 
-import { useNSFW } from '@/context/nsfw';
+import { useNSFW } from '@/context/useNSFW';
 import { LoadingPage } from '@/component/LoadingPage';
 import { CustomMasonry } from '@/component/CustomMasonry';
 import { Box } from '@/component/Box';

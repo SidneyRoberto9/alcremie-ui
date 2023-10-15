@@ -1,3 +1,4 @@
+import { Fragment } from 'react';
 import { Tag, Server, Image as IMG } from 'lucide-react';
 
 import { api } from '@/lib/axios';
@@ -22,7 +23,7 @@ export default async function Page() {
   const { image, tag, request } = await getStatus();
 
   return (
-    <div>
+    <Fragment>
       <Hero />
       <Status.root>
         <Status.image data={randomImage} />
@@ -38,6 +39,6 @@ export default async function Page() {
           </Status.item>
         </Status.itemList>
       </Status.root>
-    </div>
+    </Fragment>
   );
 }

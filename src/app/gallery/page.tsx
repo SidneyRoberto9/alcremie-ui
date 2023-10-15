@@ -1,5 +1,5 @@
 'use client';
-import { useGallery } from '@/context/gallery';
+import { useGallery } from '@/context/useGallery';
 import { LoadingPage } from '@/component/LoadingPage';
 import { CustomMasonry } from '@/component/CustomMasonry';
 import { Box } from '@/component/Box';

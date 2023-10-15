@@ -19,7 +19,7 @@ export function Item({ title, value, children }: ItemProps) {
         <div className="flex items-center justify-center w-full mx-3 my-8 bg-lucide-600 rounded-2xl">
           <div className="flex flex-col items-center justify-center ">
             <h3 className="text-2xl mt-2 px-2">
-              <CountUp end={value} delay={2} duration={3} separator="" />
+              <CountUp end={value} delay={0.75} duration={3} separator="" />
             </h3>
             <h4 className="text-xl text-zinc-500">{title}</h4>
           </div>

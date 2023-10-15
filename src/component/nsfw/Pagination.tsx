@@ -1,6 +1,6 @@
 'use client';
 
-import { useNSFW } from '@/context/nsfw';
+import { useNSFW } from '@/context/useNSFW';
 import SelectPageModal from '@/component/nsfw/SelectPageModal';
 
 export function Pagination() {

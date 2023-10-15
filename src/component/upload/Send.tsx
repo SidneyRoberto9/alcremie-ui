@@ -2,7 +2,7 @@
 
 import { RefreshCcw } from 'lucide-react';
 
-import { useUpload } from '@/context/upload';
+import { useUpload } from '@/context/useUpload';
 
 export function Send() {
   const { upload, imagesToUpload, isLoading } = useUpload();
