@@ -6,6 +6,8 @@ import { Hero } from '@/component/home/Hero';
 import { Status } from '@/component/home/status/Index.ts';
 import { StatusResponse, Image } from '@/@Types/Image';
 
+export const dynamic = 'force-dynamic';
+
 async function getRandomImage() {
   const { data } = await api.get<Image>('random-image');
 

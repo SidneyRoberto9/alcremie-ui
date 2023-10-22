@@ -3,7 +3,6 @@ import { PhotoView } from 'react-photo-view';
 import Image from 'next/image';
 
 import { cn } from '@/lib/utils';
-import { Image as IMG } from '@/@Types/Image';
 
 interface ImageViewProps {
   id: string;

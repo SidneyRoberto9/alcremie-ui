@@ -26,7 +26,7 @@ export function SelectPageModal() {
   };
 
   return (
-    <>
+    <Fragment>
       <span
         className="inline-flex items-center justify-center px-2 py-3 text-sm text-zinc-100 select-none cursor-pointer w-full max-w-[10rem] min-w-[4rem]"
         onClick={handleOpen}>
@@ -106,6 +106,6 @@ export function SelectPageModal() {
           </div>
         </Dialog>
       </Transition>
-    </>
+    </Fragment>
   );
 }
