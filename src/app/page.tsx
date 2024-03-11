@@ -1,28 +1,30 @@
+import { Image as IMG, Server, Tag } from 'lucide-react';
 import { Fragment } from 'react';
-import { Tag, Server, Image as IMG } from 'lucide-react';
 
-import { api } from '@/lib/axios';
+import { Image, StatusResponse } from '@/@Types/Image';
 import { Hero } from '@/component/home/Hero';
 import { Status } from '@/component/home/status/Index.ts';
-import { StatusResponse, Image } from '@/@Types/Image';
+import { api } from '@/lib/axios';
 
 export const dynamic = 'force-dynamic';
 
-async function getRandomImage() {
-  const { data } = await api.get<Image>('random-image');
+async function getData() {
+  const [responseStatus, responseRandomImage] = await Promise.all([
+    api.get<StatusResponse>('status'),
+    api.get<Image>('random-image'),
+  ]);
 
-  return data;
-}
-
-async function getStatus() {
-  const { data } = await api.get<StatusResponse>('status');
-
-  return data.statistics;
+  return {
+    status: responseStatus.data.statistics,
+    randomImage: responseRandomImage.data,
+  };
 }
 
 export default async function Page() {
-  const randomImage = await getRandomImage();
-  const { image, tag, request } = await getStatus();
+  const {
+    randomImage,
+    status: { image, tag, request },
+  } = await getData();
 
   return (
     <Fragment>
@@ -30,10 +32,10 @@ export default async function Page() {
       <Status.root>
         <Status.image data={randomImage} />
         <Status.itemList>
-          <Status.item value={image} title={'Tags'}>
+          <Status.item value={tag} title={'Tags'}>
             <Status.icon icon={Tag} />
           </Status.item>
-          <Status.item value={tag} title={'Images'}>
+          <Status.item value={image} title={'Images'}>
             <Status.icon icon={IMG} />
           </Status.item>
           <Status.item value={request} title={'Requests'}>
