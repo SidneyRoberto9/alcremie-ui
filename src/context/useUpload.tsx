@@ -1,7 +1,7 @@
 'use client';
 
+import { ReactNode, createContext, useContext, useState } from 'react';
 import { toast } from 'react-toastify';
-import { ReactNode, useState, useRef, useContext, createContext } from 'react';
 
 import { api } from '@/lib/axios';
 
@@ -9,7 +9,7 @@ interface UploadContextProps {
   imagesToUpload: File[];
   isLoading: boolean;
   upload: () => Promise<void>;
-  removeFromIndex: (index: number) => void;
+  remove: (remove: File) => void;
   setImages: (imagesToUpload: File[]) => void;
 }
 
@@ -21,7 +21,7 @@ const initialContext: UploadContextProps = {
   imagesToUpload: [],
   isLoading: false,
   upload: () => Promise.resolve(),
-  removeFromIndex: () => {},
+  remove: () => {},
   setImages: () => {},
 };
 
@@ -36,15 +36,12 @@ export function UploadContextProvider({ children }: UploadContextProviderProps) 
     setImagesToUpload(Array.from(list));
   }
 
-  function removeFromIndex(index: number) {
+  function remove(remove: File) {
     if (isLoading) {
       return;
     }
 
-    const list = imagesToUpload;
-    list.splice(index, 1);
-
-    setImagesToUpload(list);
+    setImagesToUpload((prev) => prev.filter((file, _) => file !== remove));
   }
 
   async function upload() {
@@ -99,9 +96,10 @@ export function UploadContextProvider({ children }: UploadContextProviderProps) 
         imagesToUpload,
         isLoading,
         upload,
-        removeFromIndex,
+        remove,
         setImages,
-      }}>
+      }}
+    >
       {children}
     </UploadContext.Provider>
   );

@@ -1,9 +1,7 @@
-import React from 'react';
-
 import { Box } from '@/component/Box';
-import { UploadArea } from '@/component/upload/UploadArea';
-import { Send } from '@/component/upload/Send';
 import { FilesView } from '@/component/upload/FilesView';
+import { Send } from '@/component/upload/Send';
+import { UploadArea } from '@/component/upload/UploadArea';
 
 export default function page() {
   return (

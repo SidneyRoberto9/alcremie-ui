@@ -1,7 +1,7 @@
 import { Metadata } from 'next';
 
-import { UploadContextProvider } from '@/context/useUpload';
 import { LayoutProps } from '@/app/layout';
+import { UploadContextProvider } from '@/context/useUpload';
 
 export const metadata: Metadata = {
   title: 'Upload | Alcremie',
