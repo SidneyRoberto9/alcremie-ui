@@ -1,9 +1,9 @@
 'use client';
 
-import Drawer from 'react-modern-drawer';
-import { useState } from 'react';
+import { AlertOctagon, GalleryVertical, Home, Image, Menu, Upload, X } from 'lucide-react';
 import { usePathname } from 'next/navigation';
-import { X, Upload, Menu, Image, Home, GalleryVertical, AlertOctagon } from 'lucide-react';
+import { Fragment, useState } from 'react';
+import Drawer from 'react-modern-drawer';
 
 import { SideNavItem } from '@/component/sideNav/SideNavItem';
 
@@ -13,10 +13,11 @@ export function SideNavbar() {
   const toggleDrawer = () => setIsOpen((prevState) => !prevState);
 
   return (
-    <>
+    <Fragment>
       <button
         onClick={toggleDrawer}
-        className="fixed top-2 left-2 inline-flex items-center peer justify-center rounded-md py-1 px-2 text-lucide-300 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-lucide-300 hover:bg-lucide-800 group z-20">
+        className="fixed top-2 left-2 inline-flex items-center peer justify-center rounded-md py-1 px-2 text-lucide-300 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-lucide-300 hover:bg-lucide-800 group z-20"
+      >
         <Menu size={36} />
       </button>
       <Drawer open={isOpen} onClose={toggleDrawer} direction="left">
@@ -106,6 +107,6 @@ export function SideNavbar() {
           </div>
         </div>
       </Drawer>
-    </>
+    </Fragment>
   );
 }

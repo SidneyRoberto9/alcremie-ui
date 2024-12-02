@@ -1,15 +1,16 @@
 import '@/styles/globals.css';
-import 'react-photo-view/dist/react-photo-view.css';
 import 'react-modern-drawer/dist/index.css';
+import 'react-photo-view/dist/react-photo-view.css';
 import 'react-toastify/dist/ReactToastify.css';
 
-import { ToastContainer } from 'react-toastify';
-import { ReactNode } from 'react';
 import { Roboto } from 'next/font/google';
+import { ReactNode } from 'react';
+import { ToastContainer } from 'react-toastify';
 import Favicon from '/public/favicon.ico';
 
-import { Providers } from '@/component/Providers';
+import { Analytics } from '@/component/Analytics';
 import { Header } from '@/component/Header';
+import { Providers } from '@/component/Providers';
 import { SideNavbar } from '@/component/sideNav/SideNavbar';
 
 import type { Metadata } from 'next';
@@ -28,6 +29,9 @@ export interface LayoutProps {
 export default function RootLayout({ children }: LayoutProps) {
   return (
     <html lang="en" className={roboto.className}>
+      <head>
+        <Analytics />
+      </head>
       <body className="antialiased bg-lucide-600 text-zinc-100">
         <Providers>
           <Header />

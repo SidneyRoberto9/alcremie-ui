@@ -1,7 +1,6 @@
 'use client';
 
 import { ReactNode, createContext, useContext, useState } from 'react';
-import { toast } from 'react-toastify';
 
 import { api } from '@/lib/axios';
 
@@ -51,40 +50,42 @@ export function UploadContextProvider({ children }: UploadContextProviderProps) 
 
     imagesToUpload.forEach((image) => formData.append('image', image));
 
-    await toast.promise(api.post('/upload', formData), {
-      pending: {
-        render: 'Uploading...',
-        position: toast.POSITION.BOTTOM_CENTER,
-        autoClose: false,
-        hideProgressBar: false,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: 'dark',
-      },
-      success: {
-        render: 'Upload Success!',
-        position: toast.POSITION.BOTTOM_CENTER,
-        autoClose: 5000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: 'dark',
-      },
-      error: {
-        render: 'Upload Failed!',
-        position: toast.POSITION.BOTTOM_CENTER,
-        autoClose: 5000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: 'dark',
-      },
-    });
+    await api.post('/upload', formData);
+
+    // await toast.promise(), {
+    //   pending: {
+    //     render: 'Uploading...',
+    //     position: toast.POSITION.BOTTOM_CENTER,
+    //     autoClose: false,
+    //     hideProgressBar: false,
+    //     pauseOnHover: true,
+    //     draggable: true,
+    //     progress: undefined,
+    //     theme: 'dark',
+    //   },
+    //   success: {
+    //     render: 'Upload Success!',
+    //     position: toast.POSITION.BOTTOM_CENTER,
+    //     autoClose: 5000,
+    //     hideProgressBar: false,
+    //     closeOnClick: true,
+    //     pauseOnHover: true,
+    //     draggable: true,
+    //     progress: undefined,
+    //     theme: 'dark',
+    //   },
+    //   error: {
+    //     render: 'Upload Failed!',
+    //     position: toast.POSITION.BOTTOM_CENTER,
+    //     autoClose: 5000,
+    //     hideProgressBar: false,
+    //     closeOnClick: true,
+    //     pauseOnHover: true,
+    //     draggable: true,
+    //     progress: undefined,
+    //     theme: 'dark',
+    //   },
+    // });
 
     setImagesToUpload([]);
     setIsLoading(false);
